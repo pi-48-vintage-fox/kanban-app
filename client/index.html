@@ -4,10 +4,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+    <meta name="google-signin-client_id" content="955542188652-0lsbb6ugk8jo89g2ila58jm7mu3cuf7p.apps.googleusercontent.com">
+    
     <title>Plan Your Task</title>
 </head>
 <body>
+
+  <!-- login start -->
+  <div class="login">
+    <h1>Login</h1>
+      <form method="post">
+        <input type="text" name="u" placeholder="Username" required="required" />
+          <input type="password" name="p" placeholder="Password" required="required" />
+          <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+      </form>
+      
+     
+      <!-- OAUTH -->
+      <div class="input-group">
+        <h6 class="mt-2">or sign up using</h6>&nbsp
+        <div class="flex-c-m m-r-5 g-signin2" data-longtitle="true" data-onsuccess="onSignIn"></div>
+     </div>
+     <!-- OAUTH -->
+  </div>
+  <!-- login end -->
 
   <!-- user info start -->
   
@@ -53,7 +73,7 @@
           
           
           <div class="card kartu-add">
-            <a type="button" class="btn btn-secondary" style="color:lightcyan;">Add Activity</a>
+            <a type="button" class="btn btn-primary btn-block btn-large" style="color:lightcyan;">Add Activity</a>
           </div>
         </div>
         <!-- card 1 end -->
@@ -80,7 +100,7 @@
           <!-- todo backlog end -->
 
           <div class="card kartu-add">
-            <a type="button" class="btn btn-secondary" style="color:lightcyan;">Add Activity</a>
+            <a type="button" class="btn btn-primary btn-block btn-large" style="color:lightcyan;">Add Activity</a>
           </div>
 
         </div>
@@ -108,7 +128,7 @@
           <!-- todo backlog end -->
           
           <div class="card kartu-add">
-            <a type="button" class="btn btn-secondary" style="color:lightcyan;">Add Activity</a>
+            <a type="button" class="btn btn-primary btn-block btn-large" style="color:lightcyan;">Add Activity</a>
           </div>
 
           
@@ -138,7 +158,7 @@
           <!-- todo backlog end -->
           
           <div class="card kartu-add">
-            <a type="button" class="btn btn-secondary" style="color:lightcyan;">Add Activity</a>
+            <a type="button" class="btn btn-primary btn-block btn-large" style="color:lightcyan;">Add Activity</a>
           </div>
 
         </div>
@@ -148,10 +168,10 @@
       </div>
     </div>
 
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!-- 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script> -->
