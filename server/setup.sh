@@ -1,4 +1,4 @@
-npx sequelize model:create --name User --attributes name:string,username:string,email:string,password:string,OrganizationId:integer
+npx sequelize model:create --name User --attributes name:string,username:string,email:string,password:string,OrganizationId:integer,avatarUrl:string
 
 npx sequelize model:create --name Task --attributes title:string,description:string,CategoryId:integer,UserId:integer,OrganizationId:integer
 

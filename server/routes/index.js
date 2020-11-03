@@ -1,20 +1,21 @@
 const router = require('express').Router()
 
-router.post('/register')
-router.post('/login')
-router.get('/users')
-router.get('/users/:UserId')
-router.get('/orgs/:OrgId/users')
+const authentication = require('../middlewares/authentication')
+const taskRoutes = require('./taskRoutes')
+const categoryRoutes = require('./categoryRoutes')
+const UserController = require('../controllers/UserController')
 
-router.get('/orgs/:OrgId/tasks')
-router.get('/orgs/:OrgId/tasks/:TaskId')
-router.put('/orgs/:OrgId/tasks/:TaskId')
-router.patch('/orgs/:OrgId/tasks/:TaskId')
-router.delete('/orgs/:OrgId/tasks/:TaskId')
+router.get('/', (req, res) => res.send('Kanban App'))
+router.post('/register', UserController.register)
+router.post('/login', UserController.login)
+router.post('/googleLogin', UserController.googleLogin)
 
-router.get('/orgs/:OrgId/categories')
-router.post('/orgs/:OrgId/categories')
-router.patch('/orgs/:OrgId/categories/:CategoryId')
-router.delete('/orgs/:OrgId/categories/:CategoryId')
+router.use(authentication)
+router.get('/users/orgs', UserController.findOrgMembers)
+router.get('/users/:UserId', UserController.findById)
+
+router.use('/tasks', taskRoutes)
+router.use('/categories', categoryRoutes)
+
 
 module.exports = router

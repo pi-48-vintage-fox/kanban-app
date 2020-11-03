@@ -64,9 +64,11 @@ module.exports = (sequelize, DataTypes) => {
     const hash = hashPassword(user.password)
     
     user.password = hash
-
     user.email = user.email.toLowerCase()
-
+    if (!user.avatarUrl) {
+      user.avatarUrl = `https://avatars.dicebear.com/api/jdenticon/${user.email}.svg`
+    }
+    
     
   })
 
@@ -74,8 +76,10 @@ module.exports = (sequelize, DataTypes) => {
     const hash = hashPassword(user.password)
     
     user.password = hash
-
     user.email = user.email.toLowerCase()
+    if (!user.avatarUrl) {
+      user.avatarUrl = `https://avatars.dicebear.com/api/jdenticon/${user.email}.svg`
+    }
     
   })
 
@@ -87,6 +91,11 @@ module.exports = (sequelize, DataTypes) => {
   
       user.password = hash
       user.email = user.email.toLowerCase()
+
+      if (!user.avatarUrl) {
+        user.avatarUrl = `https://avatars.dicebear.com/api/jdenticon/${user.email}.svg`
+      }
+    
     })
 
   })
