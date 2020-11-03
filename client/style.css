@@ -1,0 +1,44 @@
+.container-fluid {
+  height: 100vh;
+  background-color: azure;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.navbar {
+  background-color: white;
+  width: 100%;
+  position: fixed;
+}
+
+.item {
+  color: #ffffff;
+  padding: 1.5rem;
+  margin: 1rem;
+}
+
+.cornflower {
+  background-color: #bbbfca;
+  color: black;
+}
+
+.summertime {
+  background-color: #e8e8e8;
+  color: black;
+}
+
+.electricblue {
+  background-color: #f4f4f2;
+  color: black;
+}
+
+.lightpurple {
+  background-color: #495464;
+  color: black;
+}
+
+.body-card {
+  padding: 0;
+}
