@@ -1,0 +1,90 @@
+body {
+    background-image: url('https://images.unsplash.com/photo-1604276919965-7ba5dab422f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1900&q=80');
+    width: auto;
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: auto;
+    /*    */
+    
+}
+.kanban{
+    padding: 20px;
+    background-color: rgba(0,0,0,0.3);
+    margin-left: 5px;
+}
+
+.kartu{
+    background: rgba(0,0,0,0.3)
+}
+.kartu-add{
+    margin: 10 10 10 10
+}
+.todo{
+    background-color:707070 ;
+    color:lightcyan
+}
+
+/* button logout start*/
+.slideUpBtn {
+    padding: 12px 24px;
+    background-color: transparent;
+    /* border: 2px solid hsl(243, 80%, 62%); */
+    border: 2px solid grey;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(1,.15,.34,.92);
+
+}
+
+.slideUpBtn span {
+    display: inline-block;
+    transition: inherit;
+    color:grey;
+}
+
+.slideUpBtn:hover span {
+    opacity: 0;
+    transform: translateY(-100%)
+}
+
+.slideUpBtn::before {
+    content: "";
+    /* background-color: hsl(243, 80%, 62%); */
+    background-color:grey; 
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: translateY(100%);
+    transition: inherit;
+    width: 100%;
+    transition: transform 0.5s cubic-bezier(1,.15,.34,.92)
+}
+
+.slideUpBtn::after {
+    content: 'Log Out';
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: inherit;
+    transform: translateY(100%);
+    width: 100%;
+
+}
+
+.slideUpBtn:hover::before {
+    transform: translateY(0) scale(3);
+    transition-delay: .025s;
+}
+
+.slideUpBtn:hover::after {
+    opacity: 1;
+    color: hsl(222, 100%, 95%);
+    transform: translateY(0);
+}
+/* button logout end*/
