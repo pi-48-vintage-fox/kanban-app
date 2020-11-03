@@ -52,7 +52,7 @@ class UserController {
     }
   }
 
-  static async googleLogin(req, res, next){
+  static googleLogin(req, res, next){
     const client = new OAuth2Client('975173380509-tnc2b4991gsmj11v8648o86p0u8q20f2.apps.googleusercontent.com')
     let email = ""
     client.clientIdToken({
