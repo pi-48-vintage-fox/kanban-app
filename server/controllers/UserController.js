@@ -55,7 +55,7 @@ class UserController {
   static async googleLogin(req, res, next){
     const client = new OAuth2Client('975173380509-tnc2b4991gsmj11v8648o86p0u8q20f2.apps.googleusercontent.com')
     let email = ""
-    clientIdToken({
+    client.clientIdToken({
       idToken : req.headers.google_access_token,
       audience : '975173380509-tnc2b4991gsmj11v8648o86p0u8q20f2.apps.googleusercontent.com'
     })
@@ -65,6 +65,7 @@ class UserController {
       return User.findOne({
         where : { email }
       })
+      
     })
     .then(user => {
       if(!user) {
