@@ -53,6 +53,16 @@
   color: #251313;
 }
 
+.login-click {
+  margin-top: 25px;
+  text-align: right;
+  color: #251313;
+}
+
+.login-click:hover {
+  cursor: pointer;
+}
+
 .register-click:hover {
   cursor: pointer;
 }
