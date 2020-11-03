@@ -4,41 +4,61 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 50px;
 }
 
 .navbar {
   background-color: white;
   width: 100%;
   position: fixed;
+  top: 0;
+  z-index: 100;
 }
 
 .item {
   color: #ffffff;
   padding: 1.5rem;
   margin: 1rem;
+  border-radius: 10px;
 }
 
-.cornflower {
+.planning {
   background-color: #bbbfca;
   color: black;
 }
 
-.summertime {
+.inprogress {
   background-color: #e8e8e8;
   color: black;
 }
 
-.electricblue {
+.done {
   background-color: #f4f4f2;
   color: black;
 }
 
-.lightpurple {
-  background-color: #495464;
+.comment {
+  background-color: #9ad3bc;
   color: black;
 }
 
 .body-card {
   padding: 0;
 }
+
+.register-click {
+  margin-top: 25px;
+  text-align: right;
+  color: #251313;
+}
+
+.register-click:hover {
+  cursor: pointer;
+}
+
+.masuk {
+  margin-top: 25px;
+  font-weight: bold;
+}
+

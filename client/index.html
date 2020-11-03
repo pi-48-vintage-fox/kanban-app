@@ -10,98 +10,138 @@
   <title>Kanban!</title>
 </head>
 <body>
-  <nav class="navbar">
-    <div>Kanban Yuhuw</div>
-    <div class="icons">
-      <button type="button" class="btn btn-primary">Add task</button>
-    </div>
-  </nav>
-  <div class="container-fluid">
-    <div class="item cornflower">
-      Planning
-      <div class="card" style="width: 18rem; margin-top: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
+  <div>
+    <nav class="navbar">
+      <div>Kanban by Bimo</div>
+      <div class="icons">
+        <button type="button" class="btn btn-primary">Add task</button>
+        <button type="button" class="btn btn-danger">Logout</button>
       </div>
-      <div class="card" style="width: 18rem;margin-top: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-    </div>
-    <div class="item summertime">
-      In Progress
-      <div class="card" style="width: 18rem;margin-top: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem; margin-top: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-    </div>
-    <div class="item electricblue">
-      Done
-      <div class="card" style="width: 18rem;margin-top: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem; margin-top: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-    </div>
-    <div class="item lightpurple">
-      Comment
-      <div class="card" style="width: 18rem;margin-top: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem; margin-top: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-    </div>
-  </div>
+    </nav>
+  </div> 
 
+  <!-- Landing Page -->
+  <section class="container-fluid" id="landing">
+    <div class="row justify-content-center mt-5">
+      <div class="col">
+        <div class="row">
+          <div class="col masuk">Masuk</div>
+          <div class="col register-click" onclick="showRegister()" >Daftar</div>
+        </div>
+        
+        <form onsubmit="login(event)">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" class="form-control" >
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Register Page -->
+  <section class="container-fluid" id="register">
+    <div class="row justify-content-center mt-5">
+      <div class="col">
+        <h1>Register</h1>
+        <form onsubmit="register(event)">
+          <div class="form-group">
+            <label form="name">Email</label>
+            <input type="email" id="req-email" class="form-control" placeholder="input your email" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label form="password">Password</label>
+            <input type="password" id="req-password" class="form-control" placeholder="input your password" autocomplete="current-password">
+          </div>
+          <button class="btn btn-dark" type="submit">Register</button>
+          <div class="justify-content-center">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Main Page -->
+  <div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-3">
+          <div class="item planning">
+            Backlog
+            <div class="card" style="margin-top: 10px; border-radius: 10px;">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="card-link">Edit</a>
+                <a href="#" class="card-link">Delete</a>
+                <a href="#" class="card-link">Move</a>
+              </div>
+            </div>
+            <div class="card" style="margin-top: 10px; border-radius: 10px;">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="card-link">Edit</a>
+                <a href="#" class="card-link">Delete</a>
+                <a href="#" class="card-link">Move</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="item inprogress">
+            In Progress
+            <div class="card" style="margin-top: 10px; border-radius: 10px;">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="card-link">Edit</a>
+                <a href="#" class="card-link">Delete</a>
+                <a href="#" class="card-link">Move</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="item done">
+            Done
+            <div class="card" style="margin-top: 10px; border-radius: 10px;">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="card-link">Edit</a>
+                <a href="#" class="card-link">Delete</a>
+                <a href="#" class="card-link">Move</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="item comment">
+            Comment
+            <div class="card" style="margin-top: 10px; border-radius: 10px;">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="card-link">Edit</a>
+                <a href="#" class="card-link">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
 </body>
 </html>
