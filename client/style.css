@@ -1,0 +1,24 @@
+/* GLOBAL STYLING */
+.bg-img {
+    background-image: url("blue.jpg");
+    min-width: 100%;
+}
+/* GLOBAL STYLING */
+
+/* LOGIN STYLING */
+.form-control {
+    width: 25%;
+}
+
+.form-group{
+}
+
+#form-login-parent{
+}
+
+.btn .btn-primary{
+    align-content: center;
+}
+
+
+/* LOGIN STYLING */
