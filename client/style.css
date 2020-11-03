@@ -1,0 +1,29 @@
+.baris {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+}
+.card-luar{
+    border-radius: 10px;
+    height: 100vh;
+    overflow: auto;
+    -webkit-box-shadow: 10px 10px 14px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 14px 0px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 14px 0px rgba(0,0,0,0.75);    
+}
+.card-title{
+    text-align: center;;
+}
+.task-title{
+    text-align: left;;
+}
+.task-card{
+    margin-top: 10px;
+    margin-bottom: 3px;
+}
+.dalam{
+    background-color: #D59E0D;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
