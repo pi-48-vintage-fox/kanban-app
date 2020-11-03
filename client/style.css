@@ -4,29 +4,51 @@
   box-sizing: border-box;
 }
 
+@media only screen and (max-width: 950px) and (min-width: 625px) {
+
+}
+
 body {
-  background-image: url("https://images.unsplash.com/photo-1513035070891-10ef85afde5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80");
+  background-image: url("https://images.unsplash.com/photo-1514421266214-69b5a8771edc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80");
   background-repeat: no-repeat;
   background-position-x: center;
-  background-size: 50%;
+  background-size: 100%;
   background-color: #262673;
 }
 
-.btn {
-  background-color: beige;
-  border-radius: 10px;
-  margin-top: 20px;
-  padding: 5px 100px;
+nav {
+  background-color: bisque;
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0px 10px;
 }
 
-.btn:hover {
-  background-color: #262673;
-  color: white;
-  transition: 200ms;
+nav .nav-logout {
+  display: flex;
+  align-items: center;
+}
+
+nav .nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+.board {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100vw;
 }
 
 .display-1 {
   text-align: center;
+  padding-top: 40px;
+}
+
+.display-4 {
+  text-align: center;
+  padding-bottom: 40px;
 }
 
 .login-card {
@@ -44,22 +66,66 @@ body {
   padding: 40px;
 }
 
+.nav-logo img {
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.nav-logo i span {
+  color: black;
+  margin-left: 10px;
+}
+
+.nav-logo i a {
+  text-decoration: none;
+}
+
 .row {
   display: block;
 }
 
 .register-card {
   border-style: solid;
-  border: 2px;
   border-radius: 10px;
   background-color: #e6ffff;
   padding: 50px;
 }
 
-#register-link {
-  text-decoration: none;
+.sub-board {
+  background-color: bisque;
+  border-style: solid;
+  border: thin;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.61);
+  display: flex;
+  flex-direction: column;
+  height: 20rem;
+  margin: 10px;
+  padding: 10px;
+  width: 21rem;
 }
 
 .submit-login {
   text-align: center;
+}
+
+.submit-login .btn {
+  background-color: beige;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 5px 100px;
+}
+
+.submit-login .btn:hover {
+  background-color: #262673;
+  color: white;
+  transition: 200ms;
+}
+
+#main-content {
+  margin: 20px 20px
+}
+
+#register-link {
+  text-decoration: none;
 }

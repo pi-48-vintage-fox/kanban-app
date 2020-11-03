@@ -14,11 +14,11 @@
 
 <body>
   <section class="body">
-    
+
     <!-- Landing Page -->
     <div id="landing-page">
       <h1 class="display-1">SNOWKAN</h1>
-      
+
       <!-- Login Page -->
       <div class="container" id="login-page">
         <div class="mus-body">
@@ -39,7 +39,7 @@
               </div>
               <hr>
               <div id="register-link">
-                <p>dont have any account? <span><a href="#" id="register-link">Register now</a></span></p>
+                <p>Don't have any account? <span><a href="#" id="register-link">Register now</a></span></p>
               </div>
             </form>
           </div>
@@ -47,19 +47,19 @@
       </div>
 
       <!-- Register Page -->
-      <div class="container" id="register-page">
+      <div class="container" id="register-page" hidden>
         <div class="mus-body">
           <div class="register-card">
             <h1 class="display-4 text-muted text-center">Register</h1>
             <form onsubmit="register(event)">
               <div class="form-group">
                 <label for="email">Email: </label>
-                <input class="form-control" type="email" name="email" id="login-email">
+                <input class="form-control" type="email" name="email" id="register-email">
                 <small class="text-muted">We will never share your email to anyone</small>
               </div>
               <div class="form-group">
                 <label for="password">Password: </label>
-                <input class="form-control" type="password" name="password" id="login-password">
+                <input class="form-control" type="password" name="password" id="register-password">
               </div>
               <div class="submit-login">
                 <button class="btn border" type="submit">Register</button>
@@ -68,9 +68,104 @@
           </div>
         </div>
       </div>
+
+    </div>
+
+    <!-- Home Page -->
+    <div id="home-page">
+
+      <!-- Navbar -->
+      <nav>
+        <div class="nav-logo">
+          <i><a href="#" id="app-logo"><img src="https://www.pngkit.com/png/detail/36-360519_penguin-penguin-logo-transparent.png" alt=""><span>SNOWKAN</span></a></i>
+        </div>
+        <div class="nav-logout">
+          <button class="btn btn-danger" onclick="logout()">Logout</button>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <div id="main-content" class="container">
+
+        <div class="board">
+          <div class="sub-board">
+            <div>
+              <h1>Category</h1>
+            </div>
+            <div>
+              <p>Main Content</p>
+            </div>
+            <div>
+              <p>Add Task</p>
+            </div>
+          </div>
+
+          <div class="sub-board">
+            <div>
+              <h1>Category</h1>
+            </div>
+            <div>
+              <p>Main Content</p>
+            </div>
+            <div>
+              <p>Add Task</p>
+            </div>
+          </div>
+
+          <div class="sub-board">
+            <div>
+              <h1>Category</h1>
+            </div>
+            <div>
+              <p>Main Content</p>
+            </div>
+            <div>
+              <p>Add Task</p>
+            </div>
+          </div>
+
+          <div class="sub-board">
+            <div>
+              <h1>Category</h1>
+            </div>
+            <div>
+              <p>Main Content</p>
+            </div>
+            <div>
+              <p>Add Task</p>
+            </div>
+          </div>
+
+          <div class="sub-board">
+            <div>
+              <h1>Category</h1>
+            </div>
+            <div>
+              <p>Main Content</p>
+            </div>
+            <div>
+              <p>Add Task</p>
+            </div>
+          </div>
+
+          <div class="sub-board">
+            <div>
+              <h1>Category</h1>
+            </div>
+            <div>
+              <p>Main Content</p>
+            </div>
+            <div>
+              <p>Add Task</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
   </section>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="main.js"></script>
 </body>
 
