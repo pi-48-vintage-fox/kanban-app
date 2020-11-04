@@ -25,7 +25,8 @@ h3 {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
   border-radius: 50px;
   border-color: rgba(85, 239, 196, 1);
   width: 40%;
@@ -34,17 +35,6 @@ input[type="password"] {
 
 button {
   transition: 0.5s;
-}
-
-button:focus {
-  border: none;
-  outline: none;
-  color: rgba(45, 52, 54, 1);
-  background-image: linear-gradient(
-    to right,
-    rgba(129, 236, 236, 1),
-    rgba(85, 239, 196, 1)
-  );
 }
 
 .btn-login {
@@ -73,4 +63,23 @@ button:focus {
   background-color: grey;
   z-index: -1;
   filter: blur(10px);
+}
+
+#form-add-task {
+  position: absolute;
+  z-index: 1;
+  top: -40px;
+  left: -5px;
+  padding: 10px;
+  background-color: grey;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
