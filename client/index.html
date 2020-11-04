@@ -1,0 +1,171 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Kanban</title>
+</head>
+
+<body>
+  <!-- navbar -->
+  <div class="topnav">
+    <!-- Mobile Navigation Bar -->
+    <a href="javascript:void(0);" class="active" onclick="myFunction()">
+      <i href="#home" class="active fab fa-korvue"> Kanban</i>
+    </a>
+    <div id="myLinks">
+      <a href="#">New Task</a>
+      <a href="#">Login</a>
+      <a href="#">Logout</a>
+    </div>
+  </div>
+
+  <!-- kanban board -->
+  <div class="container-fluid pt-3">
+    <h3 class="font-weight-light text-white">Kanban Board</h3>
+    <div class="row flex-row flex-sm-nowrap py-3">
+      <div class="col-sm-6 col-md-4 col-xl-3">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h6 class="card-title text-uppercase text-truncate py-2">Backlog</h6>
+            <div class="items border border-light">
+              <div class="card mt-3">
+                <div class="card-body p-2">
+                  <div class="card-title">
+                    <a href="" class="lead font-weight-light">Judul Backlog</a>
+                  </div>
+                  <p>
+                    Deskripsi Backlog nanti disini.
+                  </p>
+                  <button class="btn btn-primary btn-sm">View</button>
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="card-body p-2">
+                  <div class="card-title">
+                    <a href="" class="lead font-weight-light">Judul Backlog</a>
+                  </div>
+                  <p>
+                    Deskripsi Backlog nanti disini.
+                  </p>
+                  <button class="btn btn-primary btn-sm">View</button>
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="card-body p-2">
+                  <div class="card-title">
+                    <a href="" class="lead font-weight-light">Judul Todo</a>
+                  </div>
+                  <p>
+                    Deskripsi Backlog nanti disini.
+                  </p>
+                  <button class="btn btn-primary btn-sm">View</button>
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-xl-3">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h6 class="card-title text-uppercase text-truncate py-2">To Do</h6>
+            <div class="items border border-light">
+              <div class="card mt-3">
+                <div class="card-body p-2">
+                  <div class="card-title">
+                    <a href="" class="lead font-weight-light">Judul Todo</a>
+                  </div>
+                  <p>
+                    Deskripsi Todo nanti disini.
+                  </p>
+                  <button class="btn btn-primary btn-sm">View</button>
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="card-body p-2">
+                  <div class="card-title">
+                    <a href="" class="lead font-weight-light">Judul Todo</a>
+                  </div>
+                  <p>
+                    Deskripsi Todo nanti disini.
+                  </p>
+                  <button class="btn btn-primary btn-sm">View</button>
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-xl-3">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h6 class="card-title text-uppercase text-truncate py-2">Doing</h6>
+            <div class="items border border-light">
+              <div class="card mt-3">
+                <div class="card-body p-2">
+                  <div class="card-title">
+                    <a href="" class="lead font-weight-light">Judul Doing</a>
+                  </div>
+                  <p>
+                    Deskripsi Doing nanti disini.
+                  </p>
+                  <button class="btn btn-primary btn-sm">View</button>
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-xl-3">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title text-uppercase text-truncate py-2">Done</h6>
+            <div class="items border border-light">
+              <div class="card mt-3">
+                <div class="card-body p-2">
+                  <div class="card-title">
+                    <a href="" class="lead font-weight-light">Judul Done</a>
+                  </div>
+                  <p>
+                    Deskripsi Done nanti disini.
+                  </p>
+                  <button class="btn btn-primary btn-sm">View</button>
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="card-body p-2">
+                  <div class="card-title">
+                    <a href="" class="lead font-weight-light">Judul Done</a>
+                  </div>
+                  <p>
+                    Deskripsi Done nanti disini.
+                  </p>
+                  <button class="btn btn-primary btn-sm">View</button>
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://kit.fontawesome.com/c662304f2f.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
