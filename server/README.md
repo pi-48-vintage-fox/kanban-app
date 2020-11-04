@@ -10,22 +10,37 @@
 
 
 ## RESTful API
+ 
+**USERS** 
+| Method | Route           | Description                             |
+| ------ | --------------  | --------------------------------------- |
+| POST   | /register       | Register an account                     |
+| POST   | /login          | Logs user into the system               |
+| POST   | /googleLogin    | Logs in user using Google Sign In       |
+| GET    | /users          | Fetch organization's members data       |
+| GET    | /users/:id      | Logs user into the system               |
 
-| Method | Route        | Description                             |
-| ------ | ------------ | --------------------------------------- |
-| POST   | /register    | Register an account                     |
-| POST   | /login       | Logs user into the system               |
-| POST   | /googleLogin | Logs user into the system               |
-| GET    | /logout      | Logs out current logged in user session |
-| POST   | /todos       | Add a new todo task                     |
-| GET    | /todos       | Show all todo tasks                     |
-| GET    | /todos/:id   | Find todo task by ID                    |
-| PUT    | /todos/:id   | Modify a todo task                      |
-| PATCH  | /todos/:id   | Update a todo task's status             |
-| DELETE | /todos/:id   | Delete a todo task                      |
+**CATEGORIES**
+| Method | Route           | Description                             |
+| ------ | --------------  | --------------------------------------- |
+| GET    | /categories     | Fetch organization board's categories   |
+| POST   | /categories     | Add a new category                      |
+| PATCH  | /categories/:id | Rename a category                       |
+| DELETE | /categories/:id | Delete a category                       |
 
-
-
+**TASKS**
+| Method | Route           | Description                             |
+| ------ | --------------  | --------------------------------------- |
+| GET    | /tasks          | Fetch all organization's tasks          |
+| GET    | /tasks/user     | Fetch a user's tasks                    |
+| POST   | /tasks          | Create a task                           |
+| GET    | /tasks/:id      | Fetch a task's details                  |
+| PUT    | /tasks/:id      | Modify a task                           |
+| PATCH  | /tasks/:id      | Change a task's category                |
+| DELETE | /tasks/:id      | Delete a task                           |
+ 
+ 
+ 
 ## 1. Add A New Todo Task
 
 | METHOD | URL    |
