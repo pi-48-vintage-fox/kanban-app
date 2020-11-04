@@ -2,11 +2,10 @@ const { verifyToken } = require('../helpers/auth')
 const { User } = require('../models')
 
 async function authentication (req, res, next) {
+  console.log(req.params, '<<< req params authentication')
   try {
-    // console.log(req.headers)
     const access_token = req.headers.access_token
     if (!access_token) {
-      console.log('no access token')
       throw { msg: 'Not authenticated', status: 401}
     } 
 

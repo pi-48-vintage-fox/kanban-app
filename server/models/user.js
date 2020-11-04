@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING
+    },
     username: {
       type: DataTypes.STRING,
       },
@@ -46,15 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       }},
     OrganizationId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Organization is required'
-        },
-        notEmpty: {
-          msg: 'Organization is required'
-        }
-      }}
+      }
   }, {
     sequelize,
     modelName: 'User',

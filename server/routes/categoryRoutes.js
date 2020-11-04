@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const authentication = require('../middlewares/authentication')
+const CategoryController = require('../controllers/CategoryController')
+const { isMember } = require('../middlewares/authorization')
 
-router.use(authentication)
-router.get('/')
-router.post('/')
-router.patch('/:CategoryId')
-router.delete('/:CategoryId')
+router.get('/', CategoryController.categories)
+router.post('/', CategoryController.addCategory)
+router.patch('/:CategoryId', isMember, CategoryController.patchCategory)
+router.delete('/:CategoryId', isMember, CategoryController.deleteCategory)
 
 
 module.exports = router

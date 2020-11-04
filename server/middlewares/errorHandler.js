@@ -1,9 +1,10 @@
 module.exports = (err, req, res, next) => {
+  console.log('error handler')
   // console.log(JSON.stringify(err,null,2)) 
   console.log('err.status:', err.status)
   console.log('err.msg:', err.msg)
   console.log('err.name:', err.name)
-  console.log('err.errors:', err.errors)
+  console.log('err.errors:', JSON.stringify(err.errors,null,2))
   
   let status = err.status || 500
   let msg = err.msg || 'Internal Server Error'
@@ -37,6 +38,6 @@ module.exports = (err, req, res, next) => {
     }
   }
 
-  res.status(status).json({ msg })
+  res.status(status).json({ status, msg })
 
 }
