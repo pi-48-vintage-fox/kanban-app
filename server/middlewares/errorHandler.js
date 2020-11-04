@@ -1,4 +1,4 @@
-module.exports = errorHandler = (req,res,next)=>{
+module.exports = errorHandler = (err, req,res,next)=>{
     let status 
     let msg =[]
     if (err.name == 'SequelizeValidationError'){
@@ -17,15 +17,16 @@ module.exports = errorHandler = (req,res,next)=>{
         status = 400
         msg = err.name
     }
-    if (err.name == 'Invalid Date Input'){
-        status = 400
-        msg = err.name
-    }
+  
     if (err.name == 'Error, Data Not Found'){
         status = 404
         msg = err.name
     }
-    if (err.name == 'Cannot Fetch Stock Data From Server'){
+    if (err.name == 'Please Fill Category Input'){
+        status = 400
+        msg = err.name
+    }
+    if (err.name == 'Please Fill Title Input'){
         status = 400
         msg = err.name
     }
