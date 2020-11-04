@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     hooks : {
       beforeCreate(user){
-        let salt = bcrypt.genSalt(10);
+        let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(user.password, salt)
         user.password = hash
       }

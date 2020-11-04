@@ -1,8 +1,8 @@
 'use strict'
-const { Category } = require('../models/category')
+const { Category } = require('../models/index')
 
 class CategoryController {
-  static async addCategory(req, rest, next){
+  static async addCategory(req, res, next){
     try {
       let params = { 
         name : req.body.name

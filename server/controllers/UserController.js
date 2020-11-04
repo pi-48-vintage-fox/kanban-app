@@ -1,7 +1,7 @@
 'use strict'
 
 const { User } = require('../models/index')
-const { makeHash, compareHash } = require('../helpers/bcrypt')
+const { compareHash } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
 const { OAuth2Client } = require('google-auth-library')
 
@@ -11,7 +11,7 @@ class UserController {
     try {
       let data = {
         email : req.body.email,
-        password : makeHash(req.body.password)
+        password : req.body.password
       }
       let user = await User.create(data)
       res.status(201).json({
@@ -19,6 +19,7 @@ class UserController {
         email : user.email
       })
     } catch (error) {
+      console.log(error)
       res.status(500).json(error)
     }    
   }
@@ -36,8 +37,8 @@ class UserController {
       })
       if (!user) {
         throw { msg: "Email/Password is wrong", status : 404 }
-      }
-      if (compareHash(data.password, user.password)) {
+      }      
+      else if (compareHash(data.password, user.password)) {
         let access_token = signToken({
           id: user.id,
           email : user.email
@@ -47,7 +48,11 @@ class UserController {
           access_token
         })
       }
+      else{
+        throw { msg : "Not authorize", status: 401 }
+      }
     } catch (error) {
+      console.log(error)
       res.status(400).json(error)
     }
   }
