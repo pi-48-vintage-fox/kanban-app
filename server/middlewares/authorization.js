@@ -33,16 +33,14 @@ async function isTaskCreator (req, res, next) {
       throw { msg: "Task not found", status: 404 }
     } else {
 
-      const user = await User.findByPk(req.user.id)
-
-      if (task.UserId != user.id) {
+      if (task.UserId != req.user.id) {
         throw { msg: "Not authorized", status: 403}
       }
 
       // handle kasus ubah task's category
       console.log('req body', req.body)
       if (req.body.CategoryId) {
-        console.log('req body catid', req.body.CategoryId)
+        // console.log('req body catid', req.body.CategoryId)
 
         const category = await Category.findByPk(req.body.CategoryId)
 
@@ -50,9 +48,9 @@ async function isTaskCreator (req, res, next) {
           throw { status: 404, msg: 'Category not found'}
         }
 
-        console.log('cat org id:', category.OrganizationId, 'user org id:', user.OrganizationId)
+        // console.log('cat org id:', category.OrganizationId, 'user org id:', req.user.OrganizationId)
 
-        if (category.OrganizationId != user.OrganizationId) {
+        if (category.OrganizationId != req.user.OrganizationId) {
           throw { msg: "Not authorized to post in other organization", status: 403}
         }
       }
@@ -70,14 +68,12 @@ async function isMember (req, res, next) {
 
   try {
 
-    const user = await User.findByPk(req.user.id)
-    
     if (!user) {
       throw { msg: "Not authorized", status: 403}
     }
     
-    const { id } = req.user
-    req.body.OrganizationId = user.OrganizationId
+    const { id, OrganizationId } = req.user
+    req.body.OrganizationId = OrganizationId
     
     switch(req.originalUrl.split('/')[1]) {
 
@@ -117,8 +113,8 @@ async function isMember (req, res, next) {
   
           } else {
   
-            console.log(task.toJSON())
-            if (task.OrganizationId != user.OrganizationId) {
+            // console.log(task.toJSON())
+            if (task.OrganizationId != OrganizationId) {
               throw { msg: "Not authorized", status: 403}
             }
             next()

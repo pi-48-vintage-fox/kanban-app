@@ -12,7 +12,7 @@ router.post('/login', UserController.login)
 router.post('/googleLogin', UserController.googleLogin)
 
 router.use(authentication)
-router.get('/users/orgs', UserController.findOrgMembers)
+router.get('/users/', UserController.findOrgMembers)
 router.get('/users/:UserId', UserController.findById)
 
 router.use('/tasks', taskRoutes)

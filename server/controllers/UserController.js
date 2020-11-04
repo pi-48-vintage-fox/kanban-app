@@ -39,7 +39,8 @@ class UserController {
       // console.log('^----- user sdh ada di database')
       const access_token = signToken({
         id: data.id,
-        email:data.email
+        email: data.email,
+        OrganizationId:data.OrganizationId
       })
       res.status(200).json({access_token})
 

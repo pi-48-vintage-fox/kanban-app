@@ -9,11 +9,10 @@ class TaskController {
 
     try {
 
-      const user = await User.findByPk(req.user.id)
-      const {OrganizationId} = user
+      const {OrganizationId} = req.user
 
       const tasks = await Task.findAll({
-        where: { OrganizationId: OrganizationId}
+        where: { OrganizationId }
       })
       
       res.status(200).json(tasks)
@@ -62,11 +61,10 @@ class TaskController {
   static async addTask(req, res, next) {
     console.log(req.user, '\n^---- req user')
     
-    const { id } = req.user
-    const user = await User.findByPk(id)
+    const { id, OrganizationId } = req.user
 
-    req.body.OrganizationId = user.OrganizationId
     req.body.UserId = id
+    req.body.OrganizationId = OrganizationId
 
     try {
       const task = await Task.create(req.body)
