@@ -11,6 +11,25 @@ class TaskController {
         })
     }
 
+    static taskById(req, res, next) {
+        const id = req.params.id
+        Task.findByPk(id, {include: [User, Category]})
+        .then(task => {
+            if(!id){
+                let err = {
+                    name: 'Not Found'
+                }
+                throw next(err)
+            }
+            else{
+                res.status(200).json(task)
+            }
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
+
     static addTask (req, res, next) {
         const payload = {
             title: req.body.title,
@@ -80,14 +99,14 @@ class TaskController {
                 }
                 throw next(err)
             }
-            else if(!updatedTodo){
+            else if(!task){
                 let err = {
                     name: 'SequelizeValidationError'
                 }
                 throw next (err)
             }
             else{
-                res.status(200).json(updatedTodo)
+                res.status(200).json(task)
             }
         })
         .catch(err => {

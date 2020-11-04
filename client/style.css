@@ -1,5 +1,66 @@
-.container {
+#landing-page {
     display: flex;
     flex-direction: row;
     width: auto;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 100vh;
+}
+
+#login-box{
+    background: white ; 
+    padding: 20px;
+    opacity: 0.8; 
+    border-radius: 8px; 
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65); 
+    height: 70vh; 
+    width:100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+#register-box{
+    background: white ; 
+    padding: 40px;
+    opacity: 0.8; 
+    border-radius: 8px; 
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65); 
+    height: 70vh; 
+    width:100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+}
+
+#body-homepage{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    align-items: flex-start;
+    margin: 100px auto;
+}
+
+#category-box{
+    margin-right: 10px;
+}
+
+.card {
+    width: 17rem; 
+    background-color: whitesmoke;
+}
+
+#task {
+    width: 14rem; 
+    margin-top: 12px;
 }
