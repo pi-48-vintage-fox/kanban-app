@@ -12,6 +12,7 @@ const {
 const {
     OAuth2Client
 } = require('google-auth-library')
+const client = new OAuth2Client(process.env.GOOGLEKEY)
 
 class Controller {
 
@@ -76,6 +77,106 @@ class Controller {
     }
 
     static postGoogleLogin(req, res, next) {
+        const token = req.body.token
+        let user = null
+        let randomPass = Math.round(Math.random() * 10000000)
+        client.verifyIdToken({
+                idToken: token,
+                audience: process.env.GOOGLEKEY
+            })
+            .then((ticket) => {
+                const payload = ticket.getPayload()
+                user = {
+                    full_name: `${payload.given_name} ${payload.family_name}`,
+                    email: payload.email,
+                    password: randomPass
+                }
+                return User.findOne({
+                    where: {
+                        email: user.email
+                    }
+                })
+            })
+            .then((data) => {
+                return !data ? User.create(user) : data
+            })
+            .then((data) => {
+                const {id, email, full_name} = data
+                const access_token = generateToken({
+                    id,
+                    email,
+                    full_name
+                })
+                res.status(201).json({
+                    id,
+                    access_token,
+                    full_name
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+    }
+
+    static getTask(req, res, next) {
+        let categories = null
+        Category.findAll()
+            .then((result) => {
+                categories = result.map((el) => {
+                    return {
+                        id: el.id,
+                        name: el.name
+                    }
+                })
+                return Task.findAll({
+                    where: {
+                        include: [{
+                                model: Category,
+                                attributes: ["name"]
+                            },
+                            {
+                                model: User,
+                                attributes: ["email"]
+                            },
+                        ],
+                        order: [
+                            ["updatedAt", "ASC"]
+                        ]
+                    }
+                })
+            })
+            .then((result) => {
+                let output = {}
+                categories.forEach(element => {
+                    output[element.name] = []
+                });
+                result.forEach(({
+                    id,
+                    title,
+                    description,
+                    User,
+                    CategoryId,
+                    Category,
+                    createdAt
+                }) => {
+                    output[Category.name].push({
+                        id,
+                        title,
+                        description,
+                        email: User.email,
+                        CategoryId,
+                        category_name: Category.name,
+                        createdAt: createdAt.toLocaleDateString("id")
+
+                    })
+                });
+                res.status(200).json(output)
+            })
+            .catch((err) => {
+                next(err)
+            })
+
 
     }
 
@@ -95,44 +196,74 @@ class Controller {
             })
     }
 
-    static getTask(req, res, next) {
-        Task.findByPk(req.params.id)
-            .then((result) => {
-                res.status(200).json(result)
+    static putTask(req, res, next) {
+        const taskData = {
+            title: req.body.title,
+            description: req.body.description,
+            UserId: req.userData.id,
+            CategoryId: req.body.CategoryId,
+        }
+        Task.update(taskData, {
+                where: {
+                    id: req.params.id
+                }
             })
-            .catch(err => {
+            .then((result) => {
+                if (result) {
+                    res.status(200).json({
+                        status: "Success"
+                    })
+                } else {
+                    next({
+                        name: "BadRequestPatch"
+                    })
+                }
+            })
+            .catch((err) => {
                 next(err)
             })
     }
 
-    static postCategory(req, res, next) {
-
-    }
-
-    static putTask(req, res, next) {
-
-    }
-
     static patchTaskCategory(req, res, next) {
-
+        Task.update({
+                CategoryId: req.body.CategoryId
+            }, {
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then((result) => {
+                if (result) {
+                    res.status(200).json({
+                        status: "Success"
+                    })
+                } else {
+                    next({
+                        name: "BadRequestPatch"
+                    })
+                }
+            })
+            .catch((err) => {
+                next(err)
+            })
     }
 
     static deleteTask(req, res, next) {
         Task.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
-        .then(result => {
-            if(result){
-                res.status(200).json({
-                    "message" : "Deleted Successfully"
-                })
-            } 
-        })
-        .catch(err => {
-            next(err)
-        })
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(result => {
+                if (result) {
+                    res.status(200).json({
+                        "message": "Deleted Successfully"
+                    })
+                }
+            })
+            .catch(err => {
+                next(err)
+            })
     }
 }
 
