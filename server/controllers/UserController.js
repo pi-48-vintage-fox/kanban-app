@@ -75,7 +75,6 @@ class UserController {
     
     try {
       const payload = {
-        username: req.body.username,
         email: req.body.email,
         password: req.body.password,
       }
@@ -85,7 +84,7 @@ class UserController {
       console.log({user})
 
       res.status(201).json({
-        message: 'Account registration successful'
+        msg: 'Account registration successful'
       })
       
     } catch (error) {
@@ -128,12 +127,13 @@ class UserController {
             // User is found using his/her username
             const access_token = signToken({
               id: user.id,
-              email: user.email
+              email: user.email,
+              OrganizationId: user.OrganizationId
             })
   
             res.status(200).json({
               access_token,
-              avatar: user.avatarUrl
+              avatarUrl: user.avatarUrl
             })
           }
           
@@ -170,11 +170,11 @@ class UserController {
 
       const members = await User.findAll({
         where: {
-          OrganizationId: +req.params.OrgId
+          OrganizationId: req.user.OrganizationId
         },
       })
 
-      res.status(200).json({data: members})
+      res.status(200).json(members)
       
     } catch (error) {
       console.log(error, '\n^----- error find org members')
@@ -190,11 +190,11 @@ class UserController {
       const user = await User.findByPk(+req.params.UserId)
 
       if (!user) {
-        next({status: 404, msg: 'User not found'})
+        next({status: 404, msg: 'User was not found'})
         
       } else {
 
-        res.status(200).json({ data: user})
+        res.status(200).json(user)
       }
       
     } catch (error) {

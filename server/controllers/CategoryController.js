@@ -8,7 +8,7 @@ class CategoryController {
 
       const categories = await Category.findAll({
         where: {
-          OrganizationId: req.body.OrganizationId
+          OrganizationId: req.user.OrganizationId
         }
       })
 
@@ -24,12 +24,23 @@ class CategoryController {
 
       let input = {
         name: req.body.name,
-        OrganizationId: req.body.OrganizationId
+        OrganizationId: req.user.OrganizationId
       }
 
-      const category = await Category.create(input)
+      const category = await Category.findOne({
+        where: {
+          name: input.name
+        }
+      })
 
-      res.status(201).json({data: category})
+      if (category) {
+        throw ({status: 409, msg: "Category with the same name already exists, please choose another name"})
+      } else {
+
+        const category = await Category.create(input)
+  
+        res.status(201).json(category)
+      }
       
     } catch (error) {
       next(error)
@@ -47,7 +58,7 @@ class CategoryController {
         }
       })
 
-      res.status(200).json({message: 'Category renamed successfully' })
+      res.status(200).json({msg: 'Category was renamed successfully' })
       
     } catch (error) {
       next(error)
@@ -67,10 +78,10 @@ class CategoryController {
       })
 
       if (result === 0) {
-        throw ({status: 404, msg: 'Category not found'})
+        throw ({status: 404, msg: 'Category was not found'})
       }
 
-      res.status(200).json({message: 'Category deleted successfully'})
+      res.status(200).json({msg: 'Category was deleted successfully'})
       
     } catch (error) {
       next(error)

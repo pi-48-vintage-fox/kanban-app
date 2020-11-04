@@ -61,13 +61,15 @@ class TaskController {
   static async addTask(req, res, next) {
     console.log(req.user, '\n^---- req user')
     
+    const {title, description, CategoryId } = req.body
     const { id, OrganizationId } = req.user
 
-    req.body.UserId = id
-    req.body.OrganizationId = OrganizationId
+    const input = {
+      title, description, CategoryId, OrganizationId, UserId: id
+    }
 
     try {
-      const task = await Task.create(req.body)
+      const task = await Task.create(input)
 
       res.status(200).json(task)
       
@@ -85,7 +87,7 @@ class TaskController {
       let {TaskId} = req.params
 
       if (!await Task.findByPk(TaskId)) {
-        throw {status: 404, msg: 'Task not found'}
+        throw {status: 404, msg: 'Task was not found'}
       }
   
       let opt = {}
@@ -99,7 +101,7 @@ class TaskController {
           where: { id: TaskId }
         })
         
-        res.status(200).json({msg: 'Task modified successfully'})
+        res.status(200).json({msg: 'Task was modified successfully'})
       } catch (error) {
         next(error)
         
@@ -127,10 +129,10 @@ class TaskController {
           where: { id: TaskId }
         })
         
-        res.status(200).json({msg: `Task successfully moved`})
+        res.status(200).json({msg: `Task was moved successfully`})
 
       } else {
-        throw { status: 404, msg: 'Task not found'}
+        throw { status: 404, msg: 'Task was not found'}
       }
     } catch (error) {
       next(error)
@@ -147,7 +149,7 @@ class TaskController {
         where: {id: req.params.TaskId}
       })
 
-      res.status(200).json({msg: 'Task deleted successfully'})
+      res.status(200).json({msg: 'Task was deleted successfully'})
       
     } catch (error) {
       next(error)
