@@ -10,7 +10,7 @@ h3 {
 }
 
 .card {
-  border-radius: 30px;
+  border-radius: 10px;
   background: transparent;
 }
 
@@ -65,18 +65,23 @@ button {
   filter: blur(10px);
 }
 
+#card-tasks {
+  background-color: #bdc3c7;
+}
+
 #form-add-task {
   position: absolute;
   z-index: 1;
   top: -40px;
-  left: -5px;
+  left: 0;
   padding: 10px;
-  background-color: grey;
+  background-color: rgba(85, 239, 196, 1);
+  border-radius: 10px;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.7s;
 }
 
 .fade-enter,

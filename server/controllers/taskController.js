@@ -3,7 +3,9 @@ const {Task, User} = require('../models/index');
 class TaskController {
     static async getTask(req, res){
         try {
-            const task = await Task.findAll();
+            const task = await Task.findAll({
+                include: User
+            });
             res.status(200).json(task);
         } catch (error) {
             res.status(500).json(error);
@@ -23,6 +25,10 @@ class TaskController {
         } catch (error) {
             res.status(500).json(error)
         }
+    }
+
+    static async categoryProduct(req, res){
+        
     }
 }
 

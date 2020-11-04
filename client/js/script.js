@@ -53,6 +53,7 @@ let app = new Vue({
                 data: this.userRegister
             })
             .then(res => {
+                console.log(res);
                 this.page = 'login-page'
             })
             .catch(err => {

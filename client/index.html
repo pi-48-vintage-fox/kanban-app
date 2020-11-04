@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Kanban Board App</title>
   </head>
   <body>
@@ -52,10 +54,10 @@
                             <h3 class="card-text">Sign In</h3>
                             <form @submit.prevent="login" class="">
                                 <div class="form-group mt-5">
-                                    <input v-model="userLogin.email"  type="email" class="form-control mx-auto" id="email" aria-describedby="emailHelp" placeholder="Email address">
+                                    <input v-model="userLogin.email"  type="email" class="form-control mx-auto" id="email" aria-describedby="emailHelp" placeholder="email address">
                                 </div>
                                 <div class="form-group mt-5">
-                                    <input v-model="userLogin.password" type="password" class="form-control mx-auto" id="password" placeholder="Password">
+                                    <input v-model="userLogin.password" type="password" class="form-control mx-auto" id="password" placeholder="password">
                                 </div>
                                 <button  type="submit" class="mt-5 btn btn-login">SIGN IN</button>
                             </form>
@@ -74,7 +76,7 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <h3 class="card-text">Sign Up</h3>
-                            <form class="">
+                            <form @submit.prevent="register" class="">
                                 <div class="form-group mt-5">
                                     <input v-model="userRegister.firstName" type="text" class="form-control mx-auto" id="first_name" placeholder="first name">
                                 </div>
@@ -105,29 +107,30 @@
                             <div class="card-header">
                                 <h5>Backlog</h5>
                                 <div class="add-task">
-                                    <button class="btn" @click="show = !show" >Add</button>
+                                    <button class="btn" style="border-radius: 50%;" @click="show = !show" ><i class="fas fa-plus"></i></button>
                                 </div>
                                 <transition name="fade">  
                                     <div v-show="show" class="mt-3" id="form-add-task">
-                                        <form @submit.prevent="addTask" action="">
+                                        <button @click="show = !show" style="border-radius: 50%;" class="btn"><i class="far fa-window-close"></i></button>
+                                        <form @submit.prevent="addTask" action="" class="mt-3">
                                             <div class="form-group">
-                                                <input v-model="taskAdd.title" type="text" style="width: 100%;" class="form-control">
+                                                <input v-model="taskAdd.title" placeholder="title" type="text" style="width: 100%;" class="form-control">
                                             </div>
-                                            <button type="submit" class="btn">Add</button>
+                                            <button type="submit" style="border-radius: 50%;" class="btn"><i class="fas fa-save"></i></button>
                                         </form>
-                                        <button @click="show = !show" class="btn">Cancel</button>
                                     </div>
                                 </transition>
                             </div>
-                            <div class="card-body bg-secondary">
-                                <div v-for="task in tasks" :key="task.id" v-show="task.category == 'backlog'" class="card">
-                                    <div class="card-body bg-white">
+                            <div class="card-body" id="card-tasks">
+                                <div v-for="task in tasks" :key="task.id" v-show="task.category == 'backlog'" class="card border-0">
+                                    <div class="card-body bg-white mt-3">
                                       <h5 class="card-title">{{task.title}}</h5>
-                                      <p class="card-text"><img class="" src="./assets/img/default.png" alt="profile" width="20px"> Haris Pratama</p>
+                                      <p class="card-text"><img class="" src="./assets/img/default.png" alt="profile" width="20px"> {{task.User.firstName}} {{task.User.lastName}}</p>
                                     </div>
-                                    <div class="card-footer bg-light">
-                                        <a href="" class="card-link">Edit</a>
-                                        <a href="" class="card-link">Delete</a>
+                                    <div class="card-footer border-0 bg-light">
+                                        <a href="" class="card-link text-success"><i class="fas fa-edit"></i></a>
+                                        <a href="" class="card-link text-danger"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="" class="card-link text-info"><i class="fas fa-arrow-right"></i></a>
                                     </div>
                                 </div>
                             </div>
