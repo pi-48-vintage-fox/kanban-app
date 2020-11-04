@@ -4,24 +4,24 @@
   box-sizing: border-box;
 }
 
-@media only screen and (max-width: 950px) and (min-width: 625px) {
-
-}
-
 body {
   background-image: url("https://images.unsplash.com/photo-1514421266214-69b5a8771edc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80");
   background-repeat: no-repeat;
   background-position-x: center;
-  background-size: 100%;
+  background-size: cover;
   background-color: #262673;
+  background-attachment: fixed;
 }
 
 nav {
-  background-color: bisque;
+  background-color: #e6ffff;
   display: flex;
-  justify-content: space-between;
   height: 60px;
   padding: 0px 10px;
+  width: 100%;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 10;
 }
 
 nav .nav-logout {
@@ -35,10 +35,27 @@ nav .nav-logo {
 }
 
 .board {
+  margin-top: 10px;
+  flex-wrap: nowrap;
+}
+
+.container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100vw;
+}
+
+.container-fluid {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.content {
+  border-style: solid;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: lightgray;
+  display: flex;
+  height: 30rem;
+  padding: 10px;
 }
 
 .display-1 {
@@ -53,7 +70,6 @@ nav .nav-logo {
 
 .login-card {
   border-style: solid;
-  border: 2px;
   border-radius: 10px;
   background-color: #e6ffff;
   padding: 50px;
@@ -81,8 +97,13 @@ nav .nav-logo {
   text-decoration: none;
 }
 
-.row {
-  display: block;
+.org-card {
+  margin-top: 10vh;
+  margin-left: 10px;
+}
+
+.org-card:hover {
+  cursor: pointer;
 }
 
 .register-card {
@@ -93,16 +114,20 @@ nav .nav-logo {
 }
 
 .sub-board {
-  background-color: bisque;
+  background-color: #e6ffff;
   border-style: solid;
-  border: thin;
-  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.61);
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
-  height: 20rem;
   margin: 10px;
+  margin-top: 1vh;
   padding: 10px;
-  width: 21rem;
+  transition: 300ms;
+}
+
+.sub-board:hover {
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.64);
+  transition: 500ms;
 }
 
 .submit-login {
@@ -122,8 +147,16 @@ nav .nav-logo {
   transition: 200ms;
 }
 
-#main-content {
-  margin: 20px 20px
+#cancel-link {
+  text-decoration: none;
+}
+
+#login-page {
+  justify-content: center;
+}
+
+#register-page {
+  justify-content: center;
 }
 
 #register-link {

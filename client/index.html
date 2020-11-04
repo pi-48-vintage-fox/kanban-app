@@ -13,159 +13,128 @@
 </head>
 
 <body>
-  <section class="body">
 
-    <!-- Landing Page -->
-    <div id="landing-page">
-      <h1 class="display-1">SNOWKAN</h1>
+  <div id="app">
+    <section class="body">
 
-      <!-- Login Page -->
-      <div class="container" id="login-page">
-        <div class="mus-body">
-          <div class="login-card">
-            <h1 class="display-4 text-muted text-center">Login</h1>
-            <form onsubmit="login(event)">
-              <div class="form-group">
-                <label for="email">Email: </label>
-                <input class="form-control" type="email" name="email" id="login-email">
-                <small class="text-muted">We will never share your email to anyone</small>
+      <!-- Landing Page -->
+      <div v-if="inPage==='landingPage'" id="landing-page">
+        <h1 class="display-1">SNOWKAN</h1>
+
+        <!-- Login Page -->
+        <div v-show="!isRegister" class="container" id="login-page">
+          <div class="mus-body">
+            <div class="login-card">
+              <h1 class="display-4 text-muted text-center">Login</h1>
+              <form @submit.prevent="login()">
+                <div class="form-group">
+                  <label for="email">Email: </label>
+                  <input v-model="loginEmail" class="form-control" type="email" name="email">
+                  <small class="text-muted">We will never share your email to anyone</small>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password: </label>
+                  <input v-model="loginPassword" class="form-control" type="password" name="password">
+                </div>
+                <div class="submit-login">
+                  <button class="btn border" type="submit">Login</button>
+                </div>
+                <hr>
+                <div id="register-link">
+                  <p>Don't have any account? <span><a href="#" @click.prevent="showRegister()">Register now</a></span>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Register Page -->
+        <div v-show="isRegister" class="container" id="register-page">
+          <div class="mus-body">
+            <div class="register-card">
+              <h1 class="display-4 text-muted text-center">Register</h1>
+              <form @submit.prevent="register()">
+                <div class="form-group">
+                  <label for="email">Email: </label>
+                  <input v-model="registerEmail" class="form-control" type="email" name="email">
+                  <small class="text-muted">We will never share your email to anyone</small>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password: </label>
+                  <input v-model="registerPassword" class="form-control" type="password" name="password">
+                </div>
+                <div class="submit-login">
+                  <button class="btn border" type="submit">Register</button>
+                </div>
+                <hr>
+                <div id="cancel-link">
+                  <p>Already have an account? <span><a href="#" @click.prevent="hideRegister()">Login</a></span></p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Home Page -->
+      <div v-else-if="inPage='homePage'" id="home-page">
+
+        <!-- Navbar -->
+        <nav>
+          <div class="nav-logo">
+            <i><a href="#" id="app-logo"><img
+                  src="https://www.pngkit.com/png/detail/36-360519_penguin-penguin-logo-transparent.png"
+                  alt=""><span>SNOWKAN</span></a></i>
+          </div>
+          <div class="nav-logout">
+            <button id="logout-button" class="btn btn-danger" @click.prevent="logout()">Logout</button>
+          </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="menu-organizations" class="container-fluid">
+
+          <div v-for="org in organizations" :key="org.id" class="card org-card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{org.name}}</h5>
+              <a v-show="!showtasks" @click.prevent="getCategories(org.id)" href="#" class="card-link">Tasks</a>
+              <a v-show="showtasks" @click.prevent="hideTasks()" href="#" class="card-link">Hide tasks</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div v-if="showTasks" id="main-content" class="container-fluid">
+
+          <div class="row board">
+
+            <div v-for="(category, i) in categories" :key="i" class="col-md-3 col-xs-2 col-4">
+              <div class="sub-board">
+                <div>
+                  <h1>{{category}}</h1>
+                </div>
+                <div class="content">
+                  <p>Main Content</p>
+                </div>
+                <div>
+                  <p>Add Task</p>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="password">Password: </label>
-                <input class="form-control" type="password" name="password" id="login-password">
-              </div>
-              <div class="submit-login">
-                <button class="btn border" type="submit">Login</button>
-              </div>
-              <hr>
-              <div id="register-link">
-                <p>Don't have any account? <span><a href="#" id="register-link">Register now</a></span></p>
-              </div>
-            </form>
+            </div>
+
           </div>
         </div>
       </div>
 
-      <!-- Register Page -->
-      <div class="container" id="register-page" hidden>
-        <div class="mus-body">
-          <div class="register-card">
-            <h1 class="display-4 text-muted text-center">Register</h1>
-            <form onsubmit="register(event)">
-              <div class="form-group">
-                <label for="email">Email: </label>
-                <input class="form-control" type="email" name="email" id="register-email">
-                <small class="text-muted">We will never share your email to anyone</small>
-              </div>
-              <div class="form-group">
-                <label for="password">Password: </label>
-                <input class="form-control" type="password" name="password" id="register-password">
-              </div>
-              <div class="submit-login">
-                <button class="btn border" type="submit">Register</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+    </section>
+  </div>
 
-    </div>
-
-    <!-- Home Page -->
-    <div id="home-page">
-
-      <!-- Navbar -->
-      <nav>
-        <div class="nav-logo">
-          <i><a href="#" id="app-logo"><img src="https://www.pngkit.com/png/detail/36-360519_penguin-penguin-logo-transparent.png" alt=""><span>SNOWKAN</span></a></i>
-        </div>
-        <div class="nav-logout">
-          <button class="btn btn-danger" onclick="logout()">Logout</button>
-        </div>
-      </nav>
-
-      <!-- Main Content -->
-      <div id="main-content" class="container">
-
-        <div class="board">
-          <div class="sub-board">
-            <div>
-              <h1>Category</h1>
-            </div>
-            <div>
-              <p>Main Content</p>
-            </div>
-            <div>
-              <p>Add Task</p>
-            </div>
-          </div>
-
-          <div class="sub-board">
-            <div>
-              <h1>Category</h1>
-            </div>
-            <div>
-              <p>Main Content</p>
-            </div>
-            <div>
-              <p>Add Task</p>
-            </div>
-          </div>
-
-          <div class="sub-board">
-            <div>
-              <h1>Category</h1>
-            </div>
-            <div>
-              <p>Main Content</p>
-            </div>
-            <div>
-              <p>Add Task</p>
-            </div>
-          </div>
-
-          <div class="sub-board">
-            <div>
-              <h1>Category</h1>
-            </div>
-            <div>
-              <p>Main Content</p>
-            </div>
-            <div>
-              <p>Add Task</p>
-            </div>
-          </div>
-
-          <div class="sub-board">
-            <div>
-              <h1>Category</h1>
-            </div>
-            <div>
-              <p>Main Content</p>
-            </div>
-            <div>
-              <p>Add Task</p>
-            </div>
-          </div>
-
-          <div class="sub-board">
-            <div>
-              <h1>Category</h1>
-            </div>
-            <div>
-              <p>Main Content</p>
-            </div>
-            <div>
-              <p>Add Task</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </section>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="main.js"></script>
 </body>
 
