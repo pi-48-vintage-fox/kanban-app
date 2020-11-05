@@ -1,20 +1,24 @@
-let app = new Vue({
-    el: '#app',
-    data: {
-        page: 'login-page',
+<template>
+    <div>
+        <LoginPage v-if="page == 'login-page'">
+        </LoginPage>
+        <RegisterPage v-else-if="page == 'register-page'"></RegisterPage>
+        <HomePage v-else-if="page == 'home-page'"></HomePage>
+    </div>
+</template>
+
+<script>
+import HomePage from './components/HomePage';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/Register';
+export default {
+    name: 'App',
+    data(){
+        return {
+        page: 'home-page',
         show: false,
         showEdit: false,
         server: 'http://localhost:3000',
-        userLogin: {
-            email: '',
-            password: ''
-        },
-        userRegister: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: ''
-        },
         tasks: '',
         taskAdd: {
             title: ''
@@ -24,47 +28,21 @@ let app = new Vue({
             title: ''
         },
         errorMessage: '' 
+        }
+    },
+    components: {
+        HomePage,
+        LoginPage,
+        RegisterPage
     },
     methods: {
         changePage(name) {
             this.page = name;
         },
-        login(){
-            axios({
-                method: 'POST',
-                url: this.server + '/login',
-                data: this.userLogin
-            })
-            .then(resp => {
-                const access_token = resp.data.access_token;
-                this.page = 'home-page';
-                this.userLogin.email = '';
-                this.userLogin.password = '';
-                localStorage.setItem('access_token', access_token);
-                this.fetchTasks();
-            })
-            .catch(err => {
-                swal(err.response.data.message);
-            })
-        },
         logout(){
             localStorage.clear();
             swal('Success logout');
             this.page = 'login-page';
-        },
-        register(){
-            axios({
-                method: 'POST',
-                url: this.server + '/register',
-                data: this.userRegister
-            })
-            .then(res => {
-                console.log(res);
-                this.page = 'login-page'
-            })
-            .catch(err => {
-                swal(err.response.data.message);
-            })
         },
         fetchTasks() {
             axios({
@@ -208,14 +186,10 @@ let app = new Vue({
                 swal(err.response.data.message);
             });
         }
-    },
-    created() {
-        const access_token = localStorage.getItem('access_token');
-        if (access_token) {
-            this.fetchTasks();
-            this.page = 'home-page';
-        } else {
-            this.page = 'login-page';
-        }
     }
-})
+}
+</script>
+    
+<style>
+
+</style>

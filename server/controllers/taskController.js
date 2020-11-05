@@ -4,6 +4,7 @@ class TaskController {
     static async getTask(req, res, next){
         try {
             const task = await Task.findAll({
+                order: [['id', 'ASC']],
                 include: User
             });
 
@@ -29,13 +30,15 @@ class TaskController {
             const addTask = await Task.create(newTask);
             if (addTask) {
                 res.status(201).json(addTask)
-            } else {
+            } else if(!addTask) {
                 next({
                     name: 'validation error'
                 })
             }
         } catch (error) {
-            res.status(500).json(error)
+            next({
+                name: error.errors[0].message
+            })
         }
     }
 

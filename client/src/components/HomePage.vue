@@ -1,100 +1,5 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <title>Kanban Board App</title>
-  </head>
-  <body>
-
-    <div class="" id="app" style="height: 100vh;">
-
-    <nav v-if="page !== 'login-page' && page !== 'register-page'" class="navbar navbar-expand-lg navbar-light bg-transparent border-bottom" >
-        <div class="container">
-        <a class="navbar-brand" href="">Kanban</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a @click.prevent="logout" href="" class="btn">Logout</a>
-            </li>
-          </ul>
-        </div>
-        </div>
-      </nav>
-    
-    <div class="container">
-        <!-- Login Page -->
-        <section v-if="page == 'login-page'" class="login-page mt-5" id="login-page">
-            <div class="row mx-auto">
-                <div class="col-12">
-                    <div class="card" id="card-login-page">
-                        <div class="card-body text-center">
-                            <h3 class="card-text">SIGN IN</h3>
-                            <form @submit.prevent="login" class="">
-                                <div class="form-group mt-5">
-                                    <input v-model="userLogin.email"  type="email" class="form-control mx-auto" id="email" aria-describedby="emailHelp" placeholder="email address">
-                                </div>
-                                <div class="form-group mt-5">
-                                    <input v-model="userLogin.password" type="password" class="form-control mx-auto" id="password" placeholder="password">
-                                </div>
-                                <button  type="submit" class="mt-5 btn btn-login">SIGN IN</button>
-                            </form>
-                            <button class="btn mt-5" href="" v-on:click="changePage('register-page')">SIGN UP</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Login Page -->
-
-        <!-- Register Page -->
-        <section v-else-if="page == 'register-page'" class="register-page mt-5" id="register-page">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <h3 class="card-text">SIGN UP</h3>
-                            <form @submit.prevent="register" class="">
-                                <div class="form-group mt-5">
-                                    <input v-model="userRegister.firstName" type="text" class="form-control mx-auto" id="first_name" placeholder="first name">
-                                </div>
-                                <div class="form-group mt-5">
-                                    <input v-model="userRegister.lastName" type="text" class="form-control mx-auto" id="last_name" placeholder="last name">
-                                </div>
-                                <div class="form-group mt-5">
-                                    <input v-model="userRegister.email" type="email" class="form-control mx-auto" id="register-email" aria-describedby="emailHelp" placeholder="email address">
-                                </div>
-                                <div class="form-group mt-5">
-                                    <input v-model="userRegister.password" type="password" class="form-control mx-auto" id="register-password" placeholder="password">
-                                </div>
-                                <button type="submit" class="mt-5 btn btn-login">SIGN UP</button>
-                            </form>
-                            <button class="btn mt-5" href="" @click="changePage('login-page')">SIGN IN</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Register Page -->
-
-        <!-- Home -->
-            <section v-else-if="page == 'home-page'" class="home-page mt-5" id="home-page">
+<template>
+    <div class="home-page mt-5" id="home-page">
                 <div v-if="errorMessage != ''" class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{errorMessage}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -137,7 +42,7 @@
                                             </div>
                                         </transition>
                                         <h5 class="card-title">{{task.title}}</h5>
-                                      <p class="card-text"><img class="" src="./assets/img/default.png" alt="profile" width="20px"> {{task.User.firstName}} {{task.User.lastName}}</p>
+                                      <p class="card-text"><img class="" alt="profile" width="20px"> {{task.User.firstName}} {{task.User.lastName}}</p>
                                     </div>
                                     <div class="card-footer border-0 bg-light">
                                         <button @click="getById(task.id)" class="btn text-success"><i class="fas fa-edit"></i></button>
@@ -170,7 +75,7 @@
                                             </div>
                                         </transition>
                                       <h5 class="card-title">{{task.title}}</h5>
-                                    <p class="card-text"><img class="" src="./assets/img/default.png" alt="profile" width="20px"> {{task.User.firstName}}
+                                    <p class="card-text"><img class="" alt="profile" width="20px"> {{task.User.firstName}}
                                         {{task.User.lastName}}</p>
                                     </div>
                                     <div class="card-footer border-0 bg-light">
@@ -205,7 +110,7 @@
                                             </div>
                                         </transition>
                                       <h5 class="card-title">{{task.title}}</h5>
-                                    <p class="card-text"><img class="" src="./assets/img/default.png" alt="profile" width="20px"> {{task.User.firstName}}
+                                    <p class="card-text"><img class="" alt="profile" width="20px"> {{task.User.firstName}}
                                         {{task.User.lastName}}</p>
                                     </div>
                                     <div class="card-footer border-0 bg-light">
@@ -239,7 +144,7 @@
                                             </div>
                                         </transition>
                                       <h5 class="card-title">{{task.title}}</h5>
-                                    <p class="card-text"><img class="" src="./assets/img/default.png" alt="profile" width="20px"> {{task.User.firstName}}
+                                    <p class="card-text"><img class="" alt="profile" width="20px"> {{task.User.firstName}}
                                         {{task.User.lastName}}</p>
                                     </div>
                                     <div class="card-footer border-0 bg-light">
@@ -251,20 +156,15 @@
                         </div>
                     </div>
                 </div>
-            </section>
-        <!-- EndHome -->
-        </div>
     </div>
+</template>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="src/main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
-</html>
+<script>
+export default {
+    name: 'HomePage',
+}
+</script>
+
+<style>
+
+</style>

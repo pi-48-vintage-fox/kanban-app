@@ -1,5 +1,5 @@
 function errorHandler(err, req, res, next) {
-    if (err.name == 'SequelizeValidationError' || err.name == 'validation error') {
+    if (err.name == 'SequelizeValidationError' || err.name == 'validation error' || err.name == 'Title cannot empty') {
         res.status(400).json({
             message: "Oops! Validation error"
         })
