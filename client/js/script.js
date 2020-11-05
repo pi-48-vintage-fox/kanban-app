@@ -3,6 +3,7 @@ let app = new Vue({
     data: {
         page: 'login-page',
         show: false,
+        showEdit: false,
         server: 'http://localhost:3000',
         userLogin: {
             email: '',
@@ -16,6 +17,9 @@ let app = new Vue({
         },
         tasks: '',
         taskAdd: {
+            title: ''
+        },
+        getTaskById: {
             title: ''
         } 
     },
@@ -93,6 +97,25 @@ let app = new Vue({
                 console.log(err);
             })
         },
+        getById(id){
+            axios({
+                method: 'GET',
+                url: this.server + `/task/${+id}`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                params: {
+                    id: +id
+                }
+            })
+            .then(resp => {
+                this.showEdit = true;
+                this.getTaskById.title = resp.data.title;
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        },
         changeCategory(category, id){
             axios({
                 method: 'PATCH',
@@ -107,6 +130,46 @@ let app = new Vue({
             })
             .then(resp => {
                 console.log(resp);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        },
+        editTitleTask(id){
+            axios({
+                method: 'PUT',
+                url: this.server + `/task/${+id}`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                params: {
+                    id: +id
+                },
+                data: {
+                    title: this.getTaskById.title
+                }
+            })
+            .then(resp => {
+                this.getTaskById.title = '';
+                this.fetchTasks();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        },
+        deleteTask(id){
+            axios({
+                method: 'DELETE',
+                url: this.server + `/task/${+id}`,
+                params: {
+                    id: +id
+                },
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .then(resp => {
+                this.fetchTasks();
             })
             .catch(err => {
                 console.log(err);
