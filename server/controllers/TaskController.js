@@ -1,13 +1,21 @@
 'use strict'
 
-const { Task, User, TaskTag} = require("../models")
+const { Task, User, TaskTag,Category} = require("../models")
 
 class TaskController{
 
   static async index(req,res,next){
     try {
 
-      let tasks = await Task.findAll()
+      let tasks = await Category.findAll({
+        include:[
+          {
+            model: Task,
+            as: "Tasks",
+            include:[TaskTag]
+          }
+        ]
+      })
       
       res.status(200).json({
         msg: "Success",
@@ -15,6 +23,7 @@ class TaskController{
       })
 
     } catch (err) {
+      console.log(err);
       next(err)
     }
   }

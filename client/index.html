@@ -4,106 +4,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="google-signin-client_id" content="10125096972-t8cl0grbev0e65s6u6p6kljpr9pgsvdh.apps.googleusercontent.com  ">
+
 	<title>KanBANG!</title>
 	<link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-	<div class="app">
-		<div class="two-col-layout">
-			<div class="sidebar">
-				<div class="sidebar-title">
-					<div class="logo">
-						<h2 class="kang">KANG</h2>
-						<h2 class="bang">BANG</h2>
-					</div>
-					<div class="logo-sub">
-						<p>Stop Starting, Start Finishing</p>
-					</div>
-				</div>
-				<div class="sidebar-menus">
-					<div class="menu-section">
-						<p>MENU</p>
-						<div class="divider">
-							<hr />
-						</div>
-					</div>
-					<div class="menu-item active">
-						<i class="fas fa-columns primary"></i> Home
-					</div>
-					<div class="menu-item">
-						<i class="far fa-calendar-alt warning"></i> Calendar
-					</div>
-					<div class="menu-item">
-						<i class="far fa-bell danger"></i> Notifications
-					</div>
-				</div>
-				<div class="sidebar-footer">
-					<div class="menu-section">
-						<p>OPTIONS</p>
-						<div class="divider">
-							<hr />
-						</div>
-					</div>
-					<div class="menu-item">
-						<i class="fas fa-sign-out-alt danger"></i> Sign Out
-					</div>
-				</div>
-			</div>
-			<div class="content">
-				<div class="content-top">
-					<i class="fas fa-columns"></i> Boards
-				</div>
-				<div class="content-main">
-					<div class="task-board danger">
-						<div class="task-board-title">
-							<i class="far fa-clone danger"></i>
-							<p>Backlog</p>
-							<i class="fas fa-ellipsis-h card-menu"></i>
-						</div>
-						<div class="task">
-							+ Add new
-						</div>
-					</div>
-					<div class="task-board warning">
-						<div class="task-board-title">
-							<i class="far fa-list-alt warning"></i>
-							<p>To Do</p>
-							<i class="fas fa-ellipsis-h card-menu"></i>
-						</div>
-						<div class="task">
-							+ Add new
-						</div>
-					</div>
-					<div class="task-board primary">
-						<div class="task-board-title">
-							<i class="fas fa-stopwatch primary"></i>
-							<p>Doing</p>
-							<i class="fas fa-ellipsis-h card-menu"></i>
-						</div>
-						<div class="task">
-							+ Add new
-						</div>
-					</div>
-					<div class="task-board warning">
-						<div class="task-board-title">
-							<i class="fas fa-check success"></i>
-							<p>Done</p>
-							<i class="fas fa-ellipsis-h card-menu"></i>
-						</div>
-						<div class="task">
-							+ Add new
-						</div>
-					</div>
-					<div class="new-list">
-						+ Add new list
-					</div>
-				</div>
-				<div class="content-footer">
-					<p class="author">Created by Mochamad Zulfikar</p>
-				</div>
-			</div>
-		</div>
+	<div id="app">
+
+
 
 		<!-- MODAL -->
 		<div class="modal">
@@ -122,9 +32,9 @@
 
 	</div>
 	<script src="https://kit.fontawesome.com/efbbdd141c.js" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-	<script src="./js/app.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 
+	<script src="./src/main.js"></script>
 </body>
 
 </html>

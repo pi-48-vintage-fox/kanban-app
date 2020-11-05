@@ -36,6 +36,15 @@ module.exports = {
       onUpdate: "CASCADE",
       onDelete: "CASCADE"
     })
+    await queryInterface.addColumn('Tasks', 'UserId', {
+      type: Sequelize.INTEGER,
+      references: {
+        model: "Users",
+        key: "id"
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE"
+    })
     await queryInterface.addColumn('TaskTags', 'TaskId', {
       type: Sequelize.INTEGER,
       references: {
