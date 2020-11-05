@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- meta google oauth -->
+  <meta name="google-signin-client_id"
+    content="407146176632-63cm8pstokd17s907c10v4obhd6dfc2k.apps.googleusercontent.com">
+  <!-- css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -14,19 +18,69 @@
   <!-- navbar -->
   <div class="topnav">
     <!-- Mobile Navigation Bar -->
-    <a href="javascript:void(0);" class="active" onclick="myFunction()">
-      <i href="#home" class="active fab fa-korvue"> Kanban</i>
+    <a href="javascript:void(0);" class="active col-xl" onclick="myFunction()">
+      <i href="#home" class="active fab fa-korvue fa-lg"> Kanban</i>
     </a>
     <div id="myLinks">
       <a href="#">New Task</a>
+      <a href="#">Register</a>
       <a href="#">Login</a>
       <a href="#">Logout</a>
     </div>
   </div>
 
+  <!-- login -->
+  <section class="container-fluid" id="login">
+    <div class="row justify-content-center mt-5">
+      <div class="col-4 fas">
+        <h1 class="text-white fa-3x">Login</h1>
+        <form onsubmit="login(event)" class="text-white">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" class="form-control" placeholder="input your email" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="input your password"
+              autocomplete="current-password">
+          </div>
+          <button class="btn btn-dark">Login</button>
+        </form>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- register -->
+  <section class="container-fluid" id="register">
+    <div class="row justify-content-center mt-5 text-white">
+      <div class="col-4 fas">
+        <h1 class="text-white fa-3x">Register</h1>
+        <form onsubmit="register(event)">
+          <div class="form-group">
+            <label form="name">Name</label>
+            <input type="text" id="req-name" class="form-control" placeholder="input your name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label form="name">Email</label>
+            <input type="email" id="req-email" class="form-control" placeholder="input your email" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label form="password">Password</label>
+            <input type="password" id="req-password" class="form-control" placeholder="input your password"
+              autocomplete="current-password">
+          </div>
+          <button class="btn btn-dark">Register</button>
+          <div class="justify-content-center">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- kanban board -->
   <div class="container-fluid pt-3">
-    <h3 class="font-weight-light text-white">Kanban Board</h3>
+    <h3 class="font-weight-light text-white fab fa-7x">Kanban Board</h3>
     <div class="row flex-row flex-sm-nowrap py-3">
       <div class="col-sm-6 col-md-4 col-xl-3">
         <div class="card bg-light">
@@ -41,8 +95,8 @@
                   <p>
                     Deskripsi Backlog nanti disini.
                   </p>
-                  <button class="btn btn-primary btn-sm">View</button>
                   <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-primary btn-sm">Delete</button>
                 </div>
               </div>
               <div class="card mt-3">
@@ -53,8 +107,8 @@
                   <p>
                     Deskripsi Backlog nanti disini.
                   </p>
-                  <button class="btn btn-primary btn-sm">View</button>
                   <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-primary btn-sm">Delete</button>
                 </div>
               </div>
               <div class="card mt-3">
@@ -65,8 +119,8 @@
                   <p>
                     Deskripsi Backlog nanti disini.
                   </p>
-                  <button class="btn btn-primary btn-sm">View</button>
                   <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-primary btn-sm">Delete</button>
                 </div>
               </div>
             </div>
@@ -86,8 +140,8 @@
                   <p>
                     Deskripsi Todo nanti disini.
                   </p>
-                  <button class="btn btn-primary btn-sm">View</button>
                   <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-primary btn-sm">Delete</button>
                 </div>
               </div>
               <div class="card mt-3">
@@ -98,8 +152,8 @@
                   <p>
                     Deskripsi Todo nanti disini.
                   </p>
-                  <button class="btn btn-primary btn-sm">View</button>
                   <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-primary btn-sm">Delete</button>
                 </div>
               </div>
             </div>
@@ -119,8 +173,8 @@
                   <p>
                     Deskripsi Doing nanti disini.
                   </p>
-                  <button class="btn btn-primary btn-sm">View</button>
                   <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-primary btn-sm">Delete</button>
                 </div>
               </div>
             </div>
@@ -140,8 +194,8 @@
                   <p>
                     Deskripsi Done nanti disini.
                   </p>
-                  <button class="btn btn-primary btn-sm">View</button>
                   <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-primary btn-sm">Delete</button>
                 </div>
               </div>
               <div class="card mt-3">
@@ -152,8 +206,8 @@
                   <p>
                     Deskripsi Done nanti disini.
                   </p>
-                  <button class="btn btn-primary btn-sm">View</button>
                   <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-primary btn-sm">Delete</button>
                 </div>
               </div>
             </div>
@@ -163,8 +217,11 @@
     </div>
   </div>
 
+  <!-- font awesome -->
   <script src="https://kit.fontawesome.com/c662304f2f.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- library google oauth -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="main.js"></script>
 </body>
 
