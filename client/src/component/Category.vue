@@ -9,7 +9,10 @@
                 v-for="task in filterTask"
                 :key="task.id"
                 :task="task"
-                ></Task>
+                @toEdit="toEdit"
+                @toDelete="toDelete"
+                >
+                </Task>
                 </div>
                 <div class="card-footer text-muted text-center">
                     Add Task
@@ -31,6 +34,14 @@ export default {
     computed: {
         filterTask () {
             return this.tasks.filter(el => el.CategoryId == this.cat.id)
+        }
+    },
+    methods: {
+        toEdit(payload){
+            this.$emit('toEdit', payload)
+        },
+        toDelete(payload){
+            this.$emit('toDelete', payload)
         }
     }
 }

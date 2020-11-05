@@ -4,7 +4,6 @@ class TaskController {
     static allTasks (req, res, next) {
         Task.findAll({include: [User, Category]})
         .then(tasks => {
-            console.log(tasks)
             res.status(200).json(tasks)
         })
         .catch(err => {
@@ -117,6 +116,7 @@ class TaskController {
 
     static deleteTask (req, res, next) {
         const id = req.params.id
+        console.log(id)
         Task.destroy({
             where: {
                 id: id

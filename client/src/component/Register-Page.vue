@@ -29,9 +29,9 @@
 <script>
 export default {
     name: 'RegisterPage',
-    data (){
+    data(){
         return {
-            name:'',
+            name: '',
             email: '',
             password: ''
         }

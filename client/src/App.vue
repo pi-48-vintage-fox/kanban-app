@@ -17,17 +17,24 @@
     <HomePage 
       v-else-if="pageName == 'HomePage'"
       :tasks="tasks"
-      :category="category">
+      :category="category"
+      @changePage="changePage"
+      @toEdit="toEdit"
+      @toDelete="toDelete">
     </HomePage>
 
     <!-- addpage -->
     <AddPage 
-      v-else-if="pageName == 'AddPage'">
+      v-else-if="pageName == 'AddPage'"
+      :categories="categories"
+      @addTask="addTask">
     </AddPage>
 
     <!-- edit -->
     <EditPage 
-      v-else-if="pageName == 'EditPage'">
+      v-else-if="pageName == 'EditPage'"
+      :detailTask="detailTask"
+      @editPut="editPut">
     </EditPage>
   </div>
 </template>
@@ -47,7 +54,10 @@ export default {
       msg: 'Kanban App by Hutamy Triesthi',
       pageName: 'LoginPage',
       tasks : [],
-      category : []
+      category : [],
+      detailTask : null,
+      id: 0,
+      categories: []
     }
   },
   components: {
@@ -57,16 +67,9 @@ export default {
     AddPage,
     EditPage
   }, methods: {
-    // page() {
-    //   if(access_token){
-    //     this.changePage('HomePage')
-    //   }
-    //   else{
-    //     this.changePage('LoginPage')
-    //   }
-    // },
     changePage (name){
       this.pageName = name
+      this.allCategories()
     },
     fetchTasks (){
       const access_token = localStorage.getItem('access_token')
@@ -124,8 +127,25 @@ export default {
         console.log(err.response)
       })
     },
-    addTask () {
+    allCategories() {
       const access_token = localStorage.getItem('access_token')
+      axios({
+        url: '/categories',
+        method: 'GET',
+        headers: {
+          access_token
+        }
+      })
+      .then(category => {
+        this.categories = category.data
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
+    },
+    addTask (payload) {
+      const access_token = localStorage.getItem('access_token')
+      this.allCategories()
       axios({
         url: '/tasks',
         method: 'POST',
@@ -133,9 +153,9 @@ export default {
           access_token
         },
         data: {
-          title,
-          description,
-          CategoryId
+          title: payload.title,
+          description: payload.description,
+          CategoryId: payload.CategoryId
         }
       })
       .then(task => {
@@ -146,26 +166,14 @@ export default {
         console.log(err.response)
       })
     },
-    taskById(){
-      const access_token = localStorage.getItem('access_token')
-      const id = req.params.id
-      axios({
-        url: `/tasks/${id}`,
-        method: 'GET',
-        headers: {
-          access_token
-        }
-      })
-      .then(task => {
-
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    toEdit (payload){
+      this.detailTask = payload
+      this.pageName = 'EditPage'
+      this.id = payload.id
     },
-    editPut() {
+    editPut(payload) {
       const access_token = localStorage.getItem('access_token')
-      const id = req.params.id
+      const id = this.id
       axios({
         url: `/tasks/${id}`,
         method: 'PUT',
@@ -173,13 +181,14 @@ export default {
           access_token
         },
         data: {
-          title,
-          description,
-          CategoryId
+          title: payload.title,
+          description: payload.description,
+          CategoryId: payload.CategoryId
         }
       })
       .then(task => {
-
+        this.fetchTasks()
+        this.changePage('HomePage')
       })
       .catch(err => {
         console.log(err)
@@ -205,18 +214,22 @@ export default {
         console.log(err)
       })
     },
-    deleteTask () {
-      const id = req.params.id
+    toDelete(payload){
+      this.deleteTask(payload.id)
+    },
+    deleteTask (id) {
       const access_token = localStorage.getItem('access_token')
       axios({
-        url: `tasks/${id}`,
+        url: `/tasks/${id}`,
         method: 'DELETE',
         headers: {
           access_token
         }
       })
       .then(data => {
-
+        console.log(data)
+        this.fetchTasks()
+        this.changePage('HomePage')
       })
       .catch(err => {
         console.log(err)
@@ -224,7 +237,13 @@ export default {
     }
   },
   created() {
-    this.fetchTasks()
+    const access_token = localStorage.getItem('access_token')
+    if(!access_token){
+      this.pageName = 'LoginPage'
+    }else{
+      this.pageName = 'HomePage'
+      this.fetchTasks()
+    }
   }
 }
 </script>
