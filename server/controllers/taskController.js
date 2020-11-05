@@ -12,6 +12,7 @@ module.exports = class taskController {
             let postTask = await Task.create(params)
             res.status(201).json(postTask)
         } catch (error) {
+            console.log('masuk sini',error)
             next(error)
         }
     }
