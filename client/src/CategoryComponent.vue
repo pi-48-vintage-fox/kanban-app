@@ -13,8 +13,22 @@
       ></TaskComponent>
     </div>
     <!-- List End -->
-    <div class="card-footer bg-transparent text-center font-weight-bold">
-      <a href="#"><i class="fas fa-plus-circle"></i><br />Add Task</a>
+    <div v-if="!addMode" class="card-footer bg-transparent text-center font-weight-bold">
+      <a @click.prevent="addTask" href="#"><i class="fas fa-plus-circle"></i><br />Add Task</a>
+    </div>
+    <div v-else class="card-footer">
+        <form>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Task Title">
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" placeholder="Description...">
+            </div>
+            <button type="submit" class="btn btn-primary form-control">Add</button>
+            <button @click.prevent="cancelTask" type="butoon" class="btn btn-primary form-control">Cancel</button>
+        </form>
     </div>
   </div>
 </template>
@@ -23,9 +37,22 @@
 import TaskComponent from "./TaskComponent";
 export default {
   name: "CategoryComponent",
+  data(){
+      return {
+          addMode : false
+      }
+  },
   props: ['cat','tasks','currentId'],
   components : {
       TaskComponent
+  },
+  methods: {
+      addTask(){
+          this.addMode = true
+      },
+      cancelTask(){
+          this.addMode = false
+      }
   },
   computed: {
       tasksCategory(){
