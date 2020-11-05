@@ -23,6 +23,12 @@
   border-radius: 10px;
 }
 
+.login-box {
+  padding : 1rem;
+  border-radius: 10px;
+  align-self: center;
+}
+
 .planning {
   background-color: #bbbfca;
   color: black;
@@ -40,6 +46,11 @@
 
 .comment {
   background-color: #9ad3bc;
+  color: black;
+}
+
+.color-biru {
+  background-color: #bbbfca;
   color: black;
 }
 
