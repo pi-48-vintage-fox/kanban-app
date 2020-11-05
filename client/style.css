@@ -1,0 +1,157 @@
+
+.home {
+  background-image: url("svg/background.jpg");
+  height: 800px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.container {
+  background-color: #ffffff;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  box-shadow: 1px 2px 3px grey;
+}
+
+.creator {
+  text-align: left;
+  position: absolute;
+  top: 109%;
+  left: 11%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.navbar {
+  background-color: #34495e;
+}
+
+
+
+.logo {
+  font-size: 30px;
+  margin-left: 50px;
+  margin-bottom: 0%;
+}
+
+.logo-depan {
+  font-size: 40px;
+  margin-bottom: 0%;
+}
+
+.font-weight-normal {
+  font-size: 20px;
+}
+
+.u-depan {
+  color: #f39c12;
+}
+
+.u-depan:hover {
+  color: #f1c40f;
+}
+
+u {
+  color:  #f39c12;
+}
+
+u:hover {
+  color: #f1c40f;
+}
+
+hr {
+  border-bottom: #c0392b;
+}
+
+.head-category {
+  /* background-color: black; */
+  margin-left: 86px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 89%;
+}
+
+.button-login {
+  padding: 5px;
+  background-color: #3498db;
+  align-items: center;
+  border: 0px solid;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.button-login:hover {
+  box-shadow: 0px 1px 2px grey;
+  background-color: #2980b9;
+}
+
+.category {
+  padding: 10px;
+  font-size: 1.5em;
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: #34495e;
+}
+
+.icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.backlog {
+  border-bottom: 8px solid #c0392b;
+}
+
+.todo {
+  border-bottom: 8px solid #e1b12c;
+}
+
+.doing {
+  border-bottom: 8px solid #2980b9;
+}
+
+.done {
+  border-bottom: 8px solid #27ae60;
+}
+
+.edit {
+  color: #718093;
+}
+
+.edit:hover {
+  color: #60a3bc;
+}
+
+.delete{
+  color: #718093;
+}
+
+.delete:hover {
+  color: #e84118;
+}
+
+.title {
+  margin: 10px;
+  border-top: 0px ;
+  border-top: 1px solid #bdc3c7;
+  border-bottom: 1px solid #bdc3c7;
+  border-left: 1px solid #bdc3c7;
+  border-right: 1px solid #bdc3c7;
+  border-radius: 3px;
+  box-shadow: 0px 1px 1px grey;
+  background-color: #ffffff;
+}
+
+.card-body:hover {
+  box-shadow: 0px 1px 3px grey;
+}
+
+.card{
+  height: 500px;
+  overflow: auto;;
+}
