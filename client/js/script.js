@@ -1,7 +1,6 @@
 let app = new Vue({
     el: '#app',
     data: {
-        message: 'Hello vue',
         page: 'login-page',
         show: false,
         server: 'http://localhost:3000',
@@ -89,6 +88,25 @@ let app = new Vue({
             .then(res => {
                 this.show = false;
                 this.fetchTasks();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        },
+        changeCategory(category, id){
+            axios({
+                method: 'PATCH',
+                url: this.server + `/task/${+id}`,
+                params: +id,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    category: category
+                }
+            })
+            .then(resp => {
+                console.log(resp);
             })
             .catch(err => {
                 console.log(err);
