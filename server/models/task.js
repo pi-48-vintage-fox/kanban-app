@@ -31,8 +31,18 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Category cannot be empty!"
         }
       }
+    },
+    description: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Category cannot be empty!"
+        }
+      }
     }
-  }, {
+  }, 
+  {
     sequelize,
     modelName: 'Task',
   });
