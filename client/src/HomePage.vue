@@ -30,183 +30,35 @@
     <!-- Content -->
     <div class="d-flex flex-wrap justify-content-around align-items-start">
       <!-- Backlog -->
-      <div class="card border-primary mt-3 mb-3 order-1" style="max-width: 18rem; max-height: 500px">
-        <div class="card-header font-weight-bold text-light display-4 text-center red">
-          Backlog
-        </div>
-        <!-- List -->
-        <div style="overflow: auto; position: relative">
-          <div class="card-body" v-for="task in backlogFilter" :key="task.id">
-            <h5 class="card-title">{{ task.title }}</h5>
-            <hr />
-            <p class="card-text">{{ task.description }}</p>
-            <p class="text-muted">Created at : {{ getDate(task.createdAt) }}</p>
-            <hr />
-            <!-- Button Control -->
-            <div class="d-flex justify-content-between">
-              <div v-if="task.UserId === +currentId">
-                <a href="#"><i class="fas fa-chevron-circle-right"></i></a>
-              </div>
-              <div class="text-muted">
-                <p class="text-center">By : {{ task.User.email }}</p>
-              </div>
-              <div v-if="task.UserId === +currentId">
-                <a href="#">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href="#">
-                  <i class="fas fa-trash-alt"></i>
-                </a>
-              </div>
-            </div>
-            <!-- Button Control End -->
-          </div>
-        </div>
-        <!-- List End -->
-        <div class="card-footer bg-transparent text-center font-weight-bold">
-          <a href="#"><i class="fas fa-plus-circle"></i><br />Add Task</a>
-        </div>
-      </div>
+      <CategoryComponent
+      v-for="cat in categories"
+      :key="cat.id"
+      :cat="cat"
+      :tasks="tasks"
+      :currentId="currentId"
+      ></CategoryComponent>
       <!-- Backlog End -->
-
-      <!-- Todo -->
-      <div class="card border-primary mt-3 mb-3 order-2" style="max-width: 18rem; max-height: 500px">
-        <div class="card-header font-weight-bold text-center text-light display-4 orange">
-          Todo
-        </div>
-        <!-- List -->
-        <div style="overflow: auto; position: relative">
-          <div class="card-body" v-for="task in todoFilter" :key="task.id">
-            <h5 class="card-title">{{ task.title }}</h5>
-            <hr />
-            <p class="card-text">{{ task.description }}</p>
-            <p class="text-muted">Created at : {{ getDate(task.createdAt) }}</p>
-            <hr />
-            <!-- Button Control -->
-            <div class="d-flex justify-content-between">
-              <div v-if="task.UserId === +currentId">
-                <a href="#"><i class="fas fa-chevron-circle-left"></i></a>
-                <a href="#"><i class="fas fa-chevron-circle-right"></i></a>
-              </div>
-              <div class="text-muted">
-                <p class="text-center">By : {{ task.User.email }}</p>
-              </div>
-              <div v-if="task.UserId === +currentId">
-                <a href="#">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href="#">
-                  <i class="fas fa-trash-alt"></i>
-                </a>
-              </div>
-            </div>
-            <!-- Button Control End -->
-          </div>
-        </div>
-        <!-- List End -->
-        <div class="card-footer bg-transparent text-center font-weight-bold">
-          <a href="#"><i class="fas fa-plus-circle"></i><br />Add Task</a>
-        </div>
-      </div>
-      <!-- Todo End -->
-
-      <!-- Doing -->
-      <div class="card border-primary mt-3 mb-3 order-4" style="max-width: 18rem; max-height: 500px">
-        <div class="card-header font-weight-bold text-center text-light display-4 green">
-          Doing
-        </div>
-        <!-- List -->
-        <div style="overflow: auto; position: relative">
-          <div class="card-body" v-for="task in doingFilter" :key="task.id">
-            <h5 class="card-title">{{ task.title }}</h5>
-            <hr />
-            <p class="card-text">{{ task.description }}</p>
-            <p class="text-muted">Created at : {{ getDate(task.createdAt) }}</p>
-            <hr />
-            <!-- Button Control -->
-            <div class="d-flex justify-content-between">
-              <div v-if="task.UserId === +currentId">
-                <a href="#"><i class="fas fa-chevron-circle-left"></i></a>
-                <a href="#"><i class="fas fa-chevron-circle-right"></i></a>
-              </div>
-              <div class="text-muted">
-                <p class="text-center">By : {{ task.User.email }}</p>
-              </div>
-              <div v-if="task.UserId === +currentId">
-                <a href="#">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href="#">
-                  <i class="fas fa-trash-alt"></i>
-                </a>
-              </div>
-            </div>
-            <!-- Button Control End -->
-          </div>
-        </div>
-        <!-- List End -->
-        <div class="card-footer bg-transparent text-center font-weight-bold">
-          <a href="#"><i class="fas fa-plus-circle"></i><br />Add Task</a>
-        </div>
-      </div>
-      <!-- Doing End -->
-
-      <!-- Done -->
-      <div class="card border-primary mt-3 mb-3 order-20" style="max-width: 18rem; max-height: 500px">
-        <div class="card-header font-weight-bold text-light display-4 text-center blue">
-          Done
-        </div>
-        <!-- List -->
-        <div style="overflow: auto; position: relative">
-          <div class="card-body" v-for="task in doneFilter" :key="task.id">
-            <h5 class="card-title">{{ task.title }}</h5>
-            <hr />
-            <p class="card-text">{{ task.description }}</p>
-            <p class="text-muted">Created at : {{ getDate(task.createdAt) }}</p>
-            <hr />
-            <!-- Button Control -->
-            <div class="d-flex justify-content-between">
-              <div v-if="task.UserId === +currentId">
-                <a href="#"><i class="fas fa-chevron-circle-left"></i></a>
-              </div>
-              <div class="text-muted">
-                <p class="text-center">By : {{ task.User.email }}</p>
-              </div>
-              <div v-if="task.UserId === +currentId">
-                <a href="#">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href="#">
-                  <i class="fas fa-trash-alt"></i>
-                </a>
-              </div>
-            </div>
-            <!-- Button Control End -->
-          </div>
-        </div>
-        <!-- List End -->
-        <div class="card-footer bg-transparent text-center font-weight-bold">
-          <a href="#"><i class="fas fa-plus-circle"></i><br />Add Task</a>
-        </div>
-      </div>
-      <!-- DOne End -->
     </div>
     <!-- Content End -->
   </div>
   <!-- Home End -->
 </template>
-
 <script>
 import axios from "../config/axios"
+import CategoryComponent from "./CategoryComponent"
 export default {
   name: "HomePage",
   data() {
     return {
       tasks : [],
+      categories : [],
       currentId : '',
       currentUser : ''
     }
 
+  },
+  components : {
+    CategoryComponent
   },
   props : ['changePage'],
   methods : {
@@ -219,6 +71,20 @@ export default {
       .then(result=>{
           console.log(result.data)
           this.tasks = result.data
+      })
+      .catch(err=>{
+          console.log(err);
+      })
+    },
+    fetchCategories(){
+      axios({
+          method : 'get',
+          url : '/categories',
+          headers : {access_token : localStorage.access_token}
+      })
+      .then(result=>{
+          console.log(result.data)
+          this.categories = result.data
       })
       .catch(err=>{
           console.log(err);
@@ -280,6 +146,7 @@ export default {
   created(){
     this.inituser()
     this.fetchTasks()
+    this.fetchCategories()
   }
 };
 </script>
