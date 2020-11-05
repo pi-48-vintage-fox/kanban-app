@@ -56,12 +56,32 @@ class UserController {
         msg: "Regstration Success",
         access_token:token
       })
-
     } catch (err) {
       next(err)
     }
   }
 
+  static async assign(req,res,next){
+    try {
+      let id = req.loggedInUser.id
+      let data = {
+        OrganizationId
+      }
+
+      let user = await User.update(data,{
+        where:{
+          id
+        }
+      })
+
+      res.status(200).json({
+        msg: "Success asign user to Organization",
+        user
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
 }
 
 module.exports = UserController
