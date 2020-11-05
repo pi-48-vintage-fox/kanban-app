@@ -193,7 +193,6 @@ Add data to TODO
     
      - **Code:**  500
         **Content:**  `{ error : "Internal Server Error" }
-        
  ## ** Oauth SIGN IN**
 
 Oauth handler
