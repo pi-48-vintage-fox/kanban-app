@@ -49,7 +49,7 @@ class UserController {
                     name: user.name
                 }
                 let access_token = signToken(data)
-                res.status(201).json({access_token, name: data.name})
+                res.status(200).json({access_token, name: data.name})
             }
         })
         .catch(err => {

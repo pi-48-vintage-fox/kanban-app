@@ -4,6 +4,7 @@ class TaskController {
     static allTasks (req, res, next) {
         Task.findAll({include: [User, Category]})
         .then(tasks => {
+            console.log(tasks)
             res.status(200).json(tasks)
         })
         .catch(err => {
@@ -122,14 +123,14 @@ class TaskController {
             }
         })
         .then(deletedTask => {
-            if(!deletedTodo){
+            if(!deletedTask){
                 let err = {
                     name: 'Not Found'
                 }
                 throw next(err)
             }
             else {
-                res.status(200).json({message: 'Todo sucess to delete'})
+                res.status(200).json({message: 'Task sucess to delete'})
             }
         })
         .catch(err =>{
