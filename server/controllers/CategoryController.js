@@ -41,11 +41,9 @@ class CategoryController {
         name: req.body.name
       }
 
-      let category = await Category.update(data, {
-        where: {
-          id
-        }
-      })
+      let category = await Category.findByPk(id)
+      category.name = data.name
+      category.save()
 
       res.status(200).json({
         msg: "Category edited successfully",
@@ -61,7 +59,7 @@ class CategoryController {
       let id = req.params.id
 
       let category = await Category.findByPk(id)
-      req.status(200).json({
+      res.status(200).json({
         msg: "Category deleted",
         category
       })

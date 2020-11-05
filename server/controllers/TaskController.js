@@ -51,10 +51,9 @@ class TaskController{
           id
         }
       })
-
+      if(!task[0]) throw {msg : "Task with id " + id + " Does not exist", status : 400}
       res.status(200).json({
         msg: "Task Updated",
-        task
       })
 
     } catch (err) {
@@ -90,15 +89,14 @@ class TaskController{
         CategoryId: req.body.CategoryId
       }
 
-      let task = Task.update(data,{
+      let task = await Task.update(data,{
         where:{
           id
         }
       })
-
+      if(!task[0]) throw {msg : "Task with id " + id + " Does not exist", status : 400}
       res.status(200).json({
-        msg: "Task updated (category change)",
-        task
+        msg: "Task updated (category change)"
       })
     } catch (err) {
       next(err)
@@ -109,12 +107,12 @@ class TaskController{
     try { 
       let id = req.params.id
 
-      let task = Task.findByPk(id)
-      res.send(200).json({
-        msg: "Task deleted",
-        task
-      })
+      let task = await Task.findByPk(id)
       task.destroy()
+      res.status(200).json({
+        msg: "Task deleted",  
+        task      
+      })
     } catch (err) {
       next(err)
     }

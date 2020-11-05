@@ -8,13 +8,12 @@ const categoryRoutes = require('./categoryRoutes');
 const authenticate = require('../middlewares/authMiddleware');
 const Routes = express.Router()
 
-Routes.post("/login",UserController)
-Routes.post("/register",UserController)
+Routes.post("/login",UserController.login)
+Routes.post("/register",UserController.register)
 
-Routes.use(authenticate)
-Routes.use("/tasks",taskRoute)
-Routes.use("/users",userRoute)
-Routes.use("/organizations",organizationRoute)
-Routes.use("/categories",categoryRoutes)
+Routes.use("/tasks",authenticate,taskRoute)
+Routes.use("/users",authenticate,userRoute)
+Routes.use("/organizations",authenticate,organizationRoute)
+Routes.use("/categories",authenticate,categoryRoutes)
 
 module.exports = Routes

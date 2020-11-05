@@ -4,7 +4,7 @@ class OrganizationController {
 
   static async index(req, res, next) {
     try {
-      let organizations = Organization.findAll()
+      let organizations = await Organization.findAll()
       res.status(200).json({
         msg: "Success",
         organizations
@@ -21,7 +21,7 @@ class OrganizationController {
       }
 
       let organization = await Organization.create(data)
-
+      
       res.status(200).json({
         msg: "Organization Added",
         organization
@@ -38,12 +38,9 @@ class OrganizationController {
         name: req.body.name
       }
 
-      let organization = await Organization.update(data,{
-        where:{
-          id
-        }
-      })
-      
+      let organization = await Organization.findByPk(id)
+      organization.name = data.name
+      organization.save()
       res.status(200).json({
         msg : "Organization updated",
         organization

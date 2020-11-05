@@ -7,6 +7,7 @@ taskRoute.get('/',TaskController.index)
 taskRoute.post('/',TaskController.insert)
 taskRoute.put("/:id",TaskController.update)
 taskRoute.patch("/:id",TaskController.updateTaskCategory)
+taskRoute.patch("/tags/:id",TaskController.addTag)
 taskRoute.delete("/:id",TaskController.destroy)
 
 module.exports = taskRoute
