@@ -15,6 +15,7 @@ body {
 
 nav {
   background-color: #e6ffff;
+  border-bottom-style: solid;
   display: flex;
   height: 60px;
   padding: 0px 10px;
@@ -52,10 +53,16 @@ nav .nav-logo {
   border-style: solid;
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  background-color: lightgray;
   display: flex;
+  flex-direction: column;
   height: 30rem;
   padding: 10px;
+}
+
+.content-item {
+  background-color: lavender;
+  height: 10vh;
+  margin-bottom: 10px;
 }
 
 .display-1 {
@@ -106,6 +113,15 @@ nav .nav-logo {
   cursor: pointer;
 }
 
+.organizations-menu {
+  background-color: #e6ffff;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.2);
+  border-style: solid;
+  margin-top: 9vh;
+  padding: 15px;
+  width: 10vw;
+}
+
 .register-card {
   border-style: solid;
   border-radius: 10px;
@@ -120,7 +136,6 @@ nav .nav-logo {
   display: flex;
   flex-direction: column;
   margin: 10px;
-  margin-top: 1vh;
   padding: 10px;
   transition: 300ms;
 }

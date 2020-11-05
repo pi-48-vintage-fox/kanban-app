@@ -33,12 +33,12 @@ class Controller {
           id: req.params.id
         }
       })
-      const task = await Task.findAll({
+      const tasks = await Task.findAll({
         where: {
           category: category.name
         }
       })
-      if(task) {
+      if(tasks.length > 0) {
         throw {name: 'TasksDetected'}
       } else {
         const destroyed = await Category.destroy({

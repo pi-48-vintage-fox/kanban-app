@@ -18,6 +18,9 @@ class Error {
     } else if(err.name === 'WrongEmailPassword') {
       status = 401;
       message = 'Wrong email/password';
+    } else if(err.name === 'TasksDetected') {
+      status = 400;
+      message = 'Cannot delete category with tasks in it'
     }
 
     res.status(status).json({message})
