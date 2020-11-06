@@ -15,6 +15,11 @@ app.use(express.json());
 app.use(urlencoded({extended: true}));
 
 // Middlewares
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Server is running'
+  })
+})
 app.use('/', routes);
 app.use(Error.handle);
 
