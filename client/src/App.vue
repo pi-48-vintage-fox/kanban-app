@@ -43,34 +43,14 @@ import EditPage from "./components/EditPage";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import NavPage from "./components/NavPage";
+import axios from "../config/axios";
 export default {
   name: "App",
   data() {
     return {
       msg: "test vue",
       pageName: "home-page",
-      dataTask: [
-        {
-          title: "Test task",
-          description: "Test description dari task",
-          category: "backlog",
-        },
-        {
-          title: "Test task",
-          description: "Test description dari task",
-          category: "todo",
-        },
-        {
-          title: "Test task",
-          description: "Test description dari task",
-          category: "doing",
-        },
-        {
-          title: "Test task",
-          description: "Test description dari task",
-          category: "done",
-        },
-      ],
+      dataTask: [],
     };
   },
   components: {
@@ -80,6 +60,27 @@ export default {
     LoginPage,
     RegisterPage,
     NavPage,
+  },
+  methods: {
+    fetchTask() {
+      axios({
+        url: "/tasks",
+        method: "GET",
+        headers: {
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiaWF0IjoxNjA0NjU5MDU2fQ.t-wJGh8l-bbTITqBsa_nGnfaqNGaZbw5o5Yj_KGIdHc",
+        },
+      })
+        .then(({ data }) => {
+          this.dataTask = data;
+        })
+        .catch((err) => {
+          console.log({ err });
+        });
+    },
+  },
+  created() {
+    this.fetchTask();
   },
 };
 </script>
