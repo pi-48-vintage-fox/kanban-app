@@ -32,7 +32,8 @@ export default {
         return{
             pageName: "login-page",
             tasks: [],
-            categories : []
+            categories : [],
+            baseURL:"https://kanban-app-septian.herokuapp.com/"
         }
     },
     components: {
@@ -166,7 +167,7 @@ export default {
     },
     register(payload){
         axios({
-            url: '/user/register',
+            url: baseURL+'/user/register',
             method: 'POST',
             data: {
                 email: payload.email,
