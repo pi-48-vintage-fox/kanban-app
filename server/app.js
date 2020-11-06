@@ -7,7 +7,7 @@ const app = express();
 const Error = require('./middlewares/errorHandler')
 const { urlencoded } = require('express');
 const cors = require('cors');
-const port = 3000;
+const port = process.env.PORT;
 const routes = require('./routes/index')
 
 // Body parser
