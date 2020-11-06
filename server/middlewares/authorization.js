@@ -1,9 +1,9 @@
-const { ToDo } = require('../models/index')
+const { Task } = require('../models/index')
 
 async function authorization(req, res, next) {
     const { id } = req.params
     try {
-        const data = await ToDo.findByPk(id)
+        const data = await Task.findByPk(id)
         if(!data) {
             throw { message: `Data's Not Found`, status: 404 }
         } else if(data.UserId === req.loggedIn.id) {

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="482363522772-40b3pq35rms4l3f5i4n17v6pla8kvkjo.apps.googleusercontent.com">
     <link rel="stylesheet" href="./public/util.css">
     <link rel="stylesheet" href="style.css">
 
@@ -11,191 +12,20 @@
     
     <!-- <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" /> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-    
-    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/98.css"> -->
+
+    <title>Kanban+</title>
 </head>
 <body>
-    <!-- HOME PAGE========================================================= -->
-    <div class="homeface">
-        <!-- Backlog========================================== -->
-        <div class="scroll" style="width: 20%; height: auto;">
-            <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
-            Backlog
-            <i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;"></i>
-            </div>
-            <!-- ====================================== -->
-            <div class="cardedit">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: small;">Create Database</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">13 March 2020</h6>
-                        <p class="card-text" style="font-size: smaller;">Create and migrate the database.</p>
-                        <div class="edit-delete-check">
-                            <i class="fa fa-check" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-pencil" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-trash" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                        </div>
+    <div id="app">
         
-                    </div>
-                </div>
-            </div>
-            <!-- ====================================== -->
-            <div class="cardedit">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: small;">Create Oauth</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">13 March 2020</h6>
-                        <p class="card-text" style="font-size: smaller;">Register the application to google.</p>
-                        <div class="edit-delete-check">
-                            <i class="fa fa-check" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-pencil" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-trash" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                        </div>
-        
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product========================================== -->
-        <div class="scroll" style="width: 20%; height: auto;">
-            <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
-            Product
-            <i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;"></i>
-            </div>
-            <!-- ====================================== -->
-            <div class="cardedit">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: small;">Create Database</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">13 March 2020</h6>
-                        <p class="card-text" style="font-size: smaller;">Create and migrate the database.</p>
-                        <div class="edit-delete-check">
-                            <i class="fa fa-check" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-pencil" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-trash" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                        </div>
-        
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Developmen========================================== -->
-        <div class="scroll" style="width: 20%; height: auto;">
-            <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
-            Development
-            <i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;"></i>
-            </div>
-            <!-- ====================================== -->
-            <div class="cardedit">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: small;">Create Database</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">13 March 2020</h6>
-                        <p class="card-text" style="font-size: smaller;">Create and migrate the database.</p>
-                        <div class="edit-delete-check">
-                            <i class="fa fa-check" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-pencil" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-trash" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                        </div>
-        
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ====================================== -->
-            <div class="cardedit">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: small;">Create Oauth</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">13 March 2020</h6>
-                        <p class="card-text" style="font-size: smaller;">Register the application to google.</p>
-                        <div class="edit-delete-check">
-                            <i class="fa fa-check" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-pencil" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-trash" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                        </div>
-        
-                    </div>
-                </div>
-            </div>
-            <!-- ====================================== -->
-            <div class="cardedit">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: small;">Create Database</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">13 March 2020</h6>
-                        <p class="card-text" style="font-size: smaller;">Create and migrate the database.</p>
-                        <div class="edit-delete-check">
-                            <i class="fa fa-check" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-pencil" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-trash" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                        </div>
-        
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Done========================================== -->
-        <div class="scroll" style="width: 20%; height: auto;">
-            <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
-            Done
-            <i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;"></i>
-            </div>
-            <!-- ====================================== -->
-            <div class="cardedit">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: small;">Create Database</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">13 March 2020</h6>
-                        <p class="card-text" style="font-size: smaller;">Create and migrate the database.</p>
-                        <div class="edit-delete-check">
-                            <i class="fa fa-check" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-pencil" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-trash" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                        </div>
-        
-                    </div>
-                </div>
-            </div>
-            <!-- ====================================== -->
-            <div class="cardedit">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: small;">Create Oauth</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">13 March 2020</h6>
-                        <p class="card-text" style="font-size: smaller;">Register the application to google.</p>
-                        <div class="edit-delete-check">
-                            <i class="fa fa-check" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-pencil" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                            <i class="fa fa-trash" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
-                        </div>
-        
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-   
-    <div id="navbar-bottom" class="btn-group dropup">
-        <img id="button-start" src="./public/image/active.png" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-    </div>
-    <!-- END HOME========================================================= -->
 
-    <!-- LOGIN PAGE========================================================= -->
-    
-    <!-- END LOGIN========================================================= -->
-
-</body>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="./src/main.js"></script>
+</body>
 </html>

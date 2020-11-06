@@ -1,0 +1,237 @@
+<template>
+    <HomePage 
+        v-if="pageName == 'home-page'"
+        @add="add"
+        @logout="logout"
+        :tasks="tasks"
+        @move="move"
+        @deleteTask="deleteTask"
+        @editTask="editTask">
+    </HomePage>
+    <LoginPage
+        v-else-if="pageName == 'login-page'"
+        @login="login"
+        @register="register">
+    </LoginPage>
+</template>
+
+<script>
+import HomePage from './components/HomePage'
+import LoginPage from './components/LoginPage'
+import axios from './config/axios'
+export default {
+    name: 'App',
+    data() {
+        return {
+            pageName: 'login-page',
+            tasks: []
+        }
+    },
+    components: {
+        HomePage,
+        LoginPage
+    },
+    methods: {
+        login(payload) {
+            axios({
+                url: '/login',
+                method: 'POST',
+                data: {
+                    email: payload.email,
+                    password: payload.password
+                }
+            })
+            .then(data => {
+                console.log(data);
+                localStorage.setItem('access_token', data.data.access_token)
+                localStorage.setItem('id', data.data.id)
+                localStorage.setItem('name', data.data.name)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Login Succes',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.pageName = 'home-page' 
+            })
+            .catch(err => {
+                Swal.fire(err.response.data.message);
+            })
+        },
+        register(payload) {
+            axios({
+                url: '/register',
+                method: 'POST',
+                data: {
+                    name: payload.name,
+                    email: payload.email,
+                    password: payload.password
+                }
+            })
+            .then(data => {
+                console.log(data);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Register Success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+            .catch(err => {
+                Swal.fire(err.response.data.message);
+            })
+        },
+        logout() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.pageName = 'login-page'
+                    Swal.fire(
+                        'Good Bye!',
+                        'Thanks for Coming.',
+                        '-Adrian-'
+                    )
+                }
+            })
+            .catch(err => {
+                Swal.fire(err.response.data.message);
+            })
+            
+        },
+        add(payload) {
+            axios({
+                url: '/tasks',
+                method: 'POST',
+                data: {
+                    title: payload.title,
+                    description: payload.description,
+                    category: payload.category,
+                    UserId: payload.UserId
+                },
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .then(data => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+            .catch(err => {
+                Swal.fire(err.response.data.message);
+            })
+        },
+        showTask() {
+            axios({
+                url: '/tasks',
+                method: 'GET',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .then(({data}) => {
+                this.tasks = data
+            })
+            .category(err => {
+                Swal.fire(err.response.data.message);
+            })
+        },
+        move(payload) {
+            axios({
+                url: `/tasks/${payload.id}`,
+                method: 'PATCH',
+                data: {
+                    category: payload.category
+                },
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .then(data => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your task has been moved',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+            .catch(err => {
+                Swal.fire(err.response.data.message);
+            })
+        },
+        deleteTask(payload) {
+            axios({
+                url: `/tasks/${payload.id}`,
+                method: 'DELETE',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .then(data => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your task has been deleted',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+            .catch(err => {
+                Swal.fire(err.response.data.message);
+            })
+        },
+        editTask(payload) {
+            axios({
+                url: `/tasks/${payload.id}`,
+                method: 'PUT',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    title: payload.title,
+                    description: payload.description
+                }
+            })
+            .then(data => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your task has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+            .catch(err => {
+                Swal.fire(err.response.data.message);
+            })
+        }  
+    },
+    created() {
+        let access_token = localStorage.getItem('access_token')
+        if(!access_token) {
+            this.pageName = 'login-page'
+        } else {
+            this.pageName = 'home-page'
+            this.showTask()
+        }
+    }
+}
+</script>
+
+<style>
+
+</style>

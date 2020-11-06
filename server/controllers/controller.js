@@ -63,6 +63,7 @@ class Controller {
                 })
             } else {
                 const id = user.id
+                const name = user.name
                 const access_token = signToken({
                     id: user.id,
                     name: user.name,
@@ -71,7 +72,8 @@ class Controller {
 
                 res.status(200).json({
                     access_token,
-                    id
+                    id,
+                    name
                 })
             }
         } catch (err) {
@@ -132,7 +134,7 @@ class Controller {
                 title: req.body.title,
                 description: req.body.description,
                 category: "Backlog",
-                UserId: req.UserId,
+                UserId: req.body.UserId,
             }
             const newTask = await Task.create(data)
             res.status(200).json(data)
