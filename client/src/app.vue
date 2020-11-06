@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     register(payload) {
-      Axios.post("http://localhost:3000/register", {
+      Axios.post("https://kanban-app-1.herokuapp.com/register", {
         email: payload.email,
         password: payload.password,
       })
@@ -55,7 +55,7 @@ export default {
         });
     },
     login(payload) {
-      Axios.post("http://localhost:3000/login", {
+      Axios.post("https://kanban-app-1.herokuapp.com/login", {
         email: payload.email,
         password: payload.password,
       })
@@ -73,7 +73,7 @@ export default {
       this.fetchTasks();
     },
     fetchTasks() {
-      Axios.get("http://localhost:3000/task", {
+      Axios.get("https://kanban-app-1.herokuapp.com/task", {
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -87,7 +87,7 @@ export default {
     },
     addTask(value) {
       Axios.post(
-        "http://localhost:3000/task",
+        "https://kanban-app-1.herokuapp.com/task",
         {
           title: value.title,
           description: value.description,
@@ -108,7 +108,7 @@ export default {
     },
     editTask(value) {
       Axios.put(
-        `http://localhost:3000/task/${value.id}`,
+        `https://kanban-app-1.herokuapp.com/${value.id}`,
         {
           title: value.title,
           description: value.description,
@@ -130,7 +130,7 @@ export default {
     },
     editCategory(value) {
       Axios.patch(
-        `http://localhost:3000/task/${value.id}`,
+        `https://kanban-app-1.herokuapp.com/${value.id}`,
         {
           category: value.category,
         },
@@ -150,7 +150,7 @@ export default {
     },
     deleteTask(value) {
       console.log(value);
-      Axios.delete(`http://localhost:3000/task/${value}`, {
+      Axios.delete(`https://kanban-app-1.herokuapp.com/task/${value}`, {
         headers: {
           access_token: localStorage.getItem("access_token"),
         },

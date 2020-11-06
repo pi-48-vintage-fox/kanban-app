@@ -75,7 +75,7 @@ export default {
       var google_access_token = googleUser.getAuthResponse().id_token;
       Axios({
         method: "POST",
-        url: `http://localhost:3000/googleLogin`,
+        url: `https://kanban-app-1.herokuapp.com/googleLogin`,
         headers: {
           google_access_token,
         },
