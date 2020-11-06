@@ -27,14 +27,10 @@
       >
     </div>
     <!-- OAUTH -->
-    <div class="input-group">
+    <div class="input-group" >
       <h6 class="mt-2 text-white">or sign up using</h6>
       &nbsp;
-      <div
-        class="flex-c-m m-r-5 g-signin2"
-        data-longtitle="true"
-        data-onsuccess="onSignIn"
-      ></div>
+      <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>
     </div>
     <!-- OAUTH -->
   </div>
@@ -48,7 +44,8 @@ export default {
   data(){
     return{
       email:'',
-      password:''
+      password:'',
+      clientId:'955542188652-0lsbb6ugk8jo89g2ila58jm7mu3cuf7p.apps.googleusercontent.com'
     }
   },
   props:['reloadUlang'],
@@ -70,6 +67,31 @@ export default {
 
     register(){
       this.$emit('changePage','register-page')
+    },
+    OnGoogleAuthSuccess (idToken) {
+      var google_access_token = idToken
+      // Receive the idToken and make your magic with the backend
+      axios({
+        url:'/user/googleLogin',
+        method:'POST',
+        data:{
+          google_access_token
+        }
+      })
+      .then(res=>{
+        // console.log(res.data.access_token,'sudah sampe sini')
+        localStorage.access_token = res.data.access_token
+        localStorage.name = res.data.name
+        this.$emit('changePage','home-page')
+        this.reloadUlang()
+      })
+      .catch(err=>{
+        console.log(err.response.data.msg,'masuk sini')
+      })
+
+    },
+    OnGoogleAuthFail (error) {
+      console.log(error)
     }
   }
 };

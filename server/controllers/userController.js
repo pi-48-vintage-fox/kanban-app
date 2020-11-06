@@ -1,6 +1,7 @@
 const {User} = require('../models/index')
 const bcrypt = require('bcryptjs')
 const jwt =require('jsonwebtoken')
+const {OAuth2Client} = require('google-auth-library')
 
 module.exports= class userController{
 
@@ -44,6 +45,34 @@ module.exports= class userController{
     }
 
     static async google(req,res,next){
-        
+        //verify token
+        let {google_access_token} = req.body
+        const client = new OAuth2Client(process.env.CLIENT_ID)
+        async function verify(){
+            const ticket = await client.verifyIdToken({
+                idToken:google_access_token,
+                audience:process.env.CLIENT_ID
+            })
+            const payload = ticket.getPayload()
+            let fullName = `${payload.given_name} ${payload.family_name}`
+            let cariUser = await User.findOne({where:{email:payload.email}})
+           
+            if(cariUser){
+                //generate token
+                let access_token =  jwt.sign({id:cariUser.id,email:cariUser.email},process.env.SECRET)
+                res.status(200).json({access_token, name:cariUser.name ,picture:payload.picture,id:cariUser.id})
+            }else{
+                //asumsi login pakai id google tidak bisa pakai password emailnya
+                let dataBaru = {
+                    email:payload.email,
+                    name: payload.name,
+                    password:'udahada'
+                }
+                let buatUser = await User.create(dataBaru)
+                let access_token =  jwt.sign({id:buatUser.id,email:buatUser.email},process.env.SECRET)
+                res.status(200).json({access_token, name:buatUser.name, picture:payload.picture, id:cariUser.id})
+            }
+        }
+        verify().catch(console.error)
     }
 }
