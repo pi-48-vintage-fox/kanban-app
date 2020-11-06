@@ -31,8 +31,20 @@ class TaskController {
   static changeCat(req, res, next) {
     const id = req.params.id
     Task.findByPk(id)
-    .then(() => {
-      const cat = req.body.category
+    .then(data => {
+      let cat = ''
+      if(data.category == 'Backlog') {
+        cat = 'Todo'
+      }
+      else if(data.category == 'Todo') {
+        cat = 'Doing'
+      }
+      else if(data.category == 'Doing') {
+        cat = 'Done'
+      }
+      else if(data.category == 'Done') {
+        cat = 'Backlog'
+      }
       return Task.update({ category: cat }, {
         where: {
           id: id

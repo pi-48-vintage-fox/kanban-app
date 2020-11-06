@@ -2,9 +2,6 @@ const { Task } = require('../models/index')
 
 function authorization(req, res, next) {
   const id = req.params.id
-  console.log(id, 'ini id')
-  console.log(req.params, 'ini params')
-  console.log(req.body, 'ini body')
   Task.findByPk(id)
   .then(data => {
     if(!data) {

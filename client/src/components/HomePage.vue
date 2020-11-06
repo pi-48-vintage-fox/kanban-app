@@ -24,10 +24,15 @@
           :key="i"
           :categoryTitle="cat"
           :tasks="tasks"
+          :fetchTaskCat="fetchTasks"
         ></Category>
       </div>
     </div>
-    <AddTask v-else-if="page == 'add-task'" @hp-change="hpChange"></AddTask>
+    <AddTask
+      v-else-if="page == 'add-task'"
+      @hp-change="hpChange"
+      :fetchTaskProps="fetchTasks"
+    ></AddTask>
     <EditTask v-else-if="page == 'edit-task'" @hp-change="hpChange"></EditTask>
   </section>
 </template>
@@ -65,6 +70,10 @@ export default {
     logout() {
       localStorage.clear();
       this.$emit("changePage", "login-page");
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log("User signed out.");
+      });
     },
 
     hpChange(page) {
@@ -74,7 +83,7 @@ export default {
   components: {
     Category,
     AddTask,
-    EditTask
+    EditTask,
   },
   props: ["categories"],
   created() {

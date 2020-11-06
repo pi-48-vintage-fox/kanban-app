@@ -29,8 +29,13 @@
             ></textarea>
           </div>
           <div class="form-group">
-            <label for="addCat">Category</label><br>
-            <select name="addCat" id="addCat" class="form-control" v-model="cat">
+            <label for="addCat">Category</label><br />
+            <select
+              name="addCat"
+              id="addCat"
+              class="form-control"
+              v-model="cat"
+            >
               <option value="">- Select Category -</option>
               <option value="Backlog">Backlog</option>
               <option value="Todo">Todo</option>
@@ -42,7 +47,9 @@
             Add Task
           </button>
           <div class="mt-1 text-center">
-            <a href="#" @click.prevent="$emit('hp-change', 'default')">Back to homepage</a>
+            <a href="#" @click.prevent="$emit('hp-change', 'default')"
+              >Back to homepage</a
+            >
           </div>
           <p class="mt-5 mb-3 text-center text-muted">&copy; RizkyAkhid</p>
         </form>
@@ -52,43 +59,43 @@
 </template>
 
 <script>
-import axios from '../config/axios'
+import axios from "../config/axios";
 export default {
   name: "AddTask",
+  props: ["fetchTaskProps"],
   data() {
     return {
-      title: '',
-      desc: '',
-      cat: ''
-    }
+      title: "",
+      desc: "",
+      cat: "",
+    };
   },
   methods: {
     addTask() {
       axios({
         method: "POST",
-        url: '/tasks',
+        url: "/tasks",
         data: {
           title: this.title,
           description: this.desc,
-          category: this.cat
+          category: this.cat,
         },
         headers: {
-          access_token: localStorage.getItem("access_token")
-        }
+          access_token: localStorage.getItem("access_token"),
+        },
       })
-      .then(res => {
-        console.log('success!')
-        this.$emit('hp-change', 'default')
-        this.title = '',
-        this.desc = '',
-        this.cat = ''
-      })
-      .catch(err => {
-        console.log('error');
-        console.log(err)
-      })
-    }
-  }
+        .then((res) => {
+          console.log("success!");
+          this.fetchTaskProps();
+          this.$emit("hp-change", "default");
+          (this.title = ""), (this.desc = ""), (this.cat = "");
+        })
+        .catch((err) => {
+          console.log("error");
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 

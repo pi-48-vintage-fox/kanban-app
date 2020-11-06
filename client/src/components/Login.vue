@@ -33,9 +33,14 @@
           <button class="btn btn-lg btn-primary btn-block" type="submit">
             Login
           </button>
-          <!-- <div class="mt-2">
-          <div class="g-signin2" data-width="300" data-longtitle="true" data-onsuccess="onSignIn"></div>
-        </div> -->
+          <div class="mt-2">
+            <div
+              class="g-signin2"
+              data-width="300"
+              data-longtitle="true"
+              data-onsuccess="onSignIn"
+            ></div>
+          </div>
           <div class="mt-1">
             <a href="#" @click="toRegisterPage"
               >Don't have any account? Register here!</a
@@ -64,7 +69,6 @@ export default {
       this.$emit("changePage", "reg-page");
     },
     login() {
-      console.log(this.email, this.password);
       axios({
         method: "POST",
         url: "/login",
@@ -73,15 +77,25 @@ export default {
           password: this.password,
         },
       })
-      .then(({ data }) => {
-        console.log(data)
-        localStorage.setItem("access_token", data.access_token)
-        this.email = ''
-        this.password = ''
-        this.$emit('changePage', 'homepage')
-      })
-      .catch(err => {
-        console.log(err)
+        .then(({ data }) => {
+          console.log(data);
+          localStorage.setItem("access_token", data.access_token);
+          this.email = "";
+          this.password = "";
+          this.$emit("changePage", "homepage");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    onSignIn(googleUser) {
+      var google_token = googleUser.getAuthResponse().id_token;
+      axios({
+        method: "POST",
+        url: "/googleLogin",
+        data: {
+          google_token
+        }
       })
     },
   },
