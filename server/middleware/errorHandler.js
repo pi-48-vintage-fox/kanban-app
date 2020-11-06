@@ -1,7 +1,8 @@
 function errorHandler (err, req, res, next) {
+    
     let status = 500
     let msg = err.name || 'Internal Server Error'
-    console.log(err)
+    // console.log(err)
     
     if(err.name === 'SequelizeValidationError'){
         status = 400

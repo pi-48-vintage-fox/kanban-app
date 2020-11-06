@@ -2,9 +2,9 @@
     <div class="container justify-content-center" id="landing-page">
         <section> 
             <div id="login-box" class="justify-content-center"> 
-                <div class="container justify-content-center mt-5">
+                <div class="container justify-content-center mt-3">
                     <form @submit.prevent="loginUser">
-                        <h3 class="text-dark text-center">Kanban Login</h3>
+                        <h3 class="text-dark text-center">Kam-ban Login</h3>
                         <div class="form-group">
                             <label for="email_login" class="text-dark">Email</label>
                             <input type="email" class="form-control" id="email_login" aria-describedby="emailHelp" autocomplete="email" v-model="email">
@@ -14,11 +14,11 @@
                             <input type="password" class="form-control" id="password_login" autocomplete="current-password" v-model="password">
                         </div>
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: 600px">Submit</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: 100%">Login</button>
                     </form>
                     <small class="form-text text-muted" style="line-height: 30px;" @click.prevent="googleLogin">Sign in with your google account</small>
                     <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
-                    <small @click.prevent="switchToRegister" style="text-align: right">Create an account</small>
+                    <br><small @click.prevent="switchToRegister" style="text-align: right">Create an account</small>
                 </div>
             </div>
         </section>
@@ -47,9 +47,11 @@ export default {
         GoogleLogin
     },
     methods : {
+
         switchToRegister () {
             this.$emit('changePage', 'RegisterPage')
         },
+
         loginUser (){
              let payload = {
                 email: this.email,
@@ -57,18 +59,18 @@ export default {
             }
             this.$emit('loginUser', payload)
         },
+
         onSuccess(googleUser) {
             console.log(googleUser);
-            // This only gets the user information: id, name, imageUrl and email
             console.log(googleUser.getBasicProfile());
             var google_access_token = googleUser.getAuthResponse().id_token;
             this.$emit('GoogleLogin', google_access_token)
         },
+
         onFailure(err){
             console.log(err)
         }
     }
-
 }
 </script>
 

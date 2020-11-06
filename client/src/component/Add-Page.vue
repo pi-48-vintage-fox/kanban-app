@@ -1,9 +1,10 @@
 <template>
 <div>
     <Navbar
-    @changePage="switchToAdd"
-    @logOut="logOut">
+        @changePage="switchToAdd"
+        @logOut="logOut">
     </Navbar>
+
     <div id="add-form" class="container">
         <form class="container" @submit.prevent="addTask">
             <h3 class="text-center">Add Task</h3>
@@ -23,7 +24,7 @@
                 :value="cat.id">{{cat.name}}</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: auto">Submit</button>
+            <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: auto">Add Task</button>
         </form>
     </div>
 </div>
@@ -45,9 +46,11 @@ export default {
     },
     props: ['categories'],
     methods: {
+        
         switchToAdd() {
             this.$emit('changePage', 'AddPage')
         },
+
         addTask(){
             let payload = {
                 title: this.title,
@@ -56,6 +59,7 @@ export default {
             }
             this.$emit('addTask', payload)
         },
+        
         logOut(){
             this.$emit('logOut')
         }

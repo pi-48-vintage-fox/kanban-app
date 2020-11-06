@@ -1,6 +1,7 @@
 const {Category} = require('../models/index')
 
 class CategoryController {
+    
     static allCategories (req, res, next) {
         Category.findAll()
         .then(categories => {

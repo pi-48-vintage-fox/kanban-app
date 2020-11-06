@@ -23,9 +23,9 @@ export default {
                 description: this.task.title,
                 CategoryId: this.task.CategoryId
             }
-            // console.log(payload)
             this.$emit('toEdit', payload)
         },
+        
         toDelete() {
             let payload = {
                 id: this.task.id

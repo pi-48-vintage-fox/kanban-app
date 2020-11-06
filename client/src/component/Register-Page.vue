@@ -1,10 +1,10 @@
 <template>
-  <div class="container" id="landing-page">
+  <div class="container justify-content-center" id="landing-page">
         <section> 
-            <div id="register-box"> 
-                <div class="container row justify-content-center">
+            <div id="register-box" class="justify-content-center"> 
+                <div class="container justify-content-center">
                     <form @submit.prevent="createAccount">
-                        <h3 class="text-dark text-center">Kanban Register</h3>
+                        <h3 class="text-dark text-center">Kam-ban Register</h3>
                         <div class="form-group">
                             <label for="name_register" class="text-dark">Name</label>
                             <input type="text" class="form-control" id="name_register" autocomplete="name" v-model="name">
@@ -18,7 +18,7 @@
                             <input type="password" class="form-control" id="password_register" autocomplete="current-password" v-model="password">
                         </div>
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: 600px">Submit</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: 100%;">Submit</button>
                     </form>
                 </div>
             </div>
@@ -37,6 +37,7 @@ export default {
         }
     },
     methods: {
+        
         createAccount(){
             let payload = {
                 name: this.name,

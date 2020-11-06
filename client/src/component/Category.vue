@@ -3,17 +3,16 @@
     <section>
         <div id="category-box">
             <div class="card" v-if="cat">
-                <div class="card-body">
+                <div class="card-body" style="width: 16rem">
                 <h5 class="card-title text-center">{{cat.name}}</h5>
                 <draggable :list="filterTask" group="task" :move="onMove" :category="cat" @end="updateCategory">
                 <Task
-                v-for="task in filterTask"
-                :key="task.id"
-                :task="task"
-                :id="task.id"
-                @toEdit="toEdit"
-                @toDelete="toDelete"
-                >
+                    v-for="task in filterTask"
+                    :key="task.id"
+                    :task="task"
+                    :id="task.id"
+                    @toEdit="toEdit"
+                    @toDelete="toDelete">
                 </Task>
                 </draggable>
                 </div>
@@ -38,8 +37,7 @@ export default {
     data () {
         return {
             currentId: null,
-            currentCategoryId: null,
-            // card: []
+            currentCategoryId: null
         }
     },
     computed: {
@@ -48,21 +46,25 @@ export default {
         }
     },
     methods: {
+
         toEdit(payload){
             this.$emit('toEdit', payload)
         },
+
         toDelete(payload){
             this.$emit('toDelete', payload)
         },
+
         onMove (evt) {
             this.currentId = evt.draggedContext.element.id
             this.currentCategoryId = evt.relatedContext.component.$attrs.category.id
         },
+
         updateCategory () {
             const access_token = localStorage.getItem('access_token')
             const id = this.currentId
             const CategoryId = this.currentCategoryId
-            console.log(id, CategoryId)
+
             axios({
                 url: `/tasks/${id}`,
                 method: 'PATCH',
@@ -74,17 +76,13 @@ export default {
                 }
             })
             .then(data=> {
-                console.log(data)
                 this.$emit('fetchTasks')
             })
             .catch(err => {
                 console.log(err)
             })
         }
-    },
-    // created() {
-    //     this.card = this.filterTask
-    // }
+    }
 }
 </script>
 

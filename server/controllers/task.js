@@ -2,6 +2,7 @@ const {Task, User, Category} = require('../models/index')
 
 class TaskController {
     static allTasks (req, res, next) {
+
         Task.findAll({include: [User, Category]})
         .then(tasks => {
             res.status(200).json(tasks)
@@ -12,6 +13,7 @@ class TaskController {
     }
 
     static addTask (req, res, next) {
+
         const payload = {
             title: req.body.title,
             description: req.body.description,
@@ -28,8 +30,10 @@ class TaskController {
     }
 
     static changeCategory (req, res, next) {
+
         const id = +req.params.id
         const CategoryId = +req.body.CategoryId 
+
         Task.findByPk(id)
         .then(task => {
             console.log(task)
@@ -62,6 +66,7 @@ class TaskController {
     }
 
     static editTask (req, res, next) {
+
         const id = req.params.id
         const payload = {
             title: req.body.title,
@@ -69,6 +74,7 @@ class TaskController {
             CategoryId : req.body.CategoryId, 
             UserId: req.loggedInUser.id
         }
+
         Task.update(payload, {
             where: {
                 id: id
@@ -97,8 +103,8 @@ class TaskController {
     }
 
     static deleteTask (req, res, next) {
+        
         const id = req.params.id
-        console.log(id)
         Task.destroy({
             where: {
                 id: id

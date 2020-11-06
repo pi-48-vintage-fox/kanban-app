@@ -52,11 +52,11 @@
 }
 
 #category-box{
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .card {
-    width: 17rem; 
+    width: auto; 
     background-color: whitesmoke;
 }
 

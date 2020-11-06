@@ -62,6 +62,29 @@
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
 
 
+## **Log In Google**
+
+	Log in user from google account
+
+-   **URL**
+    
+    /googleLogin
+
+-   **Method:**
+    
+     `POST`  
+    
+-   **Success Response:**
+    
+    Return data from Task list
+    
+    -   **Code:**  201  **Content:**  `{access_token: "567hbnmu087"}`
+        
+-   **Error Response:**
+   
+    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
+
+
 ## **Show All Tasks**
 
     Show all tasks
@@ -114,35 +137,6 @@
     
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
     
-
-## **Show Task By Id**
-
-	Show task by task id
-
--   **URL**
-    
-    /tasks/:id
-
-- **URL Params**
-
-	**Required:**
-
-		`id=[integer]`
-    
--   **Method:**
-    
-     `GET`  
-
-    
--   **Success Response:**
-    
-    -   **Code:**  201   **Content:**   `{title: "Groceries Shopping", description: "get some chicken", CategoryID: 1, UserId: 2}`
-    
--   **Error Response:**
-
-    -   **Code:**  400  **Content:**  `{ error : "Validation Errors" }`
-    
-    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
         
 
 ## **Edit Task**
@@ -187,7 +181,7 @@
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
 
     
-## **UpdateTask**
+## **Update Task**
 
 	Update existing tasks's category with new data
 
@@ -256,108 +250,3 @@
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
 
 
-    ## **Register User**
-
-	Add new user
-
--   **URL**
-    
-    /register
-
-**Data Params**
-    
-    {
-    full_name: String,
-    email: String,
-    password: String
-    }
-
--   **Method:**
-    
-     `POST`  
-    
--   **Success Response:**
-    
-    Return data from Task list
-    
-    -   **Code:**  201  **Content:**  `{id: 1, email: "test@mail.com", full_name:"Amy"}`
-        
--   **Error Response:**
-   
-    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
-
-
-    ## **Log In User**
-
-	Log in user
-
--   **URL**
-    
-    /login
-
-**Data Params**
-    
-    {
-    email: String,
-    password: String
-    }
-
--   **Method:**
-    
-     `POST`  
-    
--   **Success Response:**
-    
-    Return data from Task list
-    
-    -   **Code:**  201  **Content:**  `{access_token: "567hbnmu087"}`
-        
--   **Error Response:**
-   
-    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
-
-
-    ## **Log In Google**
-
-	Log in user from google account
-
--   **URL**
-    
-    /googleLogin
-
--   **Method:**
-    
-     `POST`  
-    
--   **Success Response:**
-    
-    Return data from Task list
-    
-    -   **Code:**  201  **Content:**  `{access_token: "567hbnmu087"}`
-        
--   **Error Response:**
-   
-    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
-
-
-    ## **Movie Recommendation**
-
-	See popular movie from TMDB
-
--   **URL**
-    
-    /popular-movies
-
--   **Method:**
-    
-     `GET`  
-    
--   **Success Response:**
-    
-    Return data popular movies from TMDB
-    
-    -   **Code:**  201  **Content:**  `[{title: "Mulan", poster_path: "img.jpg"}]`
-        
--   **Error Response:**
-   
-    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`

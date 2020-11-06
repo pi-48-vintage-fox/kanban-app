@@ -1,13 +1,13 @@
 <template>
 <div>
     <Navbar
-    @changePage="switchToAdd"
-    @logOut="logOut">
+        @changePage="switchToAdd"
+        @logOut="logOut">
     </Navbar>
+
     <div id="edit-form" class="container">
         <form class="container" @submit.prevent="editTask">
             <h3 class="text-center">Edit Task</h3>
-            {{detailTask}}
             <div class="form-group">
                 <label for="exampleFormControlInput1">Title</label>
                 <input type="text" class="form-control" id="edit_title" v-model="detailTask.title">
@@ -24,7 +24,7 @@
                 :value="cat.id">{{cat.name}}</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: auto">Submit</button>
+            <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: auto">Edit Task</button>
         </form>
     </div>
 </div>
@@ -39,12 +39,15 @@ export default {
     },
     props: ['detailTask', 'categories'],
     methods: {
+        
         editTask() {
             this.$emit('editPut', this.detailTask)
         },
+
         switchToAdd() {
             this.$emit('changePage', 'AddPage')
         },
+        
         logOut(){
             this.$emit('logOut')
         }

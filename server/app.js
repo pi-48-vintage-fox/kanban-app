@@ -14,5 +14,5 @@ app.use(express.json())
 app.use(routes)
 app.use(errorHandler)
 app.listen(port, () => {
-    console.log(`Kanban running on http://http:localhost:${port}`)
+    console.log(`Kam-ban running on http://http:localhost:${port}`)
 })

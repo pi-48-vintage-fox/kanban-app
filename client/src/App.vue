@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- login -->
     <LoginPage 
       v-if="pageName == 'LoginPage'"
       @changePage="changePage"
@@ -8,13 +7,11 @@
       @GoogleLogin="onSignIn">
     </LoginPage>
 
-    <!-- register -->
     <RegisterPage 
       v-else-if="pageName == 'RegisterPage'"
       @createAccount="registerUser">
     </RegisterPage>
 
-    <!-- homepage -->
     <HomePage 
       v-else-if="pageName == 'HomePage'"
       :tasks="tasks"
@@ -26,7 +23,6 @@
       @fetchTasks="fetchTasks">
     </HomePage>
 
-    <!-- addpage -->
     <AddPage 
       v-else-if="pageName == 'AddPage'"
       :categories="categories"
@@ -35,7 +31,6 @@
       @logOut="logOut">
     </AddPage>
 
-    <!-- edit -->
     <EditPage 
       v-else-if="pageName == 'EditPage'"
       :categories="categories"
@@ -76,10 +71,11 @@ export default {
     EditPage,
     GoogleLogin
   }, methods: {
+
     changePage (name){
       this.pageName = name
-      this.allCategories()
     },
+
     fetchTasks (){
       const access_token = localStorage.getItem('access_token')
       axios({
@@ -94,9 +90,14 @@ export default {
         this.allCategories()
       })
       .catch(err => {
-        console.log(err.response)
+        Swal.fire(
+          'Error!',
+          err.response.data.msg,
+          'ERROR'
+        )
       })
     },
+
     registerUser (payload) {
       axios({
         url: '/register',
@@ -113,9 +114,14 @@ export default {
         this.changePage('HomePage')
       })
       .catch(err => {
-        console.log(err.response)
+        Swal.fire(
+          'Error!',
+          err.response.data.msg,
+          'ERROR'
+        )
       })
     },
+
     loginUser(payload) {
       axios({
         url: '/login',
@@ -128,12 +134,18 @@ export default {
       .then(user => {
         const access_token = localStorage.setItem('access_token', user.data.access_token)
         this.fetchTasks()
-        this.changePage('HomePage')
+        this.changePage('HomePage') 
+        Swal.fire('Signed in successfully')
       })
       .catch(err => {
-        console.log(err.response)
+        Swal.fire(
+          'Error!',
+          err.response.data.msg,
+          'ERROR'
+        )
       })
     },
+
     onSignIn(google_access_token) {
       axios({
         method: 'POST',
@@ -147,12 +159,18 @@ export default {
           localStorage.setItem('access_token', access_token)
           this.fetchTasks()
           this.changePage('HomePage')
+          Swal.fire('Signed in successfully')
       })
       .catch(err => {
-          console.log(err.response)
-          loginPage()
+        Swal.fire(
+          'Error!',
+          err.response.data.msg,
+          'ERROR'
+        )
+        this.changePage('LoginPage')
       })
     },
+
     allCategories() {
       const access_token = localStorage.getItem('access_token')
       axios({
@@ -166,9 +184,14 @@ export default {
         this.categories = category.data
       })
       .catch(err => {
-        console.log(err.response)
+        Swal.fire(
+          'Error!',
+          err.response.data.msg,
+          'ERROR'
+        )
       })
     },
+
     addTask (payload) {
       const access_token = localStorage.getItem('access_token')
       this.allCategories()
@@ -187,16 +210,23 @@ export default {
       .then(task => {
         this.fetchTasks()
         this.changePage('HomePage')
+        Swal.fire('Sucessfully Add Task')
       })
       .catch(err => {
-        console.log(err.response)
+        Swal.fire(
+          'Error!',
+          err.response.data.msg,
+          'ERROR'
+        )
       })
     },
+
     toEdit (payload){
       this.detailTask = payload
       this.pageName = 'EditPage'
       this.id = payload.id
     },
+
     editPut(payload) {
       const access_token = localStorage.getItem('access_token')
       const id = payload.id
@@ -215,14 +245,21 @@ export default {
       .then(task => {
         this.fetchTasks()
         this.changePage('HomePage')
+        Swal.fire('Successfully Edit Task')
       })
       .catch(err => {
-        console.log(err)
+        Swal.fire(
+          'Error!',
+          err.response.data.msg,
+          'ERROR'
+        )
       })
     },
+
     toDelete(payload){
       this.deleteTask(payload.id)
     },
+
     deleteTask (id) {
       const access_token = localStorage.getItem('access_token')
       axios({
@@ -233,14 +270,19 @@ export default {
         }
       })
       .then(data => {
-        console.log(data)
         this.fetchTasks()
         this.changePage('HomePage')
+        Swal.fire('Successfully delete task')
       })
       .catch(err => {
-        console.log(err)
+        Swal.fire(
+          'Error!',
+          err.response.data.msg,
+          'ERROR'
+        )
       })
     },
+
     logOut () {
       this.pageName = 'LoginPage'
       localStorage.clear()
@@ -248,8 +290,10 @@ export default {
       auth2.signOut().then(function () {
         console.log('User signed out.');
       });  
+      Swal.fire('Successfully log out')
     }
   },
+  
   created() {
     const access_token = localStorage.getItem('access_token')
     if(!access_token){
@@ -264,4 +308,4 @@ export default {
 
 <style>
 
-</style>
+</style>  

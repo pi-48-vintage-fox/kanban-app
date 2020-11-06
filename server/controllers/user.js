@@ -6,11 +6,13 @@ const {OAuth2Client} = require('google-auth-library')
 class UserController {
 
     static register (req, res, next) {
+
         const payload = {
             email: req.body.email,
             password: hashPassword(req.body.password),
             name: req.body.name
         }
+
         User.create(payload)
         .then(user => {
             let data = {
@@ -27,10 +29,12 @@ class UserController {
     }
 
     static login (req, res, next) {
+
         const payload = {
             email: req.body.email,
             password: req.body.password
         }
+
         User.findOne({
             where: {
                 email: payload.email
@@ -62,6 +66,7 @@ class UserController {
 
         let {google_access_token} = req.body 
         const client = new OAuth2Client(process.env.CLIENT_ID)
+        
         async function verify(){
             const ticket = await client.verifyIdToken({
                 idToken:google_access_token,
