@@ -106,6 +106,35 @@
     -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
 
 
+## **Show Tasks By Id**
+
+    Show selected tasks
+
+-   **URL**
+    
+    /tasks/:id
+
+- **URL Params**
+
+	**Required:**
+
+		`id=[integer]`
+
+-   **Method:**
+    
+    `GET`
+    
+-   **Success Response:**
+    
+    -   **Code:**  200   **Content:**   `{title: "Groceries Shopping", description: "get some chicken", CategoryID: 1, UserId: 2}`
+    
+-   **Error Response:**
+
+    -   **Code:**  404  **Content:**  `{ error : "Not Found" }`
+    
+    -   **Code:**  500  **Content:**  `{ error : "Internal Server Error" }`
+
+
 ## **Add Task**
 
     Add task to list
