@@ -6,7 +6,7 @@
                 <div class="card-body" style="width: 16rem">
                 <h5 class="card-title text-center">{{cat.name}}</h5>
                 <draggable :list="filterTask" group="task" :move="onMove" :category="cat" @end="updateCategory">
-                <Task
+                <Task 
                     v-for="task in filterTask"
                     :key="task.id"
                     :task="task"

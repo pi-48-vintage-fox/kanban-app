@@ -1,7 +1,7 @@
 <template>
   <div id="navbar">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Kam-ban</a>
+            <a class="navbar-brand" href="#" @click.prevent="home">Kam-ban</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,6 +28,10 @@ export default {
         },
         logOut() {
             this.$emit('logOut')
+        },
+        home(){
+            let page = 'HomePage'
+            this.$emit('home', page)
         }
     }
 }

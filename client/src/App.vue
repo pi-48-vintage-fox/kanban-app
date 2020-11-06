@@ -20,7 +20,8 @@
       @toEdit="toEdit"
       @toDelete="toDelete"
       @logOut="logOut"
-      @fetchTasks="fetchTasks">
+      @fetchTasks="fetchTasks"
+      @home="changePage">
     </HomePage>
 
     <AddPage 
@@ -28,7 +29,8 @@
       :categories="categories"
       @changePage="changePage"
       @addTask="addTask"
-      @logOut="logOut">
+      @logOut="logOut"
+      @home="changePage">
     </AddPage>
 
     <EditPage 
@@ -37,7 +39,8 @@
       :detailTask="detailTask"
       @changePage="changePage"
       @editPut="editPut"
-      @logOut="logOut">
+      @logOut="logOut"
+      @home="changePage">
     </EditPage>
   </div>
 </template>
@@ -221,10 +224,40 @@ export default {
       })
     },
 
+    taskById(payload) {
+      const access_token = localStorage.getItem('access_token')
+      axios({
+        url: `/tasks/${payload.id}`,
+        method: 'GET',
+        headers: {
+          access_token
+        }
+      })
+      .then(task => {
+        if(!task){
+          Swal.fire(
+            'Error!',
+            'Authentication failed',
+            'ERROR'
+          )
+        }
+        else{
+          this.pageName = 'EditPage'
+        }
+      })
+      .catch(err => {
+        Swal.fire(
+          'Error!',
+          err.response.data.msg,
+          'ERROR'
+        )
+      })
+    },
+
     toEdit (payload){
       this.detailTask = payload
-      this.pageName = 'EditPage'
       this.id = payload.id
+      this.taskById(payload)
     },
 
     editPut(payload) {

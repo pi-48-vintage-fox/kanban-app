@@ -11,6 +11,26 @@ class TaskController {
             next(err)
         })
     }
+    
+    static taskById (req, res, next) {
+        const id = +req.params.id
+        Task.findByPk(id)
+        .then(task => {
+            if(!task){
+                let err = {
+                    name: 'Not Found'
+                }
+                throw next(err)
+            }
+            else{
+                console.log(task)
+                res.status(200).json(task)
+            }
+        }) 
+        .catch (err => {
+            next(err)
+        })
+    }
 
     static addTask (req, res, next) {
 

@@ -2,7 +2,8 @@
 <div>
     <Navbar
         @changePage="switchToAdd"
-        @logOut="logOut">
+        @logOut="logOut"
+        @home="home">
     </Navbar>
 
     <div id="edit-form" class="container">
@@ -50,7 +51,11 @@ export default {
         
         logOut(){
             this.$emit('logOut')
-        }
+        },
+
+        home(page){
+            this.$emit('home', page)
+        },
     }
 }
 </script>

@@ -28,7 +28,8 @@ export default {
         
         toDelete() {
             let payload = {
-                id: this.task.id
+                id: this.task.id,
+                pageName: 'HomePage'
             }
             this.$emit('toDelete', payload)
         }

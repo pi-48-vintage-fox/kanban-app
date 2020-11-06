@@ -2,7 +2,8 @@
 <div id="home-page">
     <Navbar
         @changePage="switchToAdd"
-        @logOut="logOut">
+        @logOut="logOut"
+        @home="home">
     </Navbar>
 
     <div id="body-homepage" class="container">
@@ -37,6 +38,9 @@ export default {
     props: ['tasks', 'categories'],
     methods: {
 
+        home(page){
+            this.$emit('home', page)
+        },
         switchToAdd() {
             this.$emit('changePage', 'AddPage')
         },
