@@ -10,25 +10,46 @@
         Logout
       </button>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid" v-if="!showAddForm">
       <div class="row">
-        <Category v-for="(cat, i) in categories"
-            :key="i"
-            :categoryDetail="cat"
-            :tasks="tasks"> 
+        <Category
+          v-for="(cat, i) in categories"
+          :key="i"
+          :categoryDetail="cat"
+          :tasks="tasks"
+          @deleteTask="deleteTask"
+          @editTask="editTask"
+          @addTask="addTask"
+        >
         </Category>
+
       </div>
     </div>
+    <addTask 
+    v-if="showAddForm"
+    @closeAddForm="showAddForm = false"
+    :CategoryId="CategoryId"
+    @fetchTasks="fetchTasks"
+    >
+    </addTask>
   </section>
 </template>
 
 <script>
-import axios from "../config/axios"
+import axios from "../config/axios";
 import Category from "./Category";
+import addTask from "./addTask";
+import editTask from "./editTask";
 export default {
   name: "KanbanHome",
+  data() {
+    return {
+        showAddForm: false,
+        CategoryId: ''
+    }
+  },
   components: {
-    Category,
+    Category, addTask
   },
   props: ["categories", "tasks"],
   methods: {
@@ -36,6 +57,19 @@ export default {
       localStorage.clear();
       this.$emit("changePage", "login-page");
     },
+    deleteTask(id) {
+      this.$emit("deleteTask", id);
+    },
+    editTask(id) {
+      this.$emit("editTask", id);
+    },
+    addTask(id){ // <--- ambil data dari kategori id
+        this.showAddForm = true
+        this.CategoryId = id
+    },
+    fetchTasks(){
+        this.$emit("fetchTasks")
+    }
   },
 };
 </script>

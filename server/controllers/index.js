@@ -146,6 +146,7 @@ class Controller {
 
 
     static postTask(req, res, next) {
+        console.log(req.body)
         const newTask = {
             title: req.body.title,
             description: req.body.description,
@@ -158,6 +159,7 @@ class Controller {
                 res.status(201).json(result)
             })
             .catch(err => {
+                console.log(err)
                 next(err)
             })
     }
@@ -217,7 +219,7 @@ class Controller {
     static deleteTask(req, res, next) {
         Task.destroy({
                 where: {
-                    id: req.params.id
+                    id: +req.params.id
                 }
             })
             .then(result => {
