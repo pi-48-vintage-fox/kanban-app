@@ -55,6 +55,7 @@
               :title="task.name"
               :tasks="task.Tasks"
               :catId="task.id"
+              :cats="tasks"
               :data-id="task.id"
               @addNewTask="addNewTask"
               @editTask="editTask"

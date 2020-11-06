@@ -57,9 +57,11 @@ class TaskController{
   static async update(req,res,next){
     try {
       let id = req.params.id
+      console.log(req.body);
       let data = {
         title: req.body.title,
-        descriptions: req.body.descriptions
+        descriptions: req.body.descriptions,
+        CategoryId: req.body.CategoryId
       }
       let task = await Task.update(data,{
         where:{

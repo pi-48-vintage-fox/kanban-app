@@ -8,7 +8,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const port = process.env.PORT || 3000
 const server = require('http').Server(app)
 const io = require("socket.io")(server)
-server.listen(port)
+
 
 
 const { Task, User, TaskTag, Category} = require("./models")
@@ -41,3 +41,5 @@ io.on('connect',(socket)=>{
       io.emit("tasksUpdated",tasks)     
   })
 })
+
+server.listen(port)

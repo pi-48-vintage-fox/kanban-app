@@ -5,6 +5,7 @@
         v-if="currentView == 'Login'"
         @login="login"
         @changePage="changePage"
+        @oauthLoginSuccess="oauthLogin"
       ></LoginPage>
 
       <RegisterPage
@@ -58,9 +59,9 @@ export default {
     },
     tasksUpdated(data) {
       console.log("taskUpdated");
-      this.tasks = data
+      this.tasks = data;
     },
-    broadcast(data){
+    broadcast(data) {
       console.log(data);
     },
     notAuthenticated(data) {
@@ -69,6 +70,23 @@ export default {
     },
   },
   methods: {
+    oauthLogin(payload) {
+      axios
+        .post("/oauth", {
+          data: {
+            token: payload.token,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.$vToastify.success("Logged in");
+          localStorage.setItem("access_token", response.data.access_token);
+          this.currentView = "Main";
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
     updateTask() {
       this.$socket.emit("updateTask", {
         access_token: localStorage.access_token,
@@ -83,7 +101,7 @@ export default {
         })
         .then((response) => {
           this.$vToastify.success("Task Deleted");
-          this.updateTask()
+          this.updateTask();
         })
         .catch((err) => {
           this.$vToastify.error(err.response.data.msg, "Ooops..");
@@ -95,6 +113,7 @@ export default {
           "/tasks/" + payload.taskId,
           {
             title: payload.content,
+            CategoryId: payload.CategoryId
           },
           {
             headers: {
@@ -104,7 +123,7 @@ export default {
         )
         .then((response) => {
           this.$vToastify.success("Task Edited");
-          this.updateTask()
+          this.updateTask();
         })
         .catch((err) => {
           this.$vToastify.error(err.response.data.msg, "Ooops");
@@ -119,7 +138,7 @@ export default {
         })
         .then((response) => {
           this.$vToastify.success("Category Created");
-          this.updateTask()
+          this.updateTask();
         })
         .catch((err) => {
           this.$vToastify.error(err.response.data.msg, "Ooops");
@@ -134,7 +153,7 @@ export default {
         })
         .then((response) => {
           this.$vToastify.success("Task Created");
-          this.updateTask()
+          this.updateTask();
         })
         .catch((err) => {
           this.$vToastify.error(err.response.data.msg, "Ooops");
@@ -164,6 +183,7 @@ export default {
     logout() {
       this.$vToastify.loader("Logging out ..");
       setTimeout(() => {
+        
         let access_token = localStorage.clear();
         this.$vToastify.stopLoader();
         this.$vToastify.success(":(", "Bye");
@@ -179,7 +199,6 @@ export default {
             this.$vToastify.stopLoader();
             this.$vToastify.success("Logged In!");
             this.currentView = "Main";
-            console.log(response);
             localStorage.setItem("access_token", response.data.access_token);
           })
           .catch((err) => {
@@ -188,7 +207,6 @@ export default {
           });
       }, 500);
     },
-
   },
   mounted() {},
   created() {
@@ -198,7 +216,7 @@ export default {
     } else {
       this.currentView = "Main";
       this.access_token = access_token;
-      this.updateTask()
+      this.updateTask();
     }
   },
 };

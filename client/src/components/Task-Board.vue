@@ -9,6 +9,7 @@
         v-for="(task, i) in tasks"
         :key="i"
         :task="task"
+        :cats=cats
         @editTask="editTask"
         @deleteTask="deleteTask"
       ></TaskItem>
@@ -50,7 +51,7 @@ export default {
   components: {
     TaskItem,
   },
-  props: ["title", "tasks", "catId"],
+  props: ["title", "tasks", "catId","cats"],
   data() {
     return {
       addNew: false,

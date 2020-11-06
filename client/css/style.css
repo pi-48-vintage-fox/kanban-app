@@ -427,6 +427,15 @@ input[type=text]:focus, input[type=password]:focus{
 input[type=text]::placeholder, input[type=password]::placeholder{   
     color:rgba(137, 150, 184, 1);
 }
+select{
+    width: 100%;
+    border:none;
+    padding:3px 5px;
+    border-radius: 5px;
+    background-color: hsl(227, 22%, 20%);
+    color:rgba(137, 150, 184, 1);
+
+}
 .input-group{
     width: 100%;
     margin-bottom: 0.5rem;    
@@ -551,6 +560,8 @@ i.primary {
     border-radius:5px;
     height:24px;
 }
+
+
 .task-options.label{
     
 }
