@@ -25,7 +25,7 @@
     name: 'Home',
     data() {
       return {
-        baseUrl: 'http://localhost:3000',
+        baseUrl: 'https://kanban-app-riva.herokuapp.com',
         categories: [],
         tasks: [],
         showModal: false,

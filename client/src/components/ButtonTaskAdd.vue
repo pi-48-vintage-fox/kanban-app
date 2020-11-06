@@ -63,7 +63,7 @@
         showAddTaskModal: false,
         title: '',
         description: '',
-        baseUrl: 'http://localhost:3000',
+        baseUrl: 'https://kanban-app-riva.herokuapp.com',
       }
     },
     components: {

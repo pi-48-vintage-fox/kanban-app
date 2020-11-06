@@ -140,7 +140,7 @@
         isLoginForm: true,
         organization: '',
         organizations: '',
-        baseUrl: 'http://localhost:3000',
+        baseUrl: 'https://kanban-app-riva.herokuapp.com',
         errors: {
           email: '',
           user: '',
@@ -185,9 +185,9 @@
           .catch((err) => {
             console.log(err.data)
             this.$emit('showMessage', {
-                  msg: err.data,
-                  type: 'error',
-                })
+              msg: err.data,
+              type: 'error',
+            })
           })
       },
 

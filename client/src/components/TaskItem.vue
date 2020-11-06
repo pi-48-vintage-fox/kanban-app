@@ -70,7 +70,7 @@
   export default {
     data() {
       return {
-        baseUrl: 'http://localhost:3000',
+        baseUrl: 'https://kanban-app-riva.herokuapp.com',
         title: this.task.title,
         description: this.task.description,
         showTaskDetailsModal: false,
