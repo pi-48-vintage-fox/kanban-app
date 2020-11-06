@@ -51,6 +51,7 @@ export default {
       password:''
     }
   },
+  props:['reloadUlang'],
   methods:{
     logIn(){
       let dataUser = {email:this.email, password:this.password}
@@ -60,6 +61,7 @@ export default {
           localStorage.access_token = res.data.access_token
           localStorage.name = res.data.name
           this.$emit('changePage','home-page')
+          this.reloadUlang()
         })
         .catch(err=>{
           console.log(err.response.data.msg)

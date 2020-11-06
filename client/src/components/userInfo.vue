@@ -9,7 +9,7 @@
         alt=""
       />
       <a class="navbar-brand ml-2 user" data-abc="true" style="color: lightcyan"
-        >User Name</a
+        >{{userName}}</a
       >
     </div>
     <div></div>
@@ -30,6 +30,11 @@
 <script>
 export default {
   name: "userInfo",
+  data(){
+    return{
+      userName : localStorage.getItem('name')
+    }
+  },
   methods:{
     logout(){
       localStorage.removeItem('access_token')

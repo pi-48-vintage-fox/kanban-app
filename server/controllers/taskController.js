@@ -19,7 +19,7 @@ module.exports = class taskController {
 
     static async getPosting(req,res,next){
         try {
-            let allPosting = await Task.findAll({order:[['updatedAt', 'DESC']]})
+            let allPosting = await Task.findAll({order:[['updatedAt', 'DESC']],include:User})
             res.status(200).json(allPosting)
         } catch (error) {
             next(error)

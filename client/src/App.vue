@@ -1,14 +1,16 @@
 <template>
   <section>
-    <loginPage v-if="pageName=='login-page'" @changePage ='changePage'></loginPage>
+    <loginPage v-if="pageName=='login-page'" @changePage ='changePage' :reloadUlang='fetchTask'></loginPage>
     <homePage
       v-else-if="pageName == 'home-page'"
       :cates="categories"
       :tasks="tasks"
       @changePage="changePage"
+      :reloadUlang='fetchTask'
     >
     </homePage>
     <registerPage v-else-if="pageName =='register-page'" @changePage="changePage"></registerPage>
+    <addTask v-else-if="pageName =='addTask-page'" @changePage="changePage" :reloadUlang='fetchTask'></addTask>
   </section>
 </template>
 
@@ -16,6 +18,7 @@
 import loginPage from "./components/loginPage";
 import homePage from "./components/homePage";
 import registerPage from "./components/registerPage";
+import addTask from "./components/addTask";
 import axios from "./config/axios";
 
 export default {
@@ -45,17 +48,20 @@ export default {
   components: {
     loginPage,
     homePage,
-    registerPage
+    registerPage,
+    addTask
   },
+
   methods: {
     changePage(name){
       this.pageName = name
     },
     fetchTask() {
+      let access_token = localStorage.getItem('access_token')
       axios({
         url: "/task",
         method: "GET",
-        headers:localStorage.getItem('access_token',access_token)
+        headers:{access_token}
       })
         .then(({ data }) => {
           console.log(data);
@@ -77,6 +83,7 @@ export default {
       this.isLogin = false
     }
   },
+  
 };
 </script>
 

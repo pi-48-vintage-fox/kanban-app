@@ -6,7 +6,7 @@
     <div class="card-title ml-4 mr-4 mt-3">
       <div class="row">
         <categoryCard v-for="(cat,i) in cates" 
-          :key='i' :catDetail='cat' :tasks='tasks'
+          :key='i' :catDetail='cat' :tasks='tasks' @changePage='addtask' :reloadData='reloadUlang'
         >
         </categoryCard>
       </div>
@@ -22,8 +22,14 @@
     components: {
       categoryCard,userInfo
     },
+    methods:{
+      addtask(value){
+        console.log(value)
+        this.$emit('changePage',value)
+      }
+    },
   
-    props:['cates','tasks']
+    props:['cates','tasks','reloadUlang']
   };
 </script>
 

@@ -2,26 +2,26 @@
   <div class="col kanban">
     
     <h5 class="card-title" style="color: lightcyan">{{catDetail.category}}</h5>
-    <kanban v-for="task in categorized" :key="task.id" :task='task'></kanban>
-    
-    <div @click="pindahKeAdd()">
-      <addKanban>
-    </div>
+    <kanban v-for="task in categorized" :key="task.id" :task='task' :reload='reloadData'></kanban>
+
+    <button @click.prevent="addtask" class="btn btn-primary btn-block btn-large">Add Activity</button>
+   
   </div>
 </template>
 
 <script>
 import kanban from './kanbanCard'
-import addKanban from './addKanban'
+
 export default {
   name: "categoryCard",
   components:{
-    kanban,addKanban
+    kanban
   },
-  props:['catDetail','tasks'],
+  props:['catDetail','tasks','reloadData'],
   methods:{
-    pindahKeAdd(){
-      this.$emit('changePage','addPage')
+    addtask(){
+      console.log('sini')
+      this.$emit('changePage','addTask-page')
     }
   },
   computed:{
