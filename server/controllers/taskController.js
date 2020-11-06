@@ -7,7 +7,7 @@ class TaskController {
       res.status(200).json(data)
     })
     .catch(err => {
-      res.status(400).json(err)
+      next(err)
     })
   }
 
@@ -24,7 +24,7 @@ class TaskController {
       res.status(201).json(data)
     })
     .catch(err => {
-      res.status(400).json(err)
+      next(err)
     })
   }
 
@@ -43,7 +43,7 @@ class TaskController {
       res.status(200).json(data)
     })
     .catch(err => {
-      res.status(400).json(err)
+      next(err)
     })
   }
 
@@ -63,7 +63,7 @@ class TaskController {
       res.status(200).json("Successfully edited data!")
     })
     .catch(err => {
-      res.status(400).json(err)
+      next(err)
     })
   }
 
@@ -80,7 +80,7 @@ class TaskController {
     })
     .catch(err => {
       console.log("Error coi")
-      res.status(400).json(err)
+      next(err)
     })
   }
 }

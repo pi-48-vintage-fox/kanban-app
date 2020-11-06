@@ -28,6 +28,7 @@
       </div>
     </div>
     <AddTask v-else-if="page == 'add-task'" @hp-change="hpChange"></AddTask>
+    <EditTask v-else-if="page == 'edit-task'" @hp-change="hpChange"></EditTask>
   </section>
 </template>
 
@@ -35,11 +36,12 @@
 import Category from "./Category";
 import axios from "../config/axios";
 import AddTask from "./AddTask";
+import EditTask from "./EditTask";
 export default {
   name: "HomePage",
   data() {
     return {
-      page: 'default',
+      page: "default",
       tasks: [],
     };
   },
@@ -66,12 +68,13 @@ export default {
     },
 
     hpChange(page) {
-      this.page = page
-    }
+      this.page = page;
+    },
   },
   components: {
     Category,
     AddTask,
+    EditTask
   },
   props: ["categories"],
   created() {

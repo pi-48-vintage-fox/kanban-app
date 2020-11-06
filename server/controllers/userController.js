@@ -3,7 +3,7 @@ const { comparePassword } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
 
 class UserController {
-  static register(req, res) {
+  static register(req, res, next) {
     let obj = {
       name: req.body.name,
       email: req.body.email,
@@ -17,12 +17,11 @@ class UserController {
       })
     })
     .catch(err => {
-      console.log(err)
-      res.status(400).json(err)
+      next(err)
     })
   }
 
-  static login(req, res) {
+  static login(req, res, next) {
     let obj = {
       email: req.body.email,
       password: req.body.password
@@ -54,8 +53,7 @@ class UserController {
         }
       })
       .catch(err => {
-        console.log("error cuk!")
-        res.status(400).json({err})
+        next(err)
       })
   }
 }
