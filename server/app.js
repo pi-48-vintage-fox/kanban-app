@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const routes = require('./routes/index')
-const { errorHandler } = require('./middlewares/errorHandler')
+const errorHandler = require('./middlewares/errorHandler')
 
 const port = process.env.PORT
 

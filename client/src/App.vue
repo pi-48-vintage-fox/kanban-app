@@ -170,7 +170,6 @@ export default {
                 }
             })
             .then(data => {
-                this.showTask()
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -178,9 +177,9 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                this.showTask()
             })
             .catch(err => {
-                console.log(err);
                 Swal.fire(err.response.data.message);
             })
         },
