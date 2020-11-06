@@ -1,12 +1,12 @@
 <template>
   <div class="card" style="margin-top: 10px; border-radius: 10px">
     <div class="card-body">
-      <h5 class="card-title">{{ tasks.title }}</h5>
+      <h5 class="card-title">{{ task.title }}</h5>
       <h6 class="card-subtitle mb-2 text-muted">
-        {{ tasks.updatedAt.split("T")[0] }}
+        {{ task.updatedAt.split("T")[0] }}
       </h6>
       <p class="card-text">
-        {{ tasks.description }}
+        {{ task.description }}
       </p>
       <a href="#" @click.prevent="toEditPage" class="card-link">Edit</a>
       <a href="#" @click.prevent="toDelete" class="card-link">Delete</a>
@@ -18,11 +18,11 @@
 <script>
 export default {
   name: "Task",
-  props: ["tasks"],
+  props: ["categoryDetail","task"],
   methods: {
     toEditPage() {
       let payload = {
-        id: this.tasks.id,
+        id: this.task.id,
         name: "edit-page",
       };
       this.$emit("toEditPage", payload);
@@ -30,7 +30,7 @@ export default {
 
     toDelete(){
       let payload = {
-        id: this.tasks.id,
+        id: this.task.id,
       }
 
       this.$emit("toDelete", payload)
@@ -38,12 +38,15 @@ export default {
     
     toEditCategory() {
       let payload = {
-        id: this.tasks.id,
+        id: this.task.id,
         name: "edit-category"
       };
       this.$emit("toEditCategory", payload);
     },
   },
+  created(){
+    console.log(this.task , '<<<<<< ini task.vue')
+  }
 };
 </script>
 

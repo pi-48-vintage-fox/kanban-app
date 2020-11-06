@@ -13,6 +13,9 @@
       <div>
         <div class="container-fluid">
           <Category
+          v-for="(cat,i) in categories"
+          :key="i"
+          :categoryDetail="cat"
           :categories="categories"
           :tasks="tasks"
           @toEditPage="toEditPage"
@@ -57,6 +60,9 @@ export default {
     toDelete(payload){
       this.$emit('toDelete', payload)
     }
+  },
+  created(){
+    console.log(this.tasks ,'<<<<<<< ini dari homepage')
   }
 };
 </script>

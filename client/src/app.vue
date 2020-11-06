@@ -15,6 +15,7 @@
     <!-- Main Page -->
     <HomePage
       v-else-if="pageName === 'home-page'"
+      :categories="categories"
       :tasks="tasks"
       @changePage="changePage"
       @toEditPage="toEditPage"
@@ -60,6 +61,7 @@ export default {
       msg: "hello world",
       pageName: "login-page",
       tasks: [],
+      categories: [],
       id: 0,
     };
   },
@@ -112,6 +114,24 @@ export default {
         });
     },
 
+    fetchCategories() {
+      const token = localStorage.getItem("access_token");
+      axios({
+        url: "/categories",
+        method: "GET",
+        headers: {
+          access_token: token,
+        },
+      })
+        .then((result) => {
+          console.log(result,'<<<<<<< ini data categories');
+          this.categories = result.data;
+        })
+        .catch((err) => {
+          console.log(err.response, "<<<<<<< ini data error fetch");
+        });
+    },
+
     toEditPage(payload) {
       this.pageName = payload.name;
       this.id = payload.id;
@@ -135,6 +155,7 @@ export default {
           localStorage.setItem("access_token", data.access_token);
           this.pageName = "home-page";
           this.fetchKanban();
+          this.fetchCategories();
         })
         .catch((err) => {
           console.log(err.response, "<<<<<<< ini data error login");
@@ -156,9 +177,9 @@ export default {
           this.pageName = "home-page";
           this.fetchKanban();
         })
-        .catch(err =>{
-          console.log(err.response, '<<<<<<<< error dari google')
-        })
+        .catch((err) => {
+          console.log(err.response, "<<<<<<<< error dari google");
+        });
     },
 
     editCategory(payload) {
@@ -214,7 +235,7 @@ export default {
         },
       })
         .then((data) => {
-          console.log(data);
+          console.log(data, '<<<<<<<<<<<<ini data task');
           this.tasks = data.data;
         })
         .catch((err) => {
@@ -248,6 +269,7 @@ export default {
     if (localStorage.getItem("access_token")) {
       this.pageName = "home-page";
       this.fetchKanban();
+      this.fetchCategories();
     } else {
       this.pageName = "login-page";
     }
