@@ -1,7 +1,6 @@
 <template>
-  <!-- Home -->
   <div>
-    <!-- Navbar -->
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-primary" style="opacity: 0.9">
       <a class="text-light font-weight-bold display-4 border p-1" href="#"><i class="fas fa-thumbtack"></i> Kanban App</a>
       <div class="navbar-collapse" id="navbarNav">
@@ -25,23 +24,25 @@
         </ul>
       </span>
     </nav>
-    <!-- Navbar End -->
+    
 
-    <!-- Content -->
+    
     <div class="d-flex flex-wrap justify-content-around align-items-start">
-      <!-- Backlog -->
+      
       <CategoryComponent
       v-for="cat in categories"
       :key="cat.id"
       :cat="cat"
       :tasks="tasks"
       :currentId="currentId"
+      :fetchTasks="fetchTasks"
+      :categories="categories"
       ></CategoryComponent>
-      <!-- Backlog End -->
+      
     </div>
-    <!-- Content End -->
+    
   </div>
-  <!-- Home End -->
+  
 </template>
 <script>
 import axios from "../config/axios"
@@ -69,7 +70,6 @@ export default {
           headers : {access_token : localStorage.access_token}
       })
       .then(result=>{
-          console.log(result.data)
           this.tasks = result.data
       })
       .catch(err=>{
@@ -83,7 +83,6 @@ export default {
           headers : {access_token : localStorage.access_token}
       })
       .then(result=>{
-          console.log(result.data)
           this.categories = result.data
       })
       .catch(err=>{
@@ -94,53 +93,11 @@ export default {
       this.currentUser = localStorage.email
       this.currentId = localStorage.id
     },
-    destroyuser(){
-      this.currentUser = ''
-      this.currentId = ''
-    },
     logout(){
-      this.changePage('login-page')
       localStorage.clear()
       this.currentUser = ''
       this.currentId = ''
-    },
-    getDate(date){
-      let tanggal = date.split("T")[0]
-      return tanggal
-    }
-  },
-  computed: {
-    backlogFilter(){
-      if(this.tasks.length > 0){
-        let backlogTask = this.tasks.filter(task =>{
-            return task.category === 'backlog'
-        })
-        return backlogTask
-      }
-    },
-    todoFilter(){
-      if(this.tasks.length > 0){
-        let todoTask = this.tasks.filter(task =>{
-          return task.category === 'todo'
-        })
-        return todoTask
-      }
-    },
-    doingFilter(){
-      if(this.tasks.length > 0){
-        let doingTask = this.tasks.filter(task =>{
-          return task.category === 'doing'
-        })
-        return doingTask
-      }
-    },
-    doneFilter(){
-      if(this.tasks.length > 0){
-        let doneTask = this.tasks.filter(task =>{
-          return task.category === 'done'
-        })
-        return doneTask
-      }
+      this.changePage('login-page')
     }
   },
   created(){

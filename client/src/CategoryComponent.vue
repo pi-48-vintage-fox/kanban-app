@@ -1,6 +1,6 @@
 <template>
   <div class="card border-primary mt-3 mb-3" :class="`order-${cat.order}`" style="max-width: 18rem; max-height: 500px">
-    <div class="card-header font-weight-bold text-center text-light display-4" :class="`${cat.color}`">
+    <div class="card-header font-weight-bold text-center text-capitalize text-light display-4" :class="`${cat.color}`">
       {{cat.name}}
     </div>
     <!-- List -->
@@ -9,7 +9,10 @@
       v-for="task in tasksCategory" 
       :key="task.id"
       :task="task"
+      :cat="cat"
       :currentId="currentId"
+      :fetchTasks="fetchTasks"
+      :categories="categories"
       ></TaskComponent>
     </div>
     <!-- List End -->
@@ -20,13 +23,13 @@
         <form>
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Task Title">
+                <input v-model="title" type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Task Title">
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text" class="form-control" id="description" placeholder="Description...">
+                <input v-model="description" type="text" class="form-control" id="description" placeholder="Description...">
             </div>
-            <button type="submit" class="btn btn-primary form-control">Add</button>
+            <button @click.prevent="postAdd" type="submit" class="btn btn-primary form-control">Add</button>
             <button @click.prevent="cancelTask" type="butoon" class="btn btn-primary form-control">Cancel</button>
         </form>
     </div>
@@ -34,15 +37,20 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+import axios from "../config/axios"
 import TaskComponent from "./TaskComponent";
 export default {
   name: "CategoryComponent",
   data(){
       return {
-          addMode : false
+          addMode : false,
+          title : '',
+          description : '',
+          category : this.cat.name
       }
   },
-  props: ['cat','tasks','currentId'],
+  props: ['cat','tasks','currentId','fetchTasks','categories'],
   components : {
       TaskComponent
   },
@@ -52,6 +60,36 @@ export default {
       },
       cancelTask(){
           this.addMode = false
+          this.title = ''
+          this.description = ''
+      },
+      postAdd(){
+        axios({
+          url : '/tasks',
+          method : 'POST',
+          data : {
+            title : this.title,
+            description : this.description,
+            category : this.category
+          },
+          headers : {access_token : localStorage.access_token}
+        })
+        .then(result=>{
+          Swal.fire(
+            'SUCCESS',
+            `Task add to ${this.category} category`,
+            'success'
+          )
+          this.cancelTask()
+          this.fetchTasks()
+        })
+        .catch(err=>{
+          Swal.fire(
+            'ERROR',
+            `${err.response.data.msg}`,
+            'error'
+          )
+        })
       }
   },
   computed: {

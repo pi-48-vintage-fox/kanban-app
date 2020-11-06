@@ -46,7 +46,7 @@
         />
       </div>
       <button type="submit" class="btn btn-outline-primary btn-block">
-        Register
+        {{btnTxt}}
       </button>
     </form>
   </div>
@@ -61,10 +61,12 @@ export default {
     return {
       email: "",
       password: "",
+      btnTxt: "REGISTER"
     };
   },
   methods: {
     register() {
+      this.btnTxt = "Please Wait..."
       axios({
         method: "post",
         url: "/register",
@@ -74,17 +76,25 @@ export default {
         },
       })
         .then((result) => {
-          console.log(result.data,"<<ini berhasil register");
+          this.btnTxt = "REGISTER"
+          Swal.fire(
+            'SUCCESS',
+            `${result.data.email} created`,
+            'success'
+          )
           this.$emit('change-page','login-page')
           this.email = "";
           this.password = "";
         })
         .catch((error) => {
+          this.btnTxt = "REGISTER"
           Swal.fire(
             'ALERT',
             `${error.response.data.msg}`,
             'error'
           )
+          this.email = ""
+          this.password = ""
         });
     },
   },

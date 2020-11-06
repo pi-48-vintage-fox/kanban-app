@@ -2,7 +2,6 @@ const {Task,User} = require("../models/")
 
 class TaskController {
 
-    // router.get('/tasks',TaskController.list)
     static async list(req,res,next){
         try {
             const data = await Task.findAll({
@@ -18,7 +17,7 @@ class TaskController {
         }
 
     }
-    // router.post('/tasks',TaskController.add)
+    
     static async add(req,res,next){
         try {
             const obj = {
@@ -35,22 +34,7 @@ class TaskController {
         }
 
     }
-    // router.get('/tasks/:id',TaskController.show)
-    static async show(req,res,next){
-        try {
-            const {id} = req.params
-            const data = await Task.findByPk(id)
-            if(!data){
-                throw {name:"Data Not Found"}
-            }else{
-                res.status(200).json(data)
-            }
-            
-        } catch (error) {
-            next(error)
-        }
-    }
-    // router.put('/tasks/:id',TaskController.edit)
+
     static async edit(req,res,next){
         try {
             const {id} = req.params
@@ -70,7 +54,7 @@ class TaskController {
             next(error)
         }
     }
-    // router.patch('/tasks/:id',TaskController.updateCategory)
+    
     static async updateCategory(req,res,next){
         try {
             const {id} = req.params

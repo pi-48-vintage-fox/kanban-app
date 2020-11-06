@@ -44,7 +44,7 @@
         />
       </div>
       <button type="submit" class="btn btn-outline-primary btn-block">
-        Login
+        {{btnTxt}}
       </button>
     </form>
   </div>
@@ -59,10 +59,12 @@ export default {
       return {
         email : '',
         password : '',
+        btnTxt: 'LOGIN'
       }
   },
   methods : {
         login(){
+          this.btnTxt = "Please Wait..."
             axios({
                 method: 'post',
                 url: '/login',
@@ -72,7 +74,7 @@ export default {
                 }
               })
                 .then(result => {
-                    console.log(result.data,"<<ini berhasil")
+                    this.btnTxt = "LOGIN"
                     localStorage.email = result.data.email
                     localStorage.id = result.data.id
                     localStorage.access_token = result.data.access_token
@@ -81,6 +83,7 @@ export default {
                     this.$emit('change-page','home-page')
                 })
                 .catch(error=>{
+                  this.btnTxt = "LOGIN"
                     Swal.fire(
                       'ALERT',
                       `${error.response.data.msg}`,
