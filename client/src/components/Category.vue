@@ -6,7 +6,10 @@
                 <taskscard
                 v-for="(task,i) in filteredTasks"
                 :key="i"
-                :task="task" 
+                :task="task"
+                @deleteTask="deleteTask"
+                @patchTask="patchTask"
+                @showEdit="showEdit"
                 >
                 </taskscard>
             </div>
@@ -34,6 +37,18 @@ export default {
                  })
             } 
         }
+    },
+    methods: {
+        deleteTask(payload){
+            this.$emit('deleteTask', payload)
+        },
+        patchTask(payload){
+            this.$emit('patchTask', payload)
+        },
+        // showEdit(payload){
+        //     // console.log(payload);
+        //     this.$emit('showEdit', payload)
+        // }
     }
 }
 </script>

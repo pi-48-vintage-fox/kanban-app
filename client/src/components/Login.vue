@@ -17,8 +17,8 @@
             </div>
             <button type="submit" class="btn btn-success">Login</button>
             <p class="">Don't have account? <a href="#" id="a-register" @click="showRegister">Register here</a></p>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </form>
+            <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>
         </div>
         </div>
     </section>
@@ -26,11 +26,12 @@
 
 <script>
 export default {
-    props: ['propslogin'],
+    props: ['propslogin','propsgoogle'],
     data() {
         return {
             email: '',
-            password: ''
+            password: '',
+            clientId: '666040877350-56mid0g22iokhigjb8gk3ak32cesho5f.apps.googleusercontent.com'
         }
     },
     methods : {
@@ -41,6 +42,15 @@ export default {
         },
         showRegister(){
             this.$emit("change-page",'register-page')
+        },
+        OnGoogleAuthSuccess (idToken) {
+        console.log(idToken)
+            this.propsgoogle({id: idToken})
+
+        // Receive the idToken and make your magic with the backend
+        },
+        OnGoogleAuthFail (error) {
+        console.log(error)
         }
     }
     
@@ -48,5 +58,13 @@ export default {
 </script>
 
 <style>
-
+    .google-signin-button {
+    color: white;
+    background-color: red;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 10px 20px 25px 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 </style>

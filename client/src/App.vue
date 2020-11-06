@@ -1,11 +1,13 @@
 <template>
     <section>
         <navbar v-if="pageName == 'home-page'" @logout="logout" @change-page="changePage"></navbar>
-        <homepage v-if="pageName == 'home-page'" :categories="categories" :tasks="tasks" @showEdit="showEdit"></homepage>
-        <login v-if="pageName == 'login-page'" :propslogin="login" @change-page="changePage"></login>
+        <homepage v-if="pageName == 'home-page'" :categories="categories" :tasks="tasks" @showEdit="showEdit"
+        @deleteTask="deleteTask" @patchTask="patchTask">
+        </homepage>
+        <login v-if="pageName == 'login-page'" :propslogin="login" :propsgoogle="google" @change-page="changePage"></login>
         <signUp v-if="pageName == 'register-page'" :propsregister="register" @change-page="changePage"></signUp>
         <addForm v-if="pageName == 'add-page'" :propsadd="addTask" @change-page="changePage"></addForm>
-        <editForm v-if="pageName ==editForm" :detailTask="detailTask" @editTask="editTask"></editForm>
+        <editForm v-if="pageName =='edit-form'"></editForm>
         <bawahan v-if="pageName == 'home-page'"></bawahan>
     </section>
 </template>
@@ -59,7 +61,7 @@ export default {
                 }
             })
             .then(function (response) {
-                console.log(response);
+                console.log(response);  
                 localStorage.setItem('access_token',response.data.access_token)
             })
             .catch(err=>{
@@ -107,7 +109,8 @@ export default {
             })
         },
         showEdit(payload){
-            this.pageName = payload.pageName
+            console.log(payload);
+            this.pageName = 'edit-form'
             this.detailTask = payload.task
         },
         editTask(payload){
@@ -136,8 +139,7 @@ export default {
                 method: 'patch',
                 url: `/tasks/${payload.id}`,
                 data: {
-                    title: payload.title,
-                    description: payload.description
+                    category: payload.category
                 },
                 headers: {
                     access_token: localStorage.access_token
@@ -152,13 +154,10 @@ export default {
             })
         },
         deleteTask(payload){
+            console.log(payload);
             axios({
                 method: 'delete',
                 url: `/tasks/${payload.id}`,
-                data: {
-                    title: payload.title,
-                    description: payload.description
-                },
                 headers: {
                     access_token: localStorage.access_token
                 }
@@ -185,6 +184,25 @@ export default {
                 this.tasks = response.data
             })
             .catch(err=>{
+                console.log(err);
+            })
+        },
+        google(payload) {
+            console.log(payload);
+            const google_token = payload.id;
+            axios({
+            method: "post",
+            url: "/googleLogin",
+            data: {
+                google_token,
+                },
+            })
+            .then((response) => {
+                    localStorage.setItem('access_token',response.data.access_token)
+                    this.changePage('home-page')
+                    this.fetchTasks()
+                })
+            .catch((err)=>{
                 console.log(err);
             })
         }
