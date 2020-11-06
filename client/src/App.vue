@@ -45,7 +45,7 @@ export default {
                 access_token : access_token
             }
         })
-        .then(result=>{
+        .then((result) =>{
         console.log(result)
         this.tasks = result.data
         })

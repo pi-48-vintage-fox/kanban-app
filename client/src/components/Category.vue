@@ -2,10 +2,10 @@
          <div class="col-sm-6 col-md-4 col-xl-3">
                 <div class="card bg-light">
                     <div class="card-body">
-                        <h6 class="card-title text-uppercase text-truncate py-2">{{category}}</h6>
+                        <h6 class="card-title text-uppercase text-truncate py-2">{{filterCategory}}</h6>
                         <div class="items border border-light">
                             <Task
-                                v-for="(ta, i) in category"
+                                v-for="(ta, i) in filterCategory"
                                 :key = "i"
                                 :task="ta.task"
                             ></Task> 
@@ -23,9 +23,9 @@ export default {
         Task
     },
     props : ["category"],
-    computed :{
-        filterCategory(){
-            this.category.filter
+    computed : {
+    filterCategory(){
+        return this.category.filter((result) => result.category == this.category)
         }
     }
 }
