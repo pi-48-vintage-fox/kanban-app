@@ -4,7 +4,8 @@
     <LoginPage 
       v-if="pageName == 'LoginPage'"
       @changePage="changePage"
-      @loginUser="loginUser">
+      @loginUser="loginUser"
+      @GoogleLogin="onSignIn">
     </LoginPage>
 
     <!-- register -->
@@ -17,24 +18,29 @@
     <HomePage 
       v-else-if="pageName == 'HomePage'"
       :tasks="tasks"
-      :category="category"
+      :categories="categories"
       @changePage="changePage"
       @toEdit="toEdit"
-      @toDelete="toDelete">
+      @toDelete="toDelete"
+      @logOut="logOut">
     </HomePage>
 
     <!-- addpage -->
     <AddPage 
       v-else-if="pageName == 'AddPage'"
       :categories="categories"
-      @addTask="addTask">
+      @changePage="changePage"
+      @addTask="addTask"
+      @logOut="logOut">
     </AddPage>
 
     <!-- edit -->
     <EditPage 
       v-else-if="pageName == 'EditPage'"
       :detailTask="detailTask"
-      @editPut="editPut">
+      @changePage="changePage"
+      @editPut="editPut"
+      @logOut="logOut">
     </EditPage>
   </div>
 </template>
@@ -46,6 +52,7 @@ import HomePage from './component/Home-Page'
 import AddPage from './component/Add-Page'
 import EditPage from './component/Edit-Page'
 import axios from '../config/axios'
+import GoogleLogin from 'vue-google-login'
 
 export default {
   name: 'App',
@@ -54,7 +61,6 @@ export default {
       msg: 'Kanban App by Hutamy Triesthi',
       pageName: 'LoginPage',
       tasks : [],
-      category : [],
       detailTask : null,
       id: 0,
       categories: []
@@ -65,7 +71,8 @@ export default {
     RegisterPage,
     HomePage,
     AddPage,
-    EditPage
+    EditPage,
+    GoogleLogin
   }, methods: {
     changePage (name){
       this.pageName = name
@@ -81,10 +88,8 @@ export default {
         }
       })
       .then(tasks => {
-        tasks.data.forEach(el => {
-          this.category.push(el.Category)
-        });
         this.tasks = tasks.data
+        this.allCategories()
       })
       .catch(err => {
         console.log(err.response)
@@ -125,6 +130,25 @@ export default {
       })
       .catch(err => {
         console.log(err.response)
+      })
+    },
+    onSignIn(google_access_token) {
+      axios({
+        method: 'POST',
+        url: `/googleLogin`,
+        data: {
+          google_access_token
+        }
+      })
+      .then(({data}) => {
+          let access_token = data.access_token
+          localStorage.setItem('access_token', access_token)
+          this.fetchTasks()
+          this.changePage('HomePage')
+      })
+      .catch(err => {
+          console.log(err.response)
+          loginPage()
       })
     },
     allCategories() {
@@ -234,6 +258,14 @@ export default {
       .catch(err => {
         console.log(err)
       })
+    },
+    logOut () {
+      this.pageName = 'LoginPage'
+      localStorage.clear()
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });  
     }
   },
   created() {

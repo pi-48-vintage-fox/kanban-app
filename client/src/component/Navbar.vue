@@ -10,13 +10,8 @@
                 <li class="nav-item">
                 <a class="nav-link" href="#" @click.prevent="switchToAdd">Add Task</a>
                 </li>
-                <li class="nav-item dropdown float-right">
-                <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    User Name
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Log Out</a>
-                </div>
+                <li class="nav-item">
+                <a class="nav-link" href="#" @click.prevent="logOut">Log Out</a>
                 </li>
             </ul>
             </div>
@@ -30,6 +25,9 @@ export default {
     methods: {
         switchToAdd() {
             this.$emit('changePage', 'AddPage')
+        },
+        logOut() {
+            this.$emit('logOut')
         }
     }
 }

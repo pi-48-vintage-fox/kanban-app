@@ -2,7 +2,7 @@
   <div>
     <section>
         <div id="category-box">
-            <div class="card">
+            <div class="card" v-if="cat">
                 <div class="card-body">
                 <h5 class="card-title text-center">{{cat.name}}</h5>
                 <Task
@@ -25,12 +25,27 @@
 
 <script>
 import Task from './Task'
+import draggable from 'vuedraggable'
 export default {
     name: 'Category',
     props : ['tasks', 'cat'],
     components : {
-        Task
+        Task,
+        draggable
     }, 
+    data () {
+        return {
+            params: {
+                    client_id: "365819165459-244erimjnuagnlvtirgm2t6isncdinpq.apps.googleusercontent.com"
+            },
+                // only needed if you want to render the button with the google ui
+            renderParams: {
+                width: 250,
+                height: 50,
+                longtitle: true
+            }
+        }
+    },
     computed: {
         filterTask () {
             return this.tasks.filter(el => el.CategoryId == this.cat.id)

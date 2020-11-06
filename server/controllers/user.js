@@ -1,6 +1,7 @@
 const {User}  = require('../models/index')
 const {hashPassword, comparePassword} = require('../helpers/bcrypt')
 const {signToken} = require('../helpers/jwt')
+const {OAuth2Client} = require('google-auth-library')
 
 class UserController {
 
@@ -57,8 +58,33 @@ class UserController {
         })
     }
 
-    static googleLogin (req, res, next) {
-        
+    static async googleLogin (req, res, next) {
+
+        let {google_access_token} = req.body 
+        const client = new OAuth2Client('365819165459-244erimjnuagnlvtirgm2t6isncdinpq.apps.googleusercontent.com')
+        async function verify(){
+            const ticket = await client.verifyIdToken({
+                idToken:google_access_token,
+                audience: '365819165459-244erimjnuagnlvtirgm2t6isncdinpq.apps.googleusercontent.com'
+            })
+            const payload = ticket.getPayload()
+            let findUser = await User.findOne({where:{email:payload.email}})
+            if(findUser){
+                let access_token =  signToken({id:findUser.id,email:findUser.email,name:findUser.name})
+                res.status(200).json({access_token, name:findUser.name})
+            }
+            else{
+                let newData = {
+                    email:payload.email,
+                    password:'udahadaaaaa',
+                    name: payload.name
+                }
+                let createUser = await User.create(newData)
+                let access_token =  signToken({id:createUser.id,email:createUser.email, name:createUser.name})
+                res.status(200).json({access_token, name: createUser.name})
+            }
+        }
+        verify().catch(console.error)
     }
 
 }

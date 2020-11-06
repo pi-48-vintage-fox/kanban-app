@@ -1,6 +1,9 @@
 <template>
 <div>
-    <Navbar></Navbar>
+    <Navbar
+    @changePage="switchToAdd"
+    @logOut="logOut">
+    </Navbar>
     <div id="edit-form" class="container">
         <form class="container" @submit.prevent="editTask">
             <h3 class="text-center">Edit Task</h3>
@@ -50,6 +53,12 @@ export default {
                 CategoryId: this.CategoryId
             }
             this.$emit('editPut', payload)
+        },
+        switchToAdd() {
+            this.$emit('changePage', 'AddPage')
+        },
+        logOut(){
+            this.$emit('logOut')
         }
     }
 }

@@ -1,7 +1,8 @@
 <template>
 <div>
     <Navbar
-    @changePage="switchToAdd">
+    @changePage="switchToAdd"
+    @logOut="logOut">
     </Navbar>
     <div id="add-form" class="container">
         <form class="container" @submit.prevent="addTask">
@@ -19,7 +20,7 @@
                 <select class="form-control" id="exampleFormControlSelect1" v-model="CategoryId">
                 <option v-for="(cat, i) in categories" 
                 :key="i" 
-                value="cat.id">{{cat.name}}</option>
+                :value="cat.id">{{cat.name}}</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: auto">Submit</button>
@@ -51,9 +52,12 @@ export default {
             let payload = {
                 title: this.title,
                 description: this.description,
-                category: this.category
+                CategoryId: this.CategoryId
             }
             this.$emit('addTask', payload)
+        },
+        logOut(){
+            this.$emit('logOut')
         }
     }
 }

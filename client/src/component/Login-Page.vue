@@ -16,8 +16,9 @@
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                         <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: 600px">Submit</button>
                     </form>
-                    <br>
-                    <small @click.prevent="switchToRegister">Create an account</small>
+                    <small class="form-text text-muted" style="line-height: 30px;" @click.prevent="googleLogin">Sign in with your google account</small>
+                    <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
+                    <small @click.prevent="switchToRegister" style="text-align: right">Create an account</small>
                 </div>
             </div>
         </section>
@@ -25,13 +26,25 @@
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login'
 export default {
     name: 'LoginPage',
     data (){
         return {
             email: '',
-            password: ''
+            password: '',
+            params: {
+                client_id: "365819165459-244erimjnuagnlvtirgm2t6isncdinpq.apps.googleusercontent.com"
+            },
+            renderParams: {
+                width: 600,
+                height: 50,
+                longtitle: true
+            }
         }
+    },
+    components: {
+        GoogleLogin
     },
     methods : {
         switchToRegister () {
@@ -43,6 +56,16 @@ export default {
                 password: this.password
             }
             this.$emit('loginUser', payload)
+        },
+        onSuccess(googleUser) {
+            console.log(googleUser);
+            // This only gets the user information: id, name, imageUrl and email
+            console.log(googleUser.getBasicProfile());
+            var google_access_token = googleUser.getAuthResponse().id_token;
+            this.$emit('GoogleLogin', google_access_token)
+        },
+        onFailure(err){
+            console.log(err)
         }
     }
 

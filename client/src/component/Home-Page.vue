@@ -1,12 +1,13 @@
 <template>
 <div id="home-page">
     <Navbar
-    @changePage="switchToAdd">
+    @changePage="switchToAdd"
+    @logOut="logOut">
     </Navbar>
     <div id="body-homepage" class="container">
         
         <Category
-            v-for="(cat, i) in category"
+            v-for="(cat, i) in categories"
             :key="i"
             :tasks="tasks"
             :cat="cat"
@@ -33,7 +34,7 @@ export default {
         Category, 
         Navbar
     },
-    props: ['tasks', 'category'],
+    props: ['tasks', 'categories'],
     methods: {
         switchToAdd() {
             this.$emit('changePage', 'AddPage')
@@ -43,6 +44,9 @@ export default {
         },
         toDelete(payload){
             this.$emit('toDelete', payload)
+        },
+        logOut(){
+            this.$emit('logOut')
         }
     }
 
