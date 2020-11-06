@@ -88,7 +88,8 @@ export default {
         });
     },
     updateTask() {
-      this.$socket.emit("updateTask", {
+      console.log(this);
+      this.$socket.client.emit("updateTask", {
         access_token: localStorage.access_token,
       });
     },
@@ -113,7 +114,7 @@ export default {
           "/tasks/" + payload.taskId,
           {
             title: payload.content,
-            CategoryId: payload.CategoryId
+            CategoryId: payload.CategoryId,
           },
           {
             headers: {
@@ -183,7 +184,6 @@ export default {
     logout() {
       this.$vToastify.loader("Logging out ..");
       setTimeout(() => {
-        
         let access_token = localStorage.clear();
         this.$vToastify.stopLoader();
         this.$vToastify.success(":(", "Bye");
@@ -215,8 +215,8 @@ export default {
       this.currentView = "Login";
     } else {
       this.currentView = "Main";
-      this.access_token = access_token;
-      this.updateTask();
+      this.access_token = access_token; 
+      this.updateTask()
     }
   },
 };
