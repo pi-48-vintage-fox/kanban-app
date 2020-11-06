@@ -1,6 +1,7 @@
 const Encrypt = require('../helpers/bcrypt');
 const Decoder = require('../helpers/jwt');
-const { User, Organization, UserOrganization } = require('../models/index')
+const { User, Organization, UserOrganization } = require('../models/index');
+const { OAuth2Client } = require('google-auth-library');
 
 class Controller {
   static async register(req, res, next) {
@@ -51,6 +52,56 @@ class Controller {
       res.status(201).json(`User with id ${newRelation.user_id} has joined the organization with id ${newRelation.organization_id}`);
     } catch(err) {
       next(err);
+    }
+  }
+
+  static async googleLogin(req, res, next) {
+    try {
+      const { google_access_token } = req.body;
+      const client = new OAuth2Client(process.env.GOOGLE_SECRET);
+      const ticket = await client.verifyIdToken({
+        idToken: google_access_token,
+        audience: process.env.GOOGLE_SECRET
+      })
+      const payload = ticket.getPayload()
+      const user = await User.findOne({
+        where: {
+          email: payload.email
+        }, include: Organization
+      })
+      if(user) {
+        const organizations = user.Organizations.map(element => {
+          return {id: element.id, name: element.name}
+        })
+        const token = Decoder.sign({
+          id: user.id,
+          email: user.email,
+          organizations
+        });
+        res.status(200).json({token})
+      } else {
+        const acak = 'abcdefghijklmnopqrstuvwxyz'
+        const newUser = await User.create({
+          email: payload.email, 
+          password: Encrypt.hash(acak[Math.floor(Math.random()*26)])
+        });
+        const registered = await User.findOne({
+          where: {
+            email: newUser.email
+          }, include: Organization
+        })
+        const organizations = newUser.Organizations.map(element => {
+          return {id: element.id, name: element.name}
+        })
+        const token = Decoder.sign({
+          id: newUser.id,
+          email: newUser.email,
+          organizations
+        });
+        res.status(200).json({token})
+      }
+    } catch(err) {
+      next(err)
     }
   }
 }

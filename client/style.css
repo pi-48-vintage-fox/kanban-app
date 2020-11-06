@@ -40,6 +40,11 @@ nav .nav-logo {
   flex-wrap: nowrap;
 }
 
+.category-title {
+  display: flex;
+  justify-content: space-between;
+}
+
 .container {
   display: flex;
 }
@@ -55,14 +60,24 @@ nav .nav-logo {
   border-bottom-right-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 30rem;
+  height: 25rem;
   padding: 10px;
+  width: fit-content;
+  
 }
 
 .content-item {
   background-color: lavender;
-  height: 10vh;
+  border-style: dotted;
+  height: 14vh;
+  width: fit-content;
   margin-bottom: 10px;
+  padding: 5px;
+}
+
+.content-item a {
+  color: #444;
+  text-decoration: none;
 }
 
 .display-1 {
@@ -73,6 +88,41 @@ nav .nav-logo {
 .display-4 {
   text-align: center;
   padding-bottom: 40px;
+}
+
+.google-signin-button {
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  background: white;
+  color: #444;
+  display: inline-block;
+  width: 190px;
+  white-space: nowrap;
+}
+
+.google-signin-button:hover {
+  background-image: url('../client/img/google-logo.jpg');
+  background-size: cover;
+  background-position-y: center;
+  cursor: pointer;
+  color: transparent;
+  transition: 500ms;
+}
+
+.google-button-area {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.iconic {
+  transition: 300ms;
+}
+
+.iconic:hover {
+  width: 2em;
+  height: 2em;
+  transition: 300ms;
 }
 
 .login-card {
@@ -102,6 +152,10 @@ nav .nav-logo {
 
 .nav-logo i a {
   text-decoration: none;
+}
+
+.or-statement {
+  text-align: center;
 }
 
 .org-card {
@@ -138,6 +192,7 @@ nav .nav-logo {
   margin: 10px;
   padding: 10px;
   transition: 300ms;
+  width: 15vw;
 }
 
 .sub-board:hover {
@@ -162,8 +217,40 @@ nav .nav-logo {
   transition: 200ms;
 }
 
+#add-board-category {
+  width: 15rem;
+}
+
+#add-board-category:hover {
+  cursor: pointer;
+}
+
+#add-task-form {
+  background-color: #e6ffff;
+  border-style: solid;
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
 #cancel-link {
   text-decoration: none;
+}
+
+#content-category {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#delete-category-icon {
+  text-decoration: none;
+}
+
+#delete-category-icon:hover {
+  color: red;
+  cursor: pointer;
 }
 
 #login-page {
@@ -176,4 +263,13 @@ nav .nav-logo {
 
 #register-link {
   text-decoration: none;
+}
+
+#selectCategory {
+  margin-left: 10px;
+}
+
+#text-add-category {
+  text-align: center;
+  margin-top: 10px;
 }

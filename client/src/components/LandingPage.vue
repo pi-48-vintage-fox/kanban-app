@@ -1,7 +1,7 @@
 <template>
   <div id="landing-page">
     <h1 class="display-1">SNOWKAN</h1>
-    
+
     <!-- Login Page -->
     <div v-show="!isRegister" class="container" id="login-page">
       <div class="mus-body">
@@ -44,6 +44,14 @@
               </p>
             </div>
           </form>
+          <div class="google-button-area">
+            <button v-google-signin-button="clientId" class="google-signin-button">
+              <span class="buttonText">Google</span>
+            </button>
+          </div>
+          <div class="or-statement">
+            <small>Or sign in with google</small>
+          </div>
         </div>
       </div>
     </div>
@@ -82,9 +90,7 @@
             <div id="cancel-link">
               <p>
                 Already have an account?
-                <span
-                  ><a href="#" @click.prevent="hideRegister">Login</a></span
-                >
+                <span><a href="#" @click.prevent="hideRegister">Login</a></span>
               </p>
             </div>
           </form>
@@ -96,34 +102,42 @@
 
 <script>
 export default {
-  name: 'LandingPage',
+  name: "LandingPage",
   data() {
     return {
+      clientId: "1059756750271-t7h05g062opp9q289223acc11q2ummlm.apps.googleusercontent.com",
       isRegister: false,
       loginPayload: {
-        email: '',
-        password: ''
+        email: "",
+        password: "",
       },
       registerPayload: {
-        email: '',
-        password: ''
-      }
-    }
+        email: "",
+        password: "",
+      },
+    };
   },
   methods: {
     hideRegister() {
       this.isRegister = false;
     },
     login() {
-      this.$emit('login', this.loginPayload);
+      this.$emit("login", this.loginPayload);
+    },
+    OnGoogleAuthSuccess(idToken) {
+      this.$emit('googleLogin', idToken)
+    },
+    OnGoogleAuthFail(error) {
+      console.log(error)
     },
     register() {
-      this.$emit('register', this.registerPayload)
+      this.$emit("register", this.registerPayload);
+      this.hideRegister();
     },
     showRegister() {
       this.isRegister = true;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -7,6 +7,7 @@ const Authenticate = require('../middlewares/authenticate');
 
 router.post('/register', Controller.register);
 router.post('/login', Controller.login);
+router.post('/googleLogin', Controller.googleLogin);
 router.post('/relations', Authenticate.user, Controller.userJoinOrg);
 
 router.use('/tasks', taskRoutes);

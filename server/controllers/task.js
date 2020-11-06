@@ -1,13 +1,9 @@
-const { Task } = require('../models/index')
+const { Task, User } = require('../models/index')
 
 class Controller {
   static async getTasks(req, res, next) {
     try {
-      const tasks = await Task.findAll({
-        where: {
-          OrganizationId: req.params.orgId
-        }
-      });
+      const tasks = await Task.findAll({include: User});
       res.status(200).json(tasks);
     } catch(err) {
       next(err);

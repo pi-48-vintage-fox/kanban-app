@@ -1,5 +1,10 @@
 # kanban-app
 
+**DESCRIPTION**
+----
+  A very genuine kanban app used to store what to do to reminds an instance or organization. To use the app, simply register or login with google, 
+  then join into organization that would not mind to accept you by adding you through postman and so (USE "/relations" OR READ LINE 125). After you got yourself registered into an Organization, you will simply be able to see every tasks in every categories stored or created by the organization members itself. And of course manage to edit, delete, or move.
+
 
 **REGISTER USER**
 ----
@@ -73,6 +78,41 @@
             message: 'Wrong email/password'
         }
     ]
+
+  * **Code:** 500 (Internal server error) <br />
+    **Content:** [
+        {
+            message: Internal Server Error
+        }
+    ]
+
+
+**GOOGLE LOGIN USER**
+----
+  Login into user google account
+
+* **URL**
+
+  /googleLogin
+
+* **Method:**
+
+  `POST`
+
+* **Data Params**
+
+  **Required:**
+ 
+   `google_access_token=[(access_token from google)]`
+
+* **Success Response:**
+
+  * **Code:** 200 (Ok) <br />
+    **Content:** { 
+        token
+    }
+ 
+* **Error Response:**
 
   * **Code:** 500 (Internal server error) <br />
     **Content:** [
@@ -393,12 +433,6 @@
 * **Method:**
 
   `GET`
-
-* **URL Params**
-
-  **Required:**
- 
-  `orgId=[integer]`
 
 * **Headers**
 
