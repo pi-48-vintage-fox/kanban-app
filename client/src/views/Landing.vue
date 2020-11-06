@@ -27,10 +27,10 @@
                 autofocus
                 required
               />
-              <label v-if="!isLoginForm" for="username"
+              <!-- <label v-if="!isLoginForm" for="username"
                 >Username<small>*optional</small></label
-              >
-              <input
+              > -->
+              <!-- <input
                 v-if="!isLoginForm"
                 type="text"
                 name="username"
@@ -39,7 +39,7 @@
                 placeholder="Insert your username"
                 autofocus
                 required
-              />
+              /> -->
               <label v-if="!isLoginForm" for="user">Email</label>
               <input
                 v-if="!isLoginForm"
@@ -60,6 +60,34 @@
                 placeholder="Insert your password"
                 required
               />
+              <label v-if="!isLoginForm" for="confirmPassword"
+                >Confirm Password</label
+              >
+              <input
+                v-if="!isLoginForm"
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                v-model="confirmPassword"
+                placeholder="Re-type your password"
+                required
+              />
+
+              <label v-if="!isLoginForm" for="organization"
+                >Select organization</label
+              >
+              <select
+                v-if="!isLoginForm"
+                v-model="organization"
+                name="organization"
+              >
+                <option
+                  v-for="org of organizations"
+                  :key="org.id"
+                  :value="org.id"
+                  >{{ org.name }}</option
+                >
+              </select>
 
               <div class="actions">
                 <button v-if="isLoginForm" class="button button-secondary">
@@ -108,9 +136,22 @@
         username: '',
         email: '',
         password: '',
+        confirmPassword: '',
         isLoginForm: true,
+        organization: '',
+        organizations: '',
         baseUrl: 'http://localhost:3000',
+        errors: {
+          email: '',
+          user: '',
+          password: '',
+          confirmPassword: '',
+          organization: '',
+        },
       }
+    },
+    created() {
+      this.fetchOrganizations()
     },
     methods: {
       getToken() {
@@ -131,6 +172,25 @@
         this.isLoginForm = !this.isLoginForm
       },
 
+      fetchOrganizations() {
+        console.log('fetch organizations')
+        axios({
+          method: 'GET',
+          url: this.baseUrl + '/organizations',
+        })
+          .then(({ data }) => {
+            console.log(data, '<<<< organizations')
+            this.organizations = data
+          })
+          .catch((err) => {
+            console.log(err.data)
+            this.$emit('showMessage', {
+                  msg: err.data,
+                  type: 'error',
+                })
+          })
+      },
+
       signOut() {
         console.log('ini token', getToken())
         const auth2 = gapi.auth2.getAuthInstance()
@@ -143,7 +203,15 @@
       },
 
       submitLoginForm() {
-        const { user, password, email, username } = this
+        const {
+          user,
+          password,
+          email,
+          username,
+          confirmPassword,
+          organization,
+          errors,
+        } = this
 
         if (this.isLoginForm) {
           console.log('submit login form')
@@ -171,39 +239,72 @@
               console.log(err.response)
 
               this.$emit('showMessage', {
-                msg: err,
+                msg: err.data,
                 type: 'error',
               })
             })
         } else {
           console.log('submit register form')
 
-          axios({
-            method: 'POST',
-            url: this.baseUrl + '/register',
-            data: {
-              username,
-              email,
-              password,
-            },
+          console.log({
+            username,
+            email,
+            password,
+            organization,
           })
-            .then(({ data }) => {
-              console.log('berhasil register', data)
-              this.$emit('showMessage', {
-                msg: 'Account registration successful',
-                type: 'success',
-              })
-              this.isLoginForm = true
+
+          if (this.validateRegistration) {
+            axios({
+              method: 'POST',
+              url: this.baseUrl + '/register',
+              data: {
+                username,
+                email,
+                password,
+                OrganizationId: organization,
+              },
             })
-            .catch((err) => {
-              console.log(err)
-              console.log(err.response)
-              this.$emit('showMessage', {
-                msg: err,
-                type: 'error',
+              .then(({ data }) => {
+                console.log('berhasil register', data)
+                this.$emit('showMessage', {
+                  msg: 'Account registration successful',
+                  type: 'success',
+                })
+                this.isLoginForm = true
               })
-            })
+              .catch((err) => {
+                console.log(err)
+                console.log(err.response)
+                this.$emit('showMessage', {
+                  msg: err.data,
+                  type: 'error',
+                })
+              })
+          }
         }
+      },
+      validateRegistration() {
+        let validate = true
+
+        if (!email) {
+          errors.email = 'Email is required'
+          validate = false
+        }
+        if (!password) {
+          errors.password = 'Password is required'
+          validate = false
+        }
+        if (confirmPassword !== password) {
+          errors.confirmPassword = 'Please re-type the password above'
+          validate = false
+        }
+
+        if (!organization) {
+          errors.organization = 'Please choose your organization'
+          validate = false
+        }
+
+        return validate
       },
       onSignIn(googleUser) {
         console.log('on google sign in')
