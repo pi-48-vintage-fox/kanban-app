@@ -1,10 +1,26 @@
 <template>
-  <li @click="showTaskDetailsModal = true">
-    <div class="task-item-title">{{ task.title }}</div>
-    <div class="task-item-description">{{ task.description }}</div>
-    <div class="actions task-footer">
-      <img v-if="task.User" class="task-item-icon" :src="task.User.avatarUrl" />
-      <p v-if="task.User" class="task-item-creator">By {{ task.User.name }}</p>
+  <li>
+    <div @click="showTaskDetailsModal = true" style="cursor:pointer">
+      <div class="task-item-title">{{ task.title }}</div>
+      <div class="task-item-description">{{ task.description }}</div>
+    </div>
+    <div class="actions task-footer" style="justify-content: space-between">
+      <div class="actions">
+        <img
+          v-if="task.User"
+          class="task-item-icon"
+          :src="task.User.avatarUrl"
+        />
+        <p v-if="task.User" class="task-item-creator">
+          By {{ task.User.name }}
+        </p>
+      </div>
+
+      <div>
+        <i @click="showDeleteItemModal = true" class="material-icons delete-btn"
+          >delete_outline</i
+        >
+      </div>
     </div>
     <portal to="modals" v-if="showTaskDetailsModal">
       <BaseModal>
@@ -61,6 +77,35 @@
         </template>
       </BaseModal>
     </portal>
+
+    <portal to="modals" v-if="showDeleteItemModal">
+      <BaseModal>
+        <template #modal-title>
+          <p class="modal-title">Confirm Task Delete</p>
+        </template>
+
+        <template #modal-content>
+          <h3>Are you sure you want to delete this task?</h3>
+
+          <div class="actions align-end">
+            <button
+              type="button"
+              class="button button-grey"
+              @click="showDeleteItemModal = false"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="button button-danger"
+              @click="submitDeleteTask"
+            >
+              Delete Task
+            </button>
+          </div>
+        </template>
+      </BaseModal>
+    </portal>
   </li>
 </template>
 
@@ -74,6 +119,7 @@
         title: this.task.title,
         description: this.task.description,
         showTaskDetailsModal: false,
+        showDeleteItemModal: false,
         selected: '',
       }
     },
@@ -127,6 +173,26 @@
       fetchTasks() {
         console.log('fetching tasks')
         this.$emit('fetchTasks')
+      },
+
+      submitDeleteTask() {
+        this.showDeleteItemModal = false
+        console.log('delete task')
+        axios({
+          method: 'DELETE',
+          url: this.baseUrl + '/tasks/' + this.task.id,
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        })
+          .then(({ data }) => {
+            console.log(data, '>>> delete task')
+            this.$emit('fetchTasks')
+          })
+          .catch((err) => {
+            console.log(err)
+            this.$emit('showMessage', { msg: err, type: 'error' })
+          })
       },
     },
   }
