@@ -22,6 +22,7 @@
     components: {
       categoryCard,userInfo
     },
+  
     props:['cates','tasks']
   };
 </script>

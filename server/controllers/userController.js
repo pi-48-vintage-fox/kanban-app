@@ -27,6 +27,7 @@ module.exports= class userController{
                 email: req.body.email,
                 password: req.body.password
             }
+            console.log(params)
             let loginUser = await User.findOne({where:{email:params.email}})
             
             if(loginUser && bcrypt.compareSync(params.password,loginUser.password)){
@@ -37,6 +38,7 @@ module.exports= class userController{
             }
         
         } catch (error) {
+            console.log(error)
             next(error)
         }
     }

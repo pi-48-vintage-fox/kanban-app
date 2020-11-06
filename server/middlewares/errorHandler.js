@@ -1,6 +1,6 @@
 module.exports = errorHandler = (err, req,res,next)=>{
-    let status 
-    let msg =[]
+    let status =err.status || 500
+    let msg =[] || 'Internal Server Error'
     if (err.name == 'SequelizeValidationError'){
         status = 400
         for (let i =0; i < err.errors.length; i++){
@@ -30,10 +30,7 @@ module.exports = errorHandler = (err, req,res,next)=>{
         status = 400
         msg = err.name
     }
-    if(err.name =='Internal Server Error'){
-        status = 500
-        msg = err.name
-    }
+  
  
     
     res.status(status).json({msg})

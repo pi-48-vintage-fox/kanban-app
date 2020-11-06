@@ -4,7 +4,7 @@ const taskRoutes = require('./taskRoutes')
 const {authentication} = require('../middlewares/auth')
 
 routes.use('/user', userRoutes)
-// routes.use(authentication)
+routes.use(authentication)
 routes.use('/task', taskRoutes)
 
 module.exports = routes

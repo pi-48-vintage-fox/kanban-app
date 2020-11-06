@@ -1,12 +1,13 @@
 <template>
   <div class="login">
     <h1>Login</h1>
-    <form method="post">
-      <input type="text" name="u" placeholder="Username" required="required" />
+    <form @submit.prevent="logIn">
+      <input type="text" name="email" placeholder="Email" required="required" v-model="email" />
       <input
         type="password"
-        name="p"
+        name="password"
         placeholder="Password"
+        v-model="password"
         required="required"
       />
       <button type="submit" class="btn btn-primary btn-block btn-large">
@@ -14,6 +15,17 @@
       </button>
     </form>
 
+    <div>
+      <a
+        href=""
+        type="button"
+        class="btn btn-primary btn-large justify-content-end"
+        style="color: marron"
+        @click.prevent="register"
+      >
+        Register Here</a
+      >
+    </div>
     <!-- OAUTH -->
     <div class="input-group">
       <h6 class="mt-2 text-white">or sign up using</h6>
@@ -29,8 +41,35 @@
 </template>
 
 <script>
+import axios from "../config/axios"
+
 export default {
-  name:'login'
+  name:'login',
+  data(){
+    return{
+      email:'',
+      password:''
+    }
+  },
+  methods:{
+    logIn(){
+      let dataUser = {email:this.email, password:this.password}
+
+      axios.post('/user/login',dataUser)
+        .then(res=>{
+          localStorage.access_token = res.data.access_token
+          localStorage.name = res.data.name
+          this.$emit('changePage','home-page')
+        })
+        .catch(err=>{
+          console.log(err.response.data.msg)
+        })
+    },
+
+    register(){
+      this.$emit('changePage','register-page')
+    }
+  }
 };
 </script>
   

@@ -19,6 +19,7 @@
         type="button"
         class="btn btn-primary btn-large justify-content-end"
         style="color: marron"
+        @click.prevent="logout"
       >
         Log Out</a
       >
@@ -29,6 +30,13 @@
 <script>
 export default {
   name: "userInfo",
+  methods:{
+    logout(){
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('name')
+      this.$emit('changePage','login-page')
+    }
+  }
 };
 </script>
 

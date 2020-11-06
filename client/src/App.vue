@@ -1,6 +1,6 @@
 <template>
   <section>
-    <loginPage v-if="pageName == 'login-page'"></loginPage>
+    <loginPage v-if="pageName=='login-page'" @changePage ='changePage'></loginPage>
     <homePage
       v-else-if="pageName == 'home-page'"
       :cates="categories"
@@ -8,12 +8,14 @@
       @changePage="changePage"
     >
     </homePage>
+    <registerPage v-else-if="pageName =='register-page'" @changePage="changePage"></registerPage>
   </section>
 </template>
 
 <script>
 import loginPage from "./components/loginPage";
 import homePage from "./components/homePage";
+import registerPage from "./components/registerPage";
 import axios from "./config/axios";
 
 export default {
@@ -21,7 +23,8 @@ export default {
   data() {
     return {
       msg: "Hello World",
-      pageName: "home-page",
+      pageName: "login-page",
+      isLogin:"false",
       categories: [
         {
           category: "Backlog",
@@ -42,6 +45,7 @@ export default {
   components: {
     loginPage,
     homePage,
+    registerPage
   },
   methods: {
     changePage(name){
@@ -51,7 +55,7 @@ export default {
       axios({
         url: "/task",
         method: "GET",
-        // headers:{localStorage.access_token}
+        headers:localStorage.getItem('access_token',access_token)
       })
         .then(({ data }) => {
           console.log(data);
@@ -63,7 +67,15 @@ export default {
     },
   },
   created() {
-    this.fetchTask();
+    let access_token = localStorage.getItem('access_token')
+    if(access_token){
+      this.pageName = 'home-page'
+      this.isLogin = true
+      this.fetchTask();
+    }else{
+      this.pageName = 'login-page'
+      this.isLogin = false
+    }
   },
 };
 </script>
