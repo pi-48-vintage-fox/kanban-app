@@ -4,9 +4,10 @@ const { authorization } = require('../middlewares/auth')
 
 router.post('/', TaskController.postNewTask)
 router.get('/', TaskController.showAllTask)
-router.get('/user', TaskController.showAllTaskbyUserId)
 router.delete('/:id', authorization, TaskController.deleteTask)
 router.get('/:id', authorization ,TaskController.getTaskById)
+router.put('/:id', authorization, TaskController.updateTask)
+router.patch('/:id', authorization, TaskController.updateCategory)
 
 
 module.exports = router

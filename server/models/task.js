@@ -27,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     category: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    description: DataTypes.STRING
   }, {
     hooks: {
       beforeCreate: (instance) => {
