@@ -274,6 +274,11 @@ export default {
           });
         })
         .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.message,
+          });
           console.log(err);
         });
     },
@@ -316,6 +321,11 @@ export default {
           this.changePage("landingPage");
         })
         .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.message,
+          });
           console.log(err);
         });
     },
