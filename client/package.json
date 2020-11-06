@@ -11,9 +11,15 @@
   "description": "",
   "dependencies": {
     "axios": "^0.21.0",
+    "moment": "^2.29.1",
+    "socket.io-client": "^3.0.0",
+    "v-tooltip": "^2.0.3",
     "vue": "^2.6.12",
+    "vue-draggable": "^2.0.6",
     "vue-hot-reload-api": "^2.3.4",
-    "vue-toastify": "^1.8.0"
+    "vue-socket.io": "^3.0.10",
+    "vue-toastify": "^1.8.0",
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.2.0",

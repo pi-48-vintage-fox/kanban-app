@@ -174,25 +174,35 @@ body {
     align-items: flex-start;
 }
 
-.content-main::-webkit-scrollbar-track {
+.content-main::-webkit-scrollbar-track ,
+.task-list::-webkit-scrollbar-track 
+{
     background-color: #202331;
     border-radius: 10px;
     border: 4px solid rgba(43, 47, 66, 1);
     height: 5px;
 }
 
-.content-main::-webkit-scrollbar {
+.content-main::-webkit-scrollbar,
+.task-list::-webkit-scrollbar
+{
     height: 15px;
+    width:10px;
     cursor: pointer;
 }
 
-.content-main::-webkit-scrollbar-thumb {
+.content-main::-webkit-scrollbar-thumb ,
+.task-list::-webkit-scrollbar-thumb 
+{
+    
     border-radius: 10px;
     background-color: hsl(226, 23%, 30%);
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
-.content-main::-webkit-scrollbar-thumb:active {
+.content-main::-webkit-scrollbar-thumb:active,
+.task-list::-webkit-scrollbar-thumb:active
+ {
     border-radius: 10px;
     background-color: #58658d;
 }
@@ -222,6 +232,13 @@ body {
     border-radius: 5px;
     margin-right: 10px;
 }
+.task-list{
+    max-height: 70vh;
+    overflow-y:auto;
+    scrollbar-color: rgba(49, 56, 78, 1) rgba(32, 35, 49, 1);
+    padding-right: 7px;
+
+}
 
 .card-menu {
     cursor: pointer;
@@ -239,8 +256,15 @@ body {
     font-weight: 600;
     cursor: pointer;
 }
+.task:hover{
+    background-color: hsl(227, 22%, 35%);
+    box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
+    transition: 100ms;
+}
 
-.new-list:hover {
+.new-list:hover 
+
+{
     background-color: hsl(227, 22%, 27%);
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
     transition: 100ms;
@@ -508,14 +532,151 @@ i.primary {
     flex-direction: column;
     align-items: flex-start;    
 }
-p.task-title{
+.task-title{
     font-size: 12pt;
+    width: 100%;
+    margin-bottom: 1rem;
+    display:flex;
 }
 .task-footer{
     display: flex;
     flex-direction: column;
     font-size:8pt
 }
+.task-options{
+    margin-left: auto;
+    visibility: hidden;
+    background-color: hsl(227, 22%, 20%);
+    padding:0px 5px;    
+    border-radius:5px;
+    height:24px;
+}
+.task-options.label{
+    
+}
+.task-options:hover{
+    background-color: hsl(227, 22%, 50%);
+}
+.task-options.active{
+    visibility: visible;
+}
+.task:hover .task-options{
+    visibility: visible;
+}
+.task-menu-items{
+    background-color: hsl(227, 22%, 20%);
+    padding:5px;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+
+.tooltip {
+    display: block !important;
+    z-index: 10000;
+  }  
+  .tooltip .tooltip-inner {
+    background: black;
+    color: white;
+    border-radius: 16px;
+    padding: 5px 5px 5px;
+  }  
+  .tooltip .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+    border-color: black;
+    z-index: 1;
+  }
+  
+  .tooltip[x-placement^="top"] {
+    margin-bottom: 5px;
+  }
+  
+  .tooltip[x-placement^="top"] .tooltip-arrow {
+    border-width: 5px 5px 0 5px;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-bottom-color: transparent !important;
+    bottom: -5px;
+    left: calc(50% - 5px);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .tooltip[x-placement^="bottom"] {
+    margin-top: 5px;
+  }
+  
+  .tooltip[x-placement^="bottom"] .tooltip-arrow {
+    border-width: 0 5px 5px 5px;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    top: -5px;
+    left: calc(50% - 5px);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .tooltip[x-placement^="right"] {
+    margin-left: 5px;
+  }
+  
+  .tooltip[x-placement^="right"] .tooltip-arrow {
+    border-width: 5px 5px 5px 0;
+    border-left-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+    left: -5px;
+    top: calc(50% - 5px);
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  .tooltip[x-placement^="left"] {
+    margin-right: 5px;
+  }
+  
+  .tooltip[x-placement^="left"] .tooltip-arrow {
+    border-width: 5px 0 5px 5px;
+    border-top-color: transparent !important;
+    border-right-color: transparent !important;
+    border-bottom-color: transparent !important;
+    right: -5px;
+    top: calc(50% - 5px);
+    margin-left: 0;
+    margin-right: 0;
+
+  }
+  
+  .tooltip.popover .popover-inner {
+    background-color: hsl(227, 22%, 40%);
+    border-radius: 5px;
+    box-shadow: 0 5px 5px 20px rgba(black, .2);
+    color:rgba(137, 150, 184, 1);
+
+  }
+  
+  .tooltip.popover .popover-arrow {
+    border-color: hsl(227, 22%, 40%);
+
+  }
+  
+  .tooltip[aria-hidden='true'] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .15s, visibility .15s;
+  }
+  
+  .tooltip[aria-hidden='false'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .15s;
+  }
 /* media query */
 
 @media only screen and (max-width: 600px) {

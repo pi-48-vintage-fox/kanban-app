@@ -1,6 +1,6 @@
 'use strict'
 
-const { Task, User, TaskTag,Category} = require("../models")
+const { Task, User, TaskTag, Category} = require("../models")
 
 class TaskController{
 
@@ -8,11 +8,16 @@ class TaskController{
     try {
 
       let tasks = await Category.findAll({
+        order:[
+          ["id","ASC"],
+          [Task,"createdAt","ASC"]
+        ],
         include:[
           {
             model: Task,
             as: "Tasks",
-            include:[TaskTag]
+            include:[TaskTag,User],
+           
           }
         ]
       })
@@ -33,7 +38,8 @@ class TaskController{
       let data = {
         title: req.body.title,
         descriptions: req.body.descriptions,
-        CategoryId: req.body.CategoryId
+        CategoryId: req.body.CategoryId,
+        UserId: req.loggedInUser.id
       }
 
       let task = await Task.create(data)

@@ -1,5 +1,5 @@
 <template>
-  <div class="two-col-layout" id='main-page'>
+  <div class="two-col-layout" id="main-page">
     <div class="sidebar">
       <div class="sidebar-title">
         <div class="logo">
@@ -42,13 +42,65 @@
     <div class="content">
       <div class="content-top"><i class="fas fa-columns"></i> Boards</div>
       <div class="content-main">
-        
-        <TaskBoard 
-          v-for="(task,i) in tasks" :key = i
-          :title = task.name
-          :tasks = task.Tasks
-        ></TaskBoard>
-        <div class="new-list">+ Add new list</div>
+        <div class="draggable-container" v-drag-and-drop:options="options">
+          <vue-draggable-group
+            v-for="task in tasks"
+            v-model="task.Tasks"
+            :groups="tasks"
+            :data-id="task.id"
+            :key="task.id"
+            @change="onGroupsChange"
+          >
+            <TaskBoard
+              :title="task.name"
+              :tasks="task.Tasks"
+              :catId="task.id"
+              :data-id="task.id"
+              @addNewTask="addNewTask"
+              @editTask="editTask"
+              @deleteTask="deleteTask"
+            ></TaskBoard>
+          </vue-draggable-group>
+        </div>
+        <div class="new-list-container" id="new-list">
+          <div class="new-list" @click="newCategories">
+            <p class="mb-1">+ Add new list</p>
+          </div>
+          <div
+            class="new-task mb-1"
+            style="
+              background-color: rgba(49, 56, 78, 1);
+              padding: 10px;
+              border-radius: 7px;
+            "
+            v-if="addNewCategories"
+          >
+            <textarea
+              rows="5"
+              placeholder="ex. Backlog 2"
+              autofocus
+              ref="taskTextarea"
+              v-model="newCategory"
+            >
+            </textarea>
+            <div class="new-task-btn">
+              <button
+                type="button"
+                class="btn btn-success btn-sm"
+                @click="insertCategory"
+              >
+                <i class="fas fa-save success"></i> Save
+              </button>
+              <button
+                type="button"
+                class="btn btn-warning btn-sm"
+                @click="addNewCategories = false"
+              >
+                <i class="fas fa-times warning"></i> Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="content-footer">
         <p class="author">Created by Mochamad Zulfikar</p>
@@ -58,25 +110,78 @@
 </template>
 
 <script>
-import TaskBoard from "./Task-Board"
+import TaskBoard from "./Task-Board";
+import { VueDraggableDirective } from "vue-draggable";
+
 export default {
-  name:"MainPage",
-  components:{
-    TaskBoard
+  name: "MainPage",
+  directives: {
+    dragAndDrop: VueDraggableDirective,
   },
-  props:[
-    "tasks"
-  ],
-  methods:{
-    logOut(){
-      this.$emit("logout")
-    }
+  components: {
+    TaskBoard,
   },
-  mounted(){
-    this.$emit("load")
-  }
+  data() {
+    return {
+      addNewCategories: false,
+      newCategory: "",
+      options: {
+        dropzoneSelector: "#task-container",
+        draggableSelector: ".task",
+        reactivityEnabled: true,
+        items: [], // list of selected draggable elements
+      },
+    };
+  },
+  props: ["tasks"],
+  methods: {
+    deleteTask(payload) {
+      this.$emit("deleteTask", payload);
+    },
+    editTask(payload) {
+      this.$emit("editTask", payload);
+    },
+    onGroupsChange(e) {
+      console.log({ e });
+    },
+    scrollToEnd() {
+      let container = this.$el.querySelector(".content-main");
+      container.scrollLeft = container.scrollWidth;
+    },
+    newCategories() {
+      this.addNewCategories = true;
+      this.$nextTick(() => {
+        this.$refs.taskTextarea.focus();
+        this.scrollToEnd();
+      });
+    },
+    insertCategory() {
+      if (this.newCategory == "") {
+        this.$vToastify.error("You must fill the name", "Ooops..");
+      } else {
+        let payload = {
+          name: this.newCategory,
+        };
+        this.$emit("newCategory", payload);
+      }
+    },
+    logOut() {
+      this.$emit("logout");
+    },
+    addNewTask(payload) {
+      this.$emit("addNewTask", payload);
+    },
+  },
+  mounted() {
+    this.$emit("load");
+  },
 };
 </script>
 
 <style>
+.draggable-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
 </style>

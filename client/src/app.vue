@@ -15,8 +15,12 @@
 
       <MainPage
         v-if="currentView == 'Main'"
-        @logout="logout"
         :tasks="tasks"
+        @logout="logout"
+        @addNewTask="addNewTask"
+        @newCategory="addNewCategory"
+        @editTask="editTask"
+        @deleteTask="deleteTask"
       ></MainPage>
     </transition>
   </div>
@@ -34,7 +38,7 @@ export default {
     return {
       currentView: "Login",
       access_token: "",
-      tasks:{},
+      tasks: {},
     };
   },
   components: {
@@ -42,7 +46,100 @@ export default {
     RegisterPage,
     MainPage,
   },
+  sockets: {
+    connect() {
+      console.log("connected");
+    },
+    onLoggedIn() {
+      console.log("loggedIn");
+    },
+    messageChannel(data) {
+      console.log(data);
+    },
+    tasksUpdated(data) {
+      console.log("taskUpdated");
+      this.tasks = data
+    },
+    broadcast(data){
+      console.log(data);
+    },
+    notAuthenticated(data) {
+      this.currentView = "Login";
+      this.$vToastify.error("Not Loggin", "Oops..");
+    },
+  },
   methods: {
+    updateTask() {
+      this.$socket.emit("updateTask", {
+        access_token: localStorage.access_token,
+      });
+    },
+    deleteTask(payload) {
+      axios
+        .delete("/tasks/" + payload.taskId, {
+          headers: {
+            access_token: this.access_token,
+          },
+        })
+        .then((response) => {
+          this.$vToastify.success("Task Deleted");
+          this.updateTask()
+        })
+        .catch((err) => {
+          this.$vToastify.error(err.response.data.msg, "Ooops..");
+        });
+    },
+    editTask(payload) {
+      axios
+        .put(
+          "/tasks/" + payload.taskId,
+          {
+            title: payload.content,
+          },
+          {
+            headers: {
+              access_token: this.access_token,
+            },
+          }
+        )
+        .then((response) => {
+          this.$vToastify.success("Task Edited");
+          this.updateTask()
+        })
+        .catch((err) => {
+          this.$vToastify.error(err.response.data.msg, "Ooops");
+        });
+    },
+    addNewCategory(payload) {
+      axios
+        .post("/categories", payload, {
+          headers: {
+            access_token: this.access_token,
+          },
+        })
+        .then((response) => {
+          this.$vToastify.success("Category Created");
+          this.updateTask()
+        })
+        .catch((err) => {
+          this.$vToastify.error(err.response.data.msg, "Ooops");
+        });
+    },
+    addNewTask(payload) {
+      axios
+        .post("/tasks", payload, {
+          headers: {
+            access_token: this.access_token,
+          },
+        })
+        .then((response) => {
+          this.$vToastify.success("Task Created");
+          this.updateTask()
+        })
+        .catch((err) => {
+          this.$vToastify.error(err.response.data.msg, "Ooops");
+        });
+    },
     changePage(payload) {
       this.currentView = payload.page;
     },
@@ -92,32 +189,16 @@ export default {
       }, 500);
     },
 
-    fetchTask() {
-      axios
-        .get("/tasks", {
-          headers: {
-            access_token: this.access_token,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          this.tasks = response.data.tasks;
-        })
-        .catch((err) => {
-          this.$vToastify.error(err.response.data.msg, "Ooops");
-        });
-    },
   },
-  mounted() {
-    this.fetchTask();
-  },
+  mounted() {},
   created() {
-    let access_token = localStorage.getItem("access_token");
+    let access_token = localStorage.access_token;
     if (!access_token) {
       this.currentView = "Login";
     } else {
       this.currentView = "Main";
       this.access_token = access_token;
+      this.updateTask()
     }
   },
 };

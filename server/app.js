@@ -6,6 +6,12 @@ const cors = require('cors');
 const Routes = require('./routes');
 const errorHandler = require('./middlewares/errorHandler');
 const port = process.env.PORT || 3000
+const server = require('http').Server(app)
+const io = require("socket.io")(server)
+server.listen(port)
+
+
+const { Task, User, TaskTag, Category} = require("./models")
 
 
 app.use(cors())
@@ -14,6 +20,24 @@ app.use(express.urlencoded({extended:false}))
 
 app.use('/', Routes)
 app.use(errorHandler)
-app.listen(port,()=>{
-  console.log(`App running in http://localhost:${port}`);
+
+io.on('connect',(socket)=>{
+  console.log("userConnected");
+  socket.on('updateTask',async function (data){
+    console.log(data);
+      let tasks = await Category.findAll({
+        order:[
+          ["id","ASC"],
+          [Task,"createdAt","ASC"]
+        ],
+        include:[
+          {
+            model: Task,
+            as: "Tasks",
+            include:[TaskTag,User],           
+          }
+        ]
+      })
+      io.emit("tasksUpdated",tasks)     
+  })
 })
