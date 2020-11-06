@@ -49,6 +49,8 @@
         {{btnTxt}}
       </button>
     </form>
+    <hr>
+    <p class="text-center">&copy;2020 - Abdul Rasyid Anshori</p>
   </div>
 </template>
 

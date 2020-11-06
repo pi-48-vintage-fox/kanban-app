@@ -47,7 +47,16 @@
         {{btnTxt}}
       </button>
     </form>
+    <table width="100%">
+      <tr>
+        <td><hr /></td>
+        <td style="width:1px; padding: 0 10px; white-space: nowrap;">Login with Social Account</td>
+        <td><hr /></td>
+      </tr>
+    </table>
     <button v-google-signin-button="clientId" class="btn btn-outline-primary btn-block"><i class="fab fa-google"></i> {{btnTxt}} </button>
+    <hr>
+    <p class="text-center">&copy;2020 - Abdul Rasyid Anshori</p>
   </div>
 </template>
 

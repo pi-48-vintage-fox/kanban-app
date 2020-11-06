@@ -1,5 +1,5 @@
 <template>
-  <div class="card border-primary mt-3 mb-3" :class="`order-${cat.order}`" style="max-width: 18rem; max-height: 500px">
+  <div class="card border-primary mt-3 mb-3" :class="`order-${cat.order}`" style="width: 18rem; max-height: 500px">
     <div class="card-header font-weight-bold text-center text-capitalize text-light display-4" :class="`${cat.color}`">
       {{cat.name}}
     </div>
