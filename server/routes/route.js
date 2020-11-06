@@ -15,6 +15,7 @@ router.post('/googlelogin', UserController.googleLogin)
 router.get('/tasks',authentication, TaskController.show)
 router.post('/tasks/', authentication, TaskController.add)
 router.get('/categories', authentication, CategoryController.showCategory)
+router.post('/categories', authentication, CategoryController.addCategory)
 router.put('/tasks/:id',authentication, authorization, TaskController.edit)
 router.delete('/tasks/:id',authentication, authorization, TaskController.delete)
 
