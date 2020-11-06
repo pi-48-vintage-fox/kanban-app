@@ -45,9 +45,9 @@
                                       <p class="card-text"><img class="" alt="profile" width="20px"> {{task.User.firstName}} {{task.User.lastName}}</p>
                                     </div>
                                     <div class="card-footer border-0 bg-light">
-                                        <button @click="getById(task.id)" class="btn text-success"><i class="fas fa-edit"></i></button>
-                                        <button @click="deleteTask(task.id)" class="btn text-danger"><i class="fas fa-trash-alt"></i></button>
-                                        <button @click="changeCategory('product', task.id)" class="btn text-info"><i class="fas fa-arrow-right"></i></button>
+                                        <button @click.prevent="getById(task.id)" class="btn text-success"><i class="fas fa-edit"></i></button>
+                                        <button @click.prevent="deleteTask(task.id)" class="btn text-danger"><i class="fas fa-trash-alt"></i></button>
+                                        <button @click.prevent="changeCategory('todo', task.id)" class="btn text-info"><i class="fas fa-arrow-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -56,10 +56,10 @@
                     <div class="col-lg-3">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Product</h5>
+                                <h5>Todo</h5>
                             </div>
                             <div class="card-body bg-secondary">
-                                <div v-for="task in tasks" :key="task.id" v-show="task.category == 'product'" class="card">
+                                <div v-for="task in tasks" :key="task.id" v-show="task.category == 'todo'" class="card">
                                     <div class="card-body bg-white">
                                         <transition name="fade">
                                             <div v-show="getTaskById.title != ''" v-if="task.id == getTaskById.id" id="form-edit-task">
@@ -81,7 +81,7 @@
                                     <div class="card-footer border-0 bg-light">
                                         <button @click="getById(task.id)" class="btn text-success"><i class="fas fa-edit"></i></button>
                                         <button @click="deleteTask(task.id)" class="btn text-danger"><i class="fas fa-trash-alt"></i></button>
-                                        <button @click="changeCategory('development', task.id)" class="btn text-info"><i
+                                        <button @click="changeCategory('doing', task.id)" class="btn text-info"><i
                                                 class="fas fa-arrow-right"></i></button>
                                     </div>
                                 </div>
@@ -91,10 +91,10 @@
                     <div class="col-lg-3">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Development</h5>
+                                <h5>Doing</h5>
                             </div>
                             <div class="card-body bg-secondary">
-                                <div v-for="task in tasks" :key="task.id" v-show="task.category == 'development'" class="card">
+                                <div v-for="task in tasks" :key="task.id" v-show="task.category == 'doing'" class="card">
                                     <div class="card-body bg-white">
                                         <transition name="fade">
                                             <div v-show="getTaskById.title != ''" v-if="task.id == getTaskById.id" id="form-edit-task">
@@ -143,7 +143,7 @@
                                                 </form>
                                             </div>
                                         </transition>
-                                      <h5 class="card-title">{{task.title}}</h5>
+                                      <h5 class="card-title">{{task.title}} {{task.id}}</h5>
                                     <p class="card-text"><img class="" alt="profile" width="20px"> {{task.User.firstName}}
                                         {{task.User.lastName}}</p>
                                     </div>
@@ -162,6 +162,33 @@
 <script>
 export default {
     name: 'HomePage',
+    props: [
+        'tasks', 
+        'errorMessage', 
+        'show',
+        'taskAdd', 
+        'getTaskById'
+        ],
+    methods: {
+        addTask(){
+            this.$emit('addTask');
+        },
+        getById(id){
+            this.$emit('getById', id);
+        },
+        changeCategory(category, id){
+            this.$emit('changeCategory', category, id);
+        },
+        editTitleTask(id){
+            this.$emit('editTitleTask', id);
+        },
+        deleteTask(id){
+            this.$emit('deleteTask', id);
+        },
+        fetchTasks(){
+            this.$emit('fetchTasks');
+        }
+    }
 }
 </script>
 

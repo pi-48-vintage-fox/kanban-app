@@ -20,7 +20,7 @@
                                 </div>
                                 <button type="submit" class="mt-5 btn btn-login">SIGN UP</button>
                             </form>
-                            <button class="btn mt-5" href="" @click="changePage('login-page')">SIGN IN</button>
+                            <button class="btn mt-5" href="" @click="loginPage()">SIGN IN</button>
                         </div>
                     </div>
                 </div>
@@ -55,6 +55,9 @@ export default {
             .catch(err => {
                 swal(err.response.data.message);
             })
+        },
+        loginPage(){
+            this.$emit('changePage', 'login-page');
         }  
     }
 }

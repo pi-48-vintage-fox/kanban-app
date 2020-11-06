@@ -14,7 +14,7 @@
                                 </div>
                                 <button  type="submit" class="mt-5 btn btn-login">SIGN IN</button>
                             </form>
-                            <button class="btn mt-5" href="" v-on:click="changePage('register-page')">SIGN UP</button>
+                            <button class="btn mt-5" href="" v-on:click="registerPage()">SIGN UP</button>
                         </div>
                     </div>
                 </div>
@@ -25,36 +25,20 @@
 <script>
 export default {
     name: 'LoginPage',
-    data() {
-        return {
-            page: '',
-            userLogin: {
-                email: '',
-                password: ''
-            },
-            server: 'http://localhost:3000',
-            props: ['login']
-        }
-    },
+    props: ['userLogin'],
     methods: {
         login(){
-            axios({
-                method: 'POST',
-                url: this.server + '/login',
-                data: this.userLogin
-            })
-            .then(resp => {
-                const access_token = resp.data.access_token;
-                this.page = 'home-page';
-                this.userLogin.email = '';
-                this.userLogin.password = '';
-                localStorage.setItem('access_token', access_token);
-                this.fetchTasks();
-            })
-            .catch(err => {
-                swal(err.response.data.message);
-            })
+            this.$emit('login');
         },
+        registerPage(){
+            this.$emit('changePage', 'register-page');
+        },
+        homePage(){
+            this.$emit('changePage', 'home-page');
+        },
+        fetchTasks(){
+            this.$emit('fetchTasks');
+        }
     }
 }
 </script>

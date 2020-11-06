@@ -1,13 +1,44 @@
 <template>
     <div>
-        <LoginPage v-if="page == 'login-page'">
+        <Navbar 
+            v-if="page !== 'login-page' && 
+            page !== 'register-page'" 
+            @logout="logout">
+        </Navbar>
+        <div class="container">
+        <LoginPage 
+            v-if="page == 'login-page'" 
+            @changePage="changePage" 
+            @fetchTasks="fetchTasks" 
+            @login="login" 
+            :userLogin="userLogin">
         </LoginPage>
-        <RegisterPage v-else-if="page == 'register-page'"></RegisterPage>
-        <HomePage v-else-if="page == 'home-page'"></HomePage>
+        <RegisterPage 
+            v-else-if="page == 'register-page'" 
+            @changePage="changePage" 
+            @fetchTasks="fetchTasks">
+        </RegisterPage>
+        <HomePage 
+            v-else-if="page == 'home-page'" 
+            :tasks="tasks" 
+            :errorMessage="errorMessage" 
+            :show="show" 
+            :taskAdd="taskAdd" 
+            :getTaskById="getTaskById" 
+            @addTask="addTask"
+            @getById="getById"
+            @changeCategory="changeCategory"
+            @editTitleTask="editTitleTask"
+            @deleteTask="deleteTask"
+            @fetchTasks="fetchTasks" 
+            >
+        </HomePage>
+        </div>
     </div>
 </template>
 
 <script>
+import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/Register';
@@ -15,22 +46,33 @@ export default {
     name: 'App',
     data(){
         return {
-        page: 'home-page',
-        show: false,
-        showEdit: false,
-        server: 'http://localhost:3000',
-        tasks: '',
-        taskAdd: {
-            title: ''
-        },
-        getTaskById: {
-            id: '',
-            title: ''
-        },
-        errorMessage: '' 
+            page: 'login-page',
+            show: false,
+            showEdit: false,
+            server: 'http://localhost:3000',
+            userLogin: {
+                email: '',
+                password: ''
+            },
+            userRegister: {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: ''
+            },
+            tasks: '',
+            taskAdd: {
+                title: ''
+            },
+            getTaskById: {
+                id: '',
+                title: ''
+            },
+            errorMessage: '' 
         }
     },
     components: {
+        Navbar,
         HomePage,
         LoginPage,
         RegisterPage
@@ -39,25 +81,29 @@ export default {
         changePage(name) {
             this.page = name;
         },
+        login(){
+            axios({
+                method: 'POST',
+                url: this.server + '/login',
+                data: this.userLogin
+            })
+            .then(resp => {
+                const access_token = resp.data.access_token;
+                this.page = 'home-page';
+                this.userLogin.email = '';
+                this.userLogin.password = '';
+                localStorage.setItem('access_token', access_token);
+                this.fetchTasks();
+            })
+            .catch(err => {
+                console.log(err);
+                swal(err.response.statusText);
+            })
+        },
         logout(){
             localStorage.clear();
             swal('Success logout');
             this.page = 'login-page';
-        },
-        fetchTasks() {
-            axios({
-                method: 'GET',
-                url: this.server + '/task',
-                headers: {
-                    access_token: localStorage.getItem('access_token')
-                }
-            })
-            .then(res => {
-                this.tasks = res.data;
-            })
-            .catch(err => {
-                swal('Something wrong');
-            })
         },
         addTask(){
             axios({
@@ -75,14 +121,13 @@ export default {
                     swal('Success!! added task');
                     this.show = false;
                     this.fetchTasks();
-                    console.log(res);
                 } else {
                     swal('Oops!! something wrong');
                 }
             })
             .catch(err => {
                 this.show = false;
-                this.fetchTasks();
+                console.log(err);
                 this.errorMessage = err.response.data.message;
             })
         },
@@ -119,7 +164,6 @@ export default {
                 }
             })
             .then(resp => {
-                console.log(category);
                 swal(`Task move to ${category}`);
                 this.fetchTasks();
             })
@@ -179,12 +223,36 @@ export default {
                 } else {
                     swal("Your task is safe!");
                 }
-
                 this.fetchTasks();
             })
             .catch(err => {
                 swal(err.response.data.message);
             });
+        },
+        fetchTasks() {
+            axios({
+                method: 'GET',
+                url: this.server + '/task',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .then(res => {
+                this.tasks = res.data;
+            })
+            .catch(err => {
+                swal('Something wrong');
+            })
+        },
+    }, 
+    created(){
+        this.fetchTasks();
+        const access_token = localStorage.getItem('access_token');
+        if (access_token) {
+            this.fetchTasks();
+            this.page = 'home-page';
+        } else {
+            this.page = 'login-page';
         }
     }
 }
