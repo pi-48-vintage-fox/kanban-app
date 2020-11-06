@@ -11341,21 +11341,21 @@ var _default = {
           password: this.passwordRegister
         }
       }).then(function (res) {
-        // localStorage.setItem("access_token", res.data.access_token);
+        localStorage.setItem("access_token", res.data.access_token);
         (0, _sweetalert.default)("Success", "Register Success!", "success");
 
         _this.changePage("loginPage");
       }).catch(function (err) {
-        var msg = [];
-
-        if (Array.isArray(err.response.data.message)) {
-          err.response.data.message.forEach(function (el) {
-            msg.push("<li>".concat(el, "</li>"));
-          });
-          _this.message = msg.join(" ");
-        } else {
-          _this.message = err.response.data.message;
-        }
+        // let msg = [];
+        // if (Array.isArray(err.response.data.message)) {
+        //   err.response.data.message.forEach((el) => {
+        //     msg.push(`<li>${el}</li>`);
+        //   });
+        //   this.message = msg.join(" ");
+        // } else {
+        //   this.message = err.response.data.message;
+        // }
+        console.log(err);
       });
     },
     changePage: function changePage(page) {
@@ -12371,8 +12371,8 @@ var _default = {
   data: function data() {
     return {
       page: 'loginPage',
-      // baseUrl: 'https://kanban-app-iqbal-sahrizal.herokuapp.com',
-      baseUrl: 'http://localhost:3000',
+      baseUrl: 'https://kanban-app-iqbal.herokuapp.com',
+      // baseUrl: 'http://localhost:3000',
       tasks: []
     };
   },
@@ -12538,7 +12538,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51663" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53255" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

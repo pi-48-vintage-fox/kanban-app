@@ -100,20 +100,21 @@ export default {
         },
       })
         .then((res) => {
-          // localStorage.setItem("access_token", res.data.access_token);
+          localStorage.setItem("access_token", res.data.access_token);
           swal("Success", "Register Success!", "success");
           this.changePage("loginPage");
         })
         .catch((err) => {
-          let msg = [];
-          if (Array.isArray(err.response.data.message)) {
-            err.response.data.message.forEach((el) => {
-              msg.push(`<li>${el}</li>`);
-            });
-            this.message = msg.join(" ");
-          } else {
-            this.message = err.response.data.message;
-          }
+          // let msg = [];
+          // if (Array.isArray(err.response.data.message)) {
+          //   err.response.data.message.forEach((el) => {
+          //     msg.push(`<li>${el}</li>`);
+          //   });
+          //   this.message = msg.join(" ");
+          // } else {
+          //   this.message = err.response.data.message;
+          // }
+          console.log(err);
         });
     },
     changePage(page) {
