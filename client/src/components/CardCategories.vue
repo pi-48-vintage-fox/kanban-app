@@ -8,6 +8,8 @@
       :key="task.id"
       :task="task"
       @editTask="editTask"
+      @editCategory="editCategory"
+      @deleteTask="deleteTask"
     ></Task>
     <p type="button" class="nav-link" @click="addTask">
       <i
@@ -68,8 +70,14 @@ export default {
       this.addForm = value;
     },
     editTask(value) {
-      this.$emit('editTask',value);
+      this.$emit('editTask', value);
     },
+    editCategory(value) {
+      this.$emit('editCategory', value)
+    },
+    deleteTask(value) {
+      this.$emit('deleteTask', value)
+    }
   },
   created() {
     this.fetchCategory();

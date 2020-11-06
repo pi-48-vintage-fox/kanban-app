@@ -95,15 +95,13 @@ export default {
   },
   methods: {
     editTask(id) {
-      console.log(id);
       this.taskForm = true;
     },
-    editCategory(id) {
-      console.log(id);
+    editCategory(id) {;
       this.categoryForm = true;
     },
     deleteTask(id) {
-      console.log(id);
+      this.$emit('deleteTask', id)
     },
     submitEditForm(value) {
       this.taskForm = false;
@@ -114,7 +112,7 @@ export default {
     },
     submitCategoryForm(value) {
       this.categoryForm = false;
-      //this.$emit('editTask', value)
+      this.$emit('editCategory', value)
     },
     closeCategoryForm(value) {
       this.categoryForm = value;

@@ -2,18 +2,26 @@
   <div>
     <form>
       <div class="form-group">
-    <label for="exampleFormControlSelect1">Category</label>
-    <select class="form-control" id="exampleFormControlSelect1" v-model="task.category">
-      <option>Backlog</option>
-      <option>Todo</option>
-      <option>Doing</option>
-      <option>Done</option>
-    </select>
-  </div>
-      <button type="button" @click.prevent="submitCategoryForm" class="btn btn-primary mb-2">
+        <label for="exampleFormControlSelect1">Category</label>
+        <select class="form-control" id="category" v-model="category">
+          <option value="Backlog">Backlog</option>
+          <option value="Todo">Todo</option>
+          <option value="Doing">Doing</option>
+          <option value="Done">Done</option>
+        </select>
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary mb-2"
+        @click="submitCategoryForm"
+      >
         Edit
       </button>
-      <button type="button" @click="closeCategoryForm" class="btn btn-primary mb-2">
+      <button
+        type="button"
+        @click="closeCategoryForm"
+        class="btn btn-primary mb-2"
+      >
         Cancel
       </button>
     </form>
@@ -23,19 +31,16 @@
 <script>
 export default {
   name: "EditTask",
-  props: ['task'],
+  props: ["task"],
   data() {
     return {
-      payload: {
-        title: "",
-        description: "",
-        category: this.categoryName,
-      },
+      category: "",
     };
   },
   methods: {
     submitCategoryForm() {
-      this.$emit("submitCategoryForm", this.payload);
+      this.task.category = this.category;
+      this.$emit("submitCategoryForm", this.task);
     },
     closeCategoryForm() {
       this.$emit("closeCategoryForm", false);

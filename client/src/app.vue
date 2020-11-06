@@ -1,7 +1,11 @@
 <template>
   <div>
     <Navbar :page="page" @changePage="changePage"></Navbar>
-    <LoginForm v-if="page === 'login'" @login="login"></LoginForm>
+    <LoginForm
+      v-if="page === 'login'"
+      @login="login"
+      @googleLogin="googleLogin"
+    ></LoginForm>
     <RegisterForm
       v-if="page === 'register'"
       @register="register"
@@ -11,6 +15,8 @@
       :tasks="tasks"
       @addTask="addTask"
       @editTask="editTask"
+      @editCategory="editCategory"
+      @deleteTask="deleteTask"
     ></Tasks>
   </div>
 </template>
@@ -44,7 +50,7 @@ export default {
         .then(({ data }) => {
           this.page = "login";
         })
-        .catch(({err}) => {
+        .catch(({ err }) => {
           console.log(err.message);
         });
     },
@@ -58,9 +64,13 @@ export default {
           this.page = "tasks";
           this.fetchTasks();
         })
-        .catch(({err}) => {
+        .catch(({ err }) => {
           console.log(err);
         });
+    },
+    googleLogin() {
+      this.page = "tasks";
+      this.fetchTasks();
     },
     fetchTasks() {
       Axios.get("http://localhost:3000/task", {
@@ -71,7 +81,7 @@ export default {
         .then(({ data }) => {
           this.tasks = data;
         })
-        .catch(({err}) => {
+        .catch(({ err }) => {
           console.log(err);
         });
     },
@@ -92,7 +102,7 @@ export default {
         .then(({ data }) => {
           this.fetchTasks();
         })
-        .catch(({err}) => {
+        .catch(({ err }) => {
           console.log(err);
         });
     },
@@ -113,7 +123,7 @@ export default {
         .then(({ data }) => {
           this.fetchTasks();
         })
-        .catch(({err}) => {
+        .catch(({ err }) => {
           this.fetchTasks();
           console.log(err);
         });
@@ -133,9 +143,24 @@ export default {
         .then(({ data }) => {
           this.fetchTasks();
         })
-        .catch(({err}) => {
+        .catch(({ err }) => {
           this.fetchTasks();
-          console.log('err');
+          console.log("err");
+        });
+    },
+    deleteTask(value) {
+      console.log(value);
+      Axios.delete(`http://localhost:3000/task/${value}`, {
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      })
+        .then(({ data }) => {
+          this.fetchTasks();
+        })
+        .catch(({ err }) => {
+          this.fetchTasks();
+          console.log("err");
         });
     },
     changePage(value) {

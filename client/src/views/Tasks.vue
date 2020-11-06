@@ -10,6 +10,8 @@
         :categoryName="category"
         @addTask="addTask"
         @editTask="editTask"
+        @editCategory="editCategory"
+        @deleteTask="deleteTask"
       ></CardCategories>
     </div>
   </div>
@@ -35,6 +37,12 @@ export default {
     },
     editTask(value) {
       this.$emit('editTask', value)
+    },
+    editCategory(value) {
+      this.$emit('editCategory', value)
+    },
+    deleteTask(value) {
+      this.$emit('deleteTask', value)
     }
   },
 };

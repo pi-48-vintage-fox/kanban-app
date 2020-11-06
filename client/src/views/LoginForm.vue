@@ -26,8 +26,13 @@
           v-model="payload.password"
         />
       </div>
-      <div class="col- 6">
-        <button type="submit" class="btn btn-primary">login</button>
+      <div class="column">
+        <button type="submit" class="btn btn-success">login</button>\
+        <div>
+          <g-signin-button :params="googleSignInParams" @success="onSignIn">
+        Sign in with Google
+      </g-signin-button>
+        </div>
       </div>
     </form>
   </div>
@@ -35,17 +40,42 @@
 
 <script>
 import Axios from "axios";
+import GSignInButton from "vue-google-signin-button";
 export default {
   name: "LoginForm",
+  components: {
+    GSignInButton
+  },
   data() {
     return {
       page: "login",
       payload: {},
+      googleSignInParams: {
+        client_id:
+          "21177283159-on299n33tkcj9fnfu729tp4simrgj8l1.apps.googleusercontent.com",
+      },
     };
   },
   methods: {
     login() {
       this.$emit("login", this.payload);
+    },
+    onSignIn(googleUser) {
+      var google_access_token = googleUser.getAuthResponse().id_token;
+      Axios({
+        method: "POST",
+        url: `http://localhost:3000/googleLogin`,
+        headers: {
+          google_access_token
+        },
+      })
+        .then(({data}) => {
+          localStorage.access_token = data.access_token;
+          this.$emit('googleLogin')
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

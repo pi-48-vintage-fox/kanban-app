@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import GSignInButton from "vue-google-signin-button";
 export default {
   name: "Navbar",
   props: ["page"],
@@ -41,6 +42,10 @@ export default {
     logout() {
       this.$emit("changePage", "login");
       localStorage.clear();
+      var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
     },
   },
 };
