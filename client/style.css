@@ -1,0 +1,275 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("https://images.unsplash.com/photo-1514421266214-69b5a8771edc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: cover;
+  background-color: #262673;
+  background-attachment: fixed;
+}
+
+nav {
+  background-color: #e6ffff;
+  border-bottom-style: solid;
+  display: flex;
+  height: 60px;
+  padding: 0px 10px;
+  width: 100%;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 10;
+}
+
+nav .nav-logout {
+  display: flex;
+  align-items: center;
+}
+
+nav .nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+.board {
+  margin-top: 10px;
+  flex-wrap: nowrap;
+}
+
+.category-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  display: flex;
+}
+
+.container-fluid {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.content {
+  border-style: solid;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 25rem;
+  padding: 10px;
+  width: fit-content;
+  
+}
+
+.content-item {
+  background-color: lavender;
+  border-style: dotted;
+  height: 14vh;
+  width: fit-content;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.content-item a {
+  color: #444;
+  text-decoration: none;
+}
+
+.display-1 {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.display-4 {
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.google-signin-button {
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  background: white;
+  color: #444;
+  display: inline-block;
+  width: 190px;
+  white-space: nowrap;
+}
+
+.google-signin-button:hover {
+  background-image: url('../client/img/google-logo.jpg');
+  background-size: cover;
+  background-position-y: center;
+  cursor: pointer;
+  color: transparent;
+  transition: 500ms;
+}
+
+.google-button-area {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.iconic {
+  transition: 300ms;
+}
+
+.iconic:hover {
+  width: 2em;
+  height: 2em;
+  transition: 300ms;
+}
+
+.login-card {
+  border-style: solid;
+  border-radius: 10px;
+  background-color: #e6ffff;
+  padding: 50px;
+}
+
+.mus-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.nav-logo img {
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.nav-logo i span {
+  color: black;
+  margin-left: 10px;
+}
+
+.nav-logo i a {
+  text-decoration: none;
+}
+
+.or-statement {
+  text-align: center;
+}
+
+.org-card {
+  margin-top: 10vh;
+  margin-left: 10px;
+}
+
+.org-card:hover {
+  cursor: pointer;
+}
+
+.organizations-menu {
+  background-color: #e6ffff;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.2);
+  border-style: solid;
+  margin-top: 9vh;
+  padding: 15px;
+  width: 10vw;
+}
+
+.register-card {
+  border-style: solid;
+  border-radius: 10px;
+  background-color: #e6ffff;
+  padding: 50px;
+}
+
+.sub-board {
+  background-color: #e6ffff;
+  border-style: solid;
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+  transition: 300ms;
+  width: 15vw;
+}
+
+.sub-board:hover {
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.64);
+  transition: 500ms;
+}
+
+.submit-login {
+  text-align: center;
+}
+
+.submit-login .btn {
+  background-color: beige;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 5px 100px;
+}
+
+.submit-login .btn:hover {
+  background-color: #262673;
+  color: white;
+  transition: 200ms;
+}
+
+#add-board-category {
+  width: 15rem;
+}
+
+#add-board-category:hover {
+  cursor: pointer;
+}
+
+#add-task-form {
+  background-color: #e6ffff;
+  border-style: solid;
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+#cancel-link {
+  text-decoration: none;
+}
+
+#content-category {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#delete-category-icon {
+  text-decoration: none;
+}
+
+#delete-category-icon:hover {
+  color: red;
+  cursor: pointer;
+}
+
+#login-page {
+  justify-content: center;
+}
+
+#register-page {
+  justify-content: center;
+}
+
+#register-link {
+  text-decoration: none;
+}
+
+#selectCategory {
+  margin-left: 10px;
+}
+
+#text-add-category {
+  text-align: center;
+  margin-top: 10px;
+}
