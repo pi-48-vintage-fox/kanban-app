@@ -5,6 +5,12 @@ const categoryRoutes = require('./category');
 const organizationRoutes = require('./organization');
 const Authenticate = require('../middlewares/authenticate');
 
+router.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Server is running'
+  })
+})
+
 router.post('/register', Controller.register);
 router.post('/login', Controller.login);
 router.post('/googleLogin', Controller.googleLogin);
