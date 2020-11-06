@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jsonwebtoken": "^8.5.1",
     "vue": "^2.6.12",
+    "vue-google-signin-button-directive": "^1.0.3",
     "vue-hot-reload-api": "^2.3.4"
   },
   "devDependencies": {

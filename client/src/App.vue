@@ -24,13 +24,15 @@
             :errorMessage="errorMessage" 
             :show="show" 
             :taskAdd="taskAdd" 
-            :getTaskById="getTaskById" 
+            :getTaskById="getTaskById"
+            :categories="categories"
+            :clientId="clientId"
             @addTask="addTask"
             @getById="getById"
             @changeCategory="changeCategory"
             @editTitleTask="editTitleTask"
             @deleteTask="deleteTask"
-            @fetchTasks="fetchTasks" 
+            @fetchTasks="fetchTasks"
             >
         </HomePage>
         </div>
@@ -68,7 +70,9 @@ export default {
                 id: '',
                 title: ''
             },
-            errorMessage: '' 
+            errorMessage: '',
+            categories: ['Backlog', 'Todo', 'Doing', 'Done'],
+            clientId: '300714736469-s4d33v7bq72f28a96rp123o1o8ss5r0n.apps.googleusercontent.com'
         }
     },
     components: {
@@ -93,6 +97,7 @@ export default {
                 this.userLogin.email = '';
                 this.userLogin.password = '';
                 localStorage.setItem('access_token', access_token);
+                location.reload();
                 this.fetchTasks();
             })
             .catch(err => {

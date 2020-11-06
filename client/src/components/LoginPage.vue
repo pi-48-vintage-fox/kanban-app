@@ -15,6 +15,7 @@
                                 <button  type="submit" class="mt-5 btn btn-login">SIGN IN</button>
                             </form>
                             <button class="btn mt-5" href="" v-on:click="registerPage()">SIGN UP</button>
+                             <button v-google-signin-button="clientId" class="google-signin-button btn mt-5"> Login with Google</button>
                         </div>
                     </div>
                 </div>
@@ -25,10 +26,39 @@
 <script>
 export default {
     name: 'LoginPage',
-    props: ['userLogin'],
+    props: ['userLogin', 'clientId'],
     methods: {
         login(){
             this.$emit('login');
+        },
+        OnGoogleAuthSuccess (idToken) {
+            var base64Url = idToken.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            const payload = JSON.parse(jsonPayload);
+            axios({
+                method: 'POST',
+                url: 'http://localhost:3000/google-login',
+                data: {
+                    email: payload.email
+                }
+            })
+            .then(resp => {
+                console.log(resp);
+                const access_token = resp.data.access_token;
+                this.page = 'home-page';
+                localStorage.setItem('access_token', access_token);
+                location.reload();
+                this.fetchTasks();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        },
+        OnGoogleAuthFail (error) {
+            console.log(error)
         },
         registerPage(){
             this.$emit('changePage', 'register-page');
@@ -44,5 +74,5 @@ export default {
 </script>
 
 <style>
-
+    
 </style>

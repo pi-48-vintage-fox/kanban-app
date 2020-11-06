@@ -56,7 +56,39 @@ class AuthControler {
     } catch (error) {
         res.status(500).json(error)
     }
+ }
 
+ static async googleLogin(req, res){
+     try {
+        const find = await User.findOne({
+            where: {
+                email: req.body.email
+            }
+        })
+        if (find) {
+            const access_token = {
+                access_token :token({
+                id: find.id,
+                email: find.email
+                })
+            }
+            res.status(200).json(access_token)
+        } else {
+            const addUser = await User.create({
+                email: req.body.email,
+                password: '123456'
+            })
+            const access_token = {
+                access_token :token({
+                id: addUser.id,
+                email: addUser.email
+                })
+            }
+            res.status(200).json(access_token)
+        }
+     } catch (error) {
+        res.status(500).json(error);  
+     }
  }
 }
 
