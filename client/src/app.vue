@@ -5,6 +5,8 @@
       v-if="pageName === 'login-page'"
       @login="login"
       @changePage="changePage"
+      @OnGoogleAuthSuccess="OnGoogleAuthSuccess"
+      @OnGoogleAuthFail="OnGoogleAuthFail"
     >
     </Login>
 
@@ -124,7 +126,7 @@ export default {
         },
       })
         .then((result) => {
-          console.log(result,'<<<<<<< ini data categories');
+          console.log(result, "<<<<<<< ini data categories");
           this.categories = result.data;
         })
         .catch((err) => {
@@ -162,24 +164,28 @@ export default {
         });
     },
 
-    onSignIn(googleUser) {
-      var google_access_token = googleUser.getAuthResponse().id_token;
-      console.log(google_access_token);
+    OnGoogleAuthSuccess(idToken) {
+      console.log(idToken);
       axios({
-        url: "/googlelogin",
         method: "POST",
-        headers: {
-          google_access_token,
+        url: "/googlelogin",
+        data: {
+          access_token: idToken,
         },
       })
-        .then((data) => {
-          localStorage.setItem("access_token", data.access_token);
-          this.pageName = "home-page";
-          this.fetchKanban();
-        })
-        .catch((err) => {
-          console.log(err.response, "<<<<<<<< error dari google");
-        });
+      .then(({ data }) => {
+        localStorage.setItem("access_token", data.access_token);
+        this.pageName = "home-page";
+        this.fetchKanban();
+        this.fetchCategories();
+      })
+      .catch(err =>{
+        console.log(err)
+      })
+      // Receive the idToken and make your magic with the backend
+    },
+    OnGoogleAuthFail(error) {
+      console.log(error);
     },
 
     editCategory(payload) {
@@ -235,7 +241,7 @@ export default {
         },
       })
         .then((data) => {
-          console.log(data, '<<<<<<<<<<<<ini data task');
+          console.log(data, "<<<<<<<<<<<<ini data task");
           this.tasks = data.data;
         })
         .catch((err) => {
