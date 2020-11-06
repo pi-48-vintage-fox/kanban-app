@@ -183,7 +183,8 @@ export default {
     },
     logout() {
       this.$vToastify.loader("Logging out ..");
-      setTimeout(() => {
+      
+      setTimeout(() => {        
         let access_token = localStorage.clear();
         this.$vToastify.stopLoader();
         this.$vToastify.success(":(", "Bye");
@@ -215,8 +216,8 @@ export default {
       this.currentView = "Login";
     } else {
       this.currentView = "Main";
-      this.access_token = access_token; 
-      this.updateTask()
+      this.access_token = access_token;
+      this.updateTask();
     }
   },
 };

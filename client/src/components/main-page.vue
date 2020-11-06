@@ -34,7 +34,7 @@
             <hr />
           </div>
         </div>
-        <div class="menu-item" @click="logOut">
+        <div class="menu-item" @click="logOut" id="logoutBtn">
           <i class="fas fa-sign-out-alt danger"></i> Sign Out
         </div>
       </div>
