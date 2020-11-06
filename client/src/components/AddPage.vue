@@ -7,7 +7,7 @@
           <div class="row">
             <div class="col masuk">Add Kanban</div>
           </div>
-          <form @submit.prevent="addTasks()">
+          <form @submit.prevent="addTasks">
             <div class="form-group">
               <label for="add-title">Title</label>
               <input type="text" v-model="title" class="form-control" />

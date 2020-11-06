@@ -25,7 +25,6 @@ export default {
         id: this.tasks.id,
         name: "edit-page",
       };
-      console.log(this.tasks.id);
       this.$emit("toEditPage", payload);
     },
 
@@ -33,6 +32,7 @@ export default {
       let payload = {
         id: this.tasks.id,
       }
+
       this.$emit("toDelete", payload)
     },
     
@@ -41,7 +41,6 @@ export default {
         id: this.tasks.id,
         name: "edit-category"
       };
-      console.log(this.tasks.id);
       this.$emit("toEditCategory", payload);
     },
   },

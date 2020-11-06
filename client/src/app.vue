@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- Landing Page -->
-    <Login v-if="pageName === 'login-page'"></Login>
+    <Login v-if="pageName === 'login-page'" @login="login"> </Login>
 
     <!-- Register Page -->
-    <Register v-else-if="pageName === 'register-page'"></Register>
+    <Register v-else-if="pageName === 'register-page'"> </Register>
 
     <!-- Main Page -->
     <HomePage
@@ -13,7 +13,8 @@
       @changePage="changePage"
       @toEditPage="toEditPage"
       @toEditCategory="toEditCategory"
-      @toDelete="toDelete">
+      @toDelete="toDelete"
+    >
     </HomePage>
 
     <!-- Add Page -->
@@ -24,17 +25,17 @@
     <EditPage
       v-else-if="pageName === 'edit-page'"
       @toEditPage="toEditPage"
-      @editTasks="editTasks">
+      @editTasks="editTasks"
+    >
     </EditPage>
 
     <!-- Edit Category -->
     <EditCategory
-    v-else-if="pageName === 'edit-category'"
-    @toEditCategory="toEditCategory"
-    @editCategory="editCategory">      
+      v-else-if="pageName === 'edit-category'"
+      @toEditCategory="toEditCategory"
+      @editCategory="editCategory"
+    >
     </EditCategory>
-
-
   </div>
 </template>
 
@@ -51,7 +52,7 @@ export default {
   data() {
     return {
       msg: "hello world",
-      pageName: "home-page",
+      pageName: "login-page",
       tasks: [],
       id: 0,
     };
@@ -62,7 +63,7 @@ export default {
     Register,
     AddPage,
     EditPage,
-    EditCategory
+    EditCategory,
   },
   methods: {
     changePage(payload) {
@@ -70,7 +71,21 @@ export default {
     },
 
     toDelete(payload) {
-      console.log('ini tombol delete')
+      const token = localStorage.getItem("access_token");
+      axios({
+        url: `/tasks/${payload.id}`,
+        method: "DELETE",
+        headers: {
+          access_token: token,
+        },
+      })
+        .then((data) => {
+          this.pageName = "home-page";
+          this.fetchKanban();
+        })
+        .catch((err) => {
+          console.log(err.response, "<<<<< ini error dari delete");
+        });
     },
 
     toEditPage(payload) {
@@ -79,12 +94,31 @@ export default {
     },
 
     toEditCategory(payload) {
-      this.pageName = 'edit-category';
-      this.id = payload.id
+      this.pageName = "edit-category";
+      this.id = payload.id;
     },
 
-    editCategory(payload){
-       const token = localStorage.getItem("access_token");
+    login(payload) {
+      axios({
+        url: "/login",
+        method: "POST",
+        data: {
+          email: payload.email,
+          password: payload.password,
+        },
+      })
+        .then(({ data }) => {
+          localStorage.setItem("access_token", data.access_token);
+          this.pageName = "home-page";
+          this.fetchKanban();
+        })
+        .catch((err) => {
+          console.log(err.response, "<<<<<<< ini data error login");
+        });
+    },
+
+    editCategory(payload) {
+      const token = localStorage.getItem("access_token");
       axios({
         url: `/tasks/${this.id}`,
         method: "PATCH",
@@ -167,7 +201,12 @@ export default {
     },
   },
   created() {
-    this.fetchKanban();
+    if (localStorage.getItem("access_token")) {
+      this.pageName = "home-page";
+      this.fetchKanban();
+    } else {
+      this.pageName = "login-page";
+    }
   },
 };
 </script>

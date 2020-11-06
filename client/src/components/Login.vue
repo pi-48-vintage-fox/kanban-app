@@ -9,10 +9,10 @@
                 Register
               </div>
             </div>
-            <form onsubmit="login(event)">
+            <form @submit.prevent="login">
               <div class="form-group">
                 <label for="login-email">Email</label>
-                <input type="email" id="login-email" class="form-control" />
+                <input type="email" v-model="email" id="login-email" class="form-control" />
               </div>
               <div class="form-group">
                 <label for="login-password">Password</label>
@@ -20,6 +20,7 @@
                   type="password"
                   id="login-password"
                   class="form-control"
+                  v-model="password"
                 />
               </div>
               <button type="submit" class="btn btn-primary">Login</button>
@@ -32,7 +33,23 @@
 
 <script>
 export default {
-  name : 'Login'
+  name : 'Login',
+  data(){
+    return {
+      email : '',
+      password : ''
+    }
+  },
+  methods : {
+    login(){
+      let payload = {
+        email : this.email,
+        password : this.password
+      }
+      this.$emit('login', payload)
+    }
+  }
+
 }
 </script>
 

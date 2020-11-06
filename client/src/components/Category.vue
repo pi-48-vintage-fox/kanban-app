@@ -9,6 +9,7 @@
           :tasks="tasks"
           @toEditPage="toEditPage"
           @toEditCategory="toEditCategory"
+          @toDelete="toDelete"
         >
         </Task>
       </div>
@@ -22,6 +23,7 @@
           :tasks="tasks"
           @toEditPage="toEditPage"
           @toEditCategory="toEditCategory"
+          @toDelete="toDelete"
         >
         </Task>
       </div>
@@ -35,6 +37,7 @@
           :tasks="tasks"
           @toEditPage="toEditPage"
           @toEditCategory="toEditCategory"
+          @toDelete="toDelete"
         >
         </Task>
       </div>
@@ -89,6 +92,7 @@ export default {
       this.$emit("toEditCategory", payload)
     },
     toDelete(payload) {
+      console.log(payload)
       this.$emit("toDelete", payload)
     }
   },
