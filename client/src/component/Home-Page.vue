@@ -12,7 +12,8 @@
             :tasks="tasks"
             :cat="cat"
             @toEdit="toEdit"
-            @toDelete="toDelete">
+            @toDelete="toDelete"
+            @fetchTasks="fetchTasks">
         </Category>
         
     </div>
@@ -47,6 +48,9 @@ export default {
         },
         logOut(){
             this.$emit('logOut')
+        },
+        fetchTasks(){
+            this.$emit('fetchTasks')
         }
     }
 

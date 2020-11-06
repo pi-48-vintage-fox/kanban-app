@@ -7,21 +7,21 @@
     <div id="edit-form" class="container">
         <form class="container" @submit.prevent="editTask">
             <h3 class="text-center">Edit Task</h3>
+            {{detailTask}}
             <div class="form-group">
                 <label for="exampleFormControlInput1">Title</label>
-                <input type="text" class="form-control" id="edit_title" placeholder="detailTask.title" v-model="title">
+                <input type="text" class="form-control" id="edit_title" v-model="detailTask.title">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Description</label>
-                <textarea class="form-control" id="edit_description" rows="3" v-model="description"></textarea>
+                <textarea class="form-control" id="edit_description" rows="3" v-model="detailTask.description"></textarea>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Category</label>
-                <select class="form-control" id="edit_category" v-model="CategoryId">
-                <option value="1">Backlog</option>
-                <option>ToDo</option>
-                <option>Doing</option>
-                <option>Done</option>
+                <select class="form-control" id="exampleFormControlSelect1" v-model="detailTask.CategoryId">
+                <option v-for="(cat, i) in categories" 
+                :key="i" 
+                :value="cat.id">{{cat.name}}</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary" style="background-color: #F6F5F0; color: black; width: auto">Submit</button>
@@ -34,25 +34,13 @@
 import Navbar from './Navbar'
 export default {
     name: 'EditPage',
-    data() {
-        return {
-            title: '',
-            description: '',
-            CategoryId: ''
-        }
-    },
     components : {
        Navbar
     },
-    props: ['detailTask'],
+    props: ['detailTask', 'categories'],
     methods: {
         editTask() {
-            let payload = {
-                email: this.title,
-                description: this.description,
-                CategoryId: this.CategoryId
-            }
-            this.$emit('editPut', payload)
+            this.$emit('editPut', this.detailTask)
         },
         switchToAdd() {
             this.$emit('changePage', 'AddPage')

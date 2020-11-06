@@ -28,10 +28,11 @@ class TaskController {
     }
 
     static changeCategory (req, res, next) {
-        const id = req.params.id
-        const CategoryId = req.body.CategoryId 
+        const id = +req.params.id
+        const CategoryId = +req.body.CategoryId 
         Task.findByPk(id)
         .then(task => {
+            console.log(task)
             return Task.update({CategoryId}, {
                 where: {
                     id: id

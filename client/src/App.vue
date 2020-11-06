@@ -22,7 +22,8 @@
       @changePage="changePage"
       @toEdit="toEdit"
       @toDelete="toDelete"
-      @logOut="logOut">
+      @logOut="logOut"
+      @fetchTasks="fetchTasks">
     </HomePage>
 
     <!-- addpage -->
@@ -37,6 +38,7 @@
     <!-- edit -->
     <EditPage 
       v-else-if="pageName == 'EditPage'"
+      :categories="categories"
       :detailTask="detailTask"
       @changePage="changePage"
       @editPut="editPut"
@@ -197,7 +199,7 @@ export default {
     },
     editPut(payload) {
       const access_token = localStorage.getItem('access_token')
-      const id = this.id
+      const id = payload.id
       axios({
         url: `/tasks/${id}`,
         method: 'PUT',
@@ -213,26 +215,6 @@ export default {
       .then(task => {
         this.fetchTasks()
         this.changePage('HomePage')
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    },
-    editPatch(){
-      const access_token = localStorage.getItem('access_token')
-      const id = req.params.id
-      axios({
-        url: `/tasks/${id}`,
-        method: 'PATCH',
-        headers: {
-          access_token
-        },
-        data: {
-          CategoryId
-        }
-      })
-      .then(task => {
-
       })
       .catch(err => {
         console.log(err)
