@@ -1,0 +1,374 @@
+:root {
+  --bg-color: rgb(250, 250, 250);
+  --bg-dark: #223346;
+  --txt-color: #223346;
+  --txt-dark: #ebeef1;
+  --primary: #107a3c;
+  --accent-dark: #e94326;
+  --accent: #ca2f13;
+  --accent2: #0091da;
+  --accent3: #107a3c;
+  --placeholder-color: #aaa9a9;
+  --blue-lighter: #dee8ff;
+  --blue-light: #4f7add;
+  --blue: #305dc5;
+  --green: #28ac4f;
+  --red: rgb(226, 55, 55);
+  --grey-lightest: rgb(244, 244, 244);
+  --grey-lighter: rgb(232, 232, 232);
+  --grey-light: rgb(212, 212, 212);
+  --grey: rgb(164, 180, 185);
+  --grey-dark: rgb(148, 157, 160);
+  --grey-darker: rgb(101, 108, 110);
+  --grey-darkest: rgb(45, 48, 49);
+
+  --shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  --shadow2: 0 1px 10px 0 rgba(0, 0, 0, 0.5);
+
+  --header-height: 44px;
+  --left-nav-width: 250px;
+
+  font-size: 16px;
+}
+/*
+* ─── CSS RESET: START ───────────────────────────────────────────────────────────
+*/
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+*:focus {
+  /* outline: 1px solid var(--accent);
+  outline-offset: 2px; */
+  outline: none;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: var(--bg-color);
+  background-color: var(--grey-lightest);
+  background-image: url('https://images.unsplash.com/photo-1553277835-e88e4a95efa5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80');
+  background-size: cover;
+  color: var(--txt-color);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: var(--blue);
+}
+
+a:hover {
+  color: var(--blue-light);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--placeholder-color);
+}
+
+canvas {
+  position: fixed;
+  touch-action: none;
+}
+
+/*
+* ─── CSS RESET: END ─────────────────────────────────────────────────────────────
+*/
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* #body-login, #body-register  {
+  background: #2980B9;  
+  background: -webkit-linear-gradient(to right, #f8dcde, #caeefc, #88bde0);  
+  background: linear-gradient(to right, #f8dcde, #caeefc, #88bde0); 
+} */
+
+.container {
+  /* max-width: 1200px; */
+  min-width: 500px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-height: calc(100vh - 2 * var(--header-height));
+  margin: var(--header-height) auto 0;
+  padding: 4rem 0.5rem 4rem;
+  z-index: 10;
+}
+.fullwidth {
+  width: 100%;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.baseline {
+  align-items: baseline !important;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
+.notification {
+  margin: 0.5rem 0;
+  /* padding: 0.75rem;  */
+  text-align: center;
+}
+
+.notification-error {
+  /* background:rgb(247, 204, 204); */
+  color: rgb(201, 26, 26);
+}
+
+.notification-warning {
+  background: rgb(253, 255, 135);
+  color: rgb(138, 112, 26);
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.align-end {
+  justify-content: flex-end;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table {
+  margin-top: 0.5rem;
+  margin: 0 auto;
+  width: 100%;
+  /* table-layout: fixed; */
+  border-collapse: collapse;
+  border: none;
+}
+
+th {
+  text-align: left;
+}
+
+tbody tr {
+  border-top: 2px solid rgb(230, 230, 230);
+}
+
+tbody tr:nth-child(odd) {
+  background-color: var(--grey-lightest);
+}
+
+tbody tr:hover {
+  background-color: var(--blue-lighter);
+  color: var(--accent);
+}
+
+td,
+th {
+  padding: 0.5rem 0.85rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form .actions {
+  margin-top: 1rem;
+}
+
+.actions a:not(:last-of-type),
+.actions button:not(:last-of-type) {
+  margin: 0.25rem 0.5rem 0.25rem 0;
+}
+
+h2 {
+  margin-top: 1.5rem;
+}
+#map {
+  height: 400px;
+  width: 600px;
+  margin-top: 1rem;
+}
+
+.button {
+  display: block;
+  width: fit-content;
+  min-width: 4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 6px;
+  color: white;
+  background-color: var(--primary);
+  /* border: 2px solid var(--primary); */
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button-logout {
+  margin-left: 1rem;
+  background-color: var(--bg-color);
+  /* border: 2px solid var(--accent); */
+  color: var(--accent);
+}
+
+.button-secondary {
+  background-color: var(--accent2);
+  /* border: 2px solid var(--accent2); */
+}
+
+.button-info {
+  background-color: var(--green);
+  /* border: 2px solid var(--green); */
+}
+
+.button-danger {
+  background-color: var(--red);
+  /* border: 2px solid var(--red); */
+}
+
+.button-grey {
+  background-color: rgb(200, 205, 211);
+  /* border: 2px solid rgb(176, 182, 190); */
+  color: var(--txt-color);
+}
+
+.button-grey:hover {
+  background-color: rgb(185, 191, 199);
+}
+
+.button-transparent {
+  background-color: transparent;
+  border: 0;
+  color: var(--txt-color);
+}
+
+.button-transparent:hover {
+  /* color: var(--accent); */
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.button-lg {
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+}
+.button-sm {
+  padding: 0.4rem 0.5rem;
+  /* font-size: 0.75rem; */
+  /* margin: 0 !important; */
+}
+.button-xs {
+  padding: 0.3rem 0.4rem;
+  height: fit-content;
+  font-size: 0.65rem;
+  /* margin: 0 !important; */
+}
+
+.button-icon-left {
+  margin-right: 0.5rem;
+}
+.button-icon-right {
+  margin-left: 0.5rem;
+}
+
+.no-button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+a.button:hover {
+  color: white;
+}
+
+.button:hover {
+  filter: brightness(1.2);
+}
+
+.button:disabled {
+  background-color: var(--grey-light);
+  color: var(--grey-dark);
+  border: 0;
+}
+
+.button:disabled:hover {
+  filter: unset;
+}
+
+footer {
+  min-height: var(--header-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--grey-lighter);
+}
+
+footer p {
+  font-size: 0.9rem;
+  font-weight: 600;
+}

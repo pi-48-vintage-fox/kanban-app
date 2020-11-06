@@ -1,27 +1,26 @@
 const { verifyToken } = require('../helpers/auth')
 const { User } = require('../models')
 
-async function authentication (req, res, next) {
+async function authentication(req, res, next) {
   console.log(req.params, '<<< req params authentication')
   try {
     const access_token = req.headers.access_token
     if (!access_token) {
-      throw { msg: 'Not authenticated', status: 401}
-    } 
+      throw { msg: 'Not authenticated', status: 401 }
+    }
 
     const decoded = verifyToken(access_token)
 
-    console.log({decoded})
+    console.log({ decoded })
 
     const user = await User.findOne({
-      where: { email : decoded.email }
+      where: { email: decoded.email },
     })
 
     if (!user) {
       console.log('user not found')
-      throw { msg: 'Not authenticated', status: 401}
+      throw { msg: 'Not authenticated', status: 401 }
     } else {
-
       req.user = decoded
       next()
     }
@@ -29,8 +28,6 @@ async function authentication (req, res, next) {
     console.log(err)
     next(err)
   }
-
 }
 
 module.exports = authentication
-

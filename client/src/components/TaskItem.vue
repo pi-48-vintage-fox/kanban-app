@@ -1,0 +1,135 @@
+<template>
+  <li @click="showTaskDetailsModal = true">
+    <div class="task-item-title">{{ task.title }}</div>
+    <div class="task-item-description">{{ task.description }}</div>
+    <div class="actions task-footer">
+      <img v-if="task.User" class="task-item-icon" :src="task.User.avatarUrl" />
+      <p v-if="task.User" class="task-item-creator">By {{ task.User.name }}</p>
+    </div>
+    <portal to="modals" v-if="showTaskDetailsModal">
+      <BaseModal>
+        <template #modal-title>
+          <p class="modal-title">Task Details</p>
+        </template>
+
+        <template #modal-content>
+          <form @submit.prevent="submitNewTask">
+            <label for="title">Title</label>
+            <input
+              v-model="title"
+              type="text"
+              name="title"
+              autofocus
+              required
+            />
+
+            <label for="description">Description</label>
+            <textarea
+              v-model="description"
+              name="description"
+              id=""
+              cols="15"
+              rows="4"
+            ></textarea>
+
+            <label for="categories">Move to</label>
+            <select v-model="selected" name="categories">
+              <option
+                v-for="category in filteredCategories"
+                :key="category.id"
+                :value="category.id"
+                >{{ category.name }}
+              </option>
+            </select>
+            <div class="actions align-end">
+              <button
+                type="button"
+                class="button button-grey"
+                @click="showTaskDetailsModal = false"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="button"
+                @click.prevent="submitUpdateTask"
+              >
+                Update Task
+              </button>
+            </div>
+          </form>
+        </template>
+      </BaseModal>
+    </portal>
+  </li>
+</template>
+
+<script>
+  import axios from 'axios'
+  import BaseModal from './BaseModal'
+  export default {
+    data() {
+      return {
+        baseUrl: 'http://localhost:3000',
+        title: this.task.title,
+        description: this.task.description,
+        showTaskDetailsModal: false,
+        selected: '',
+      }
+    },
+    props: {
+      task: Object,
+      category: Object,
+      categories: Array,
+      // CategoryId: Number,
+    },
+    components: {
+      BaseModal,
+    },
+    computed: {
+      filteredCategories() {
+        return this.categories.filter((cat) => cat.id !== this.task.CategoryId)
+      },
+    },
+    methods: {
+      submitUpdateTask() {
+        console.log('submit task update')
+
+        console.log({
+          title: this.title,
+          description: this.description,
+          CategoryId: this.selected,
+        })
+
+        this.showTaskDetailsModal = false
+        axios({
+          method: 'PUT',
+          url: this.baseUrl + '/tasks/' + this.task.id,
+          data: {
+            title: this.title,
+            description: this.description,
+            CategoryId: this.selected,
+          },
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        })
+          .then(({ data }) => {
+            console.log(data, '<<< update task')
+            this.fetchTasks()
+          })
+          .catch((err) => {
+            console.log(err)
+            this.$emit('showMessage', { msg: err, type: 'error' })
+          })
+      },
+
+      fetchTasks() {
+        console.log('fetching tasks')
+        this.$emit('fetchTasks')
+      },
+    },
+  }
+</script>
+
+<style></style>

@@ -1,0 +1,145 @@
+#landing-page,
+#app {
+  /* display:none; */
+  min-height: 100vh;
+  width: 100vw;
+}
+
+#landing-page {
+  display: flex;
+  flex-direction: row;
+  background-color: khaki;
+
+  background: #a8c0ff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #a0add8,
+    #dce3f3
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #a0add8,
+    #dce3f3
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  /* background-image: url("../images/jess-bailey-q10VITrVYUM-unsplash.jpg"); */
+  /* background-color: #cccccc; */
+}
+
+#landing-page-left {
+  width: 65vw;
+}
+
+#landing-page-right {
+  width: 35vw;
+}
+
+#landing-title-container {
+  width: 70%;
+  margin: 3rem auto;
+}
+
+#landing-page-left {
+  display: flex;
+  flex-direction: column;
+}
+
+#landing-page h1 {
+  font-size: 6rem !important;
+  font-weight: 700 !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#landing-page-left h3 {
+  font-size: 4rem;
+}
+
+#auth-oauth {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2rem 1rem 1rem 1rem;
+}
+
+#container-auth {
+  width: 90%;
+  /* max-width: 300px; */
+  min-width: 250px;
+  padding: 3rem 2.5rem;
+}
+
+#registerForm,
+#loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#registerForm .button,
+#loginForm .button {
+  padding: 0.5rem 0;
+  width: 100%;
+  margin: 0.75rem 0;
+  font-size: 1rem;
+}
+
+#container-auth {
+  margin-top: 3rem;
+  background-color: var(--grey-lightest);
+
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+#auth-title {
+  display: block;
+  height: 3rem;
+  width: fit-content;
+  font-size: 2.5rem;
+  line-height: 1rem;
+  font-weight: 700;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+  /* border-bottom: 5px solid var(--accent2); */
+  border-bottom: 5px solid var(--accent);
+}
+
+#landing-page label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+label,
+.label {
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+input,
+select,
+textarea {
+  padding: 0.25rem 1rem;
+  border: 1px solid var(--grey);
+  border-radius: 4px;
+}
+
+input[type='date'] {
+  width: 200px;
+}
+
+input:focus {
+  box-shadow: 0 0 1px 1px rgba(79, 122, 221, 1);
+}
+
+label.error {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--red);
+}
+
+label small {
+  margin-left: 0.5rem;
+  font-weight: 400;
+}

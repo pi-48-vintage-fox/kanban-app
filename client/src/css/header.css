@@ -1,0 +1,137 @@
+header {
+  height: var(--header-height);
+  width: 100vw;
+  padding: 0.25rem;
+  /* background-color: var(--grey-lighter); */
+  /* background-color: var(--blue); */
+  display: flex;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  /* box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.35); */
+  z-index: 10;
+}
+
+header nav,
+header nav section {
+  display: flex;
+  align-items: center;
+}
+header nav {
+  width: 100%;
+  margin: 0 1rem;
+  justify-content: space-between;
+}
+
+header a {
+  color: var(--txt-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0 1rem;
+}
+
+header a:hover {
+  color: var(--accent);
+}
+
+div#avatar {
+  /* background-color: rgb(61, 61, 238); */
+  border-radius: 50%;
+  color: white;
+  margin-left: 1rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.title-organization {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-left: 1.5rem;
+}
+
+#top-nav,
+#top-nav-left_control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+#top-nav section {
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+#top-nav section > * {
+  margin-right: 1rem;
+}
+
+#top-nav section:last-child {
+  margin-right: 0;
+}
+
+#hamburger-toggle,
+#home-icon {
+  cursor: pointer;
+}
+
+.add-task {
+  background: transparent;
+  color: white;
+  border: 0;
+  padding: 0 1rem;
+  cursor: pointer;
+}
+
+.add-task span {
+  font-size: 1.2rem;
+  margin-right: 0.2rem !important;
+}
+
+#avatar img {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: white;
+  border: 0;
+}
+
+#usermenu > * {
+  cursor: pointer;
+}
+
+#usermenu {
+  display: block;
+  position: fixed;
+  top: 50px;
+  right: 0.5rem;
+  width: 150px;
+  background-color: var(--bg-color);
+  color: var(--txt-color);
+  padding: 1rem;
+  height: fit-content;
+  /* overflow-y: scroll; */
+  overflow-x: hidden;
+  border: 1px solid var(--grey-light);
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+}
+
+#usermenu li:hover {
+  color: var(--blue);
+}
+
+.usermenu-item {
+  margin-bottom: 0.75rem;
+}
+
+.usermenu-icon {
+  font-size: 1rem;
+  margin: 0 0.5rem 0 0.5rem;
+}

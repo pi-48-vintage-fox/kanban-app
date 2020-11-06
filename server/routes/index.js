@@ -11,12 +11,12 @@ router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 router.post('/googleLogin', UserController.googleLogin)
 
+router.use('/categories', categoryRoutes)
 router.use(authentication)
 router.get('/users/', UserController.findOrgMembers)
 router.get('/users/:UserId', UserController.findById)
 
 router.use('/tasks', taskRoutes)
-router.use('/categories', categoryRoutes)
 
 router.use(errorHandler)
 

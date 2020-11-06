@@ -22,6 +22,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      avatarUrl: {
+        type: Sequelize.STRING
+      },
       OrganizationId: {
         type: Sequelize.INTEGER
       },

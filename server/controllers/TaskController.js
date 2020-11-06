@@ -1,30 +1,48 @@
 // const SibApiV3Sdk = require('sib-api-v3-sdk')
-const { Task, User } = require('../models')
+const { Task, User, Category } = require('../models')
 // const { tomorrow, toDateString, convertToWesternFormat } = require('../helpers/date')
 
 class TaskController {
-
-  
   static async tasks(req, res, next) {
-
     try {
+      const { OrganizationId } = req.user
 
-      const {OrganizationId} = req.user
-
-      const tasks = await Task.findAll({
-        where: { OrganizationId }
+      console.log({ OrganizationId })
+      console.log('fetching tasks')
+      let tasks = await Task.findAll({
+        where: { OrganizationId },
+        include: User,
       })
-      
-      res.status(200).json(tasks)
+      // console.log(tasks, '^---- tasks')
+
+      let output = []
+
+      tasks.forEach((task) => {
+        output.push({
+          id: task.id,
+          title: task.title,
+          description: task.description,
+          CategoryId: task.CategoryId,
+          OrganizationId: task.OrganizationId,
+          User: {
+            name: task.User.name,
+            avatarUrl: task.User.avatarUrl,
+            id: task.User.id,
+          },
+        })
+      })
+
+      // console.log(output)
+
+      res.status(200).json(output)
     } catch (error) {
       next(error)
     }
   }
 
   static async tasksByUser(req, res, next) {
-
-    const {user} = req
-    console.log({user}, '<< task controller')
+    const { user } = req
+    console.log({ user }, '<< task controller')
 
     try {
       const tasks = await Task.findAll({
@@ -32,107 +50,98 @@ class TaskController {
           UserId: user.id,
         },
         order: [['createdAt', 'ASC']],
-
       })
-      
+
       // console.log(JSON.stringify(tasks,null,2))
 
       res.status(200).json(tasks)
-
     } catch (error) {
       next(error)
     }
   }
 
-
-  
   static async getTaskById(req, res, next) {
-
     try {
       const task = await Task.findByPk(req.params.TaskId)
 
       res.status(200).json(task)
-      
     } catch (error) {
       next(error)
     }
   }
-  
+
   static async addTask(req, res, next) {
     console.log(req.user, '\n^---- req user')
-    
-    const {title, description, CategoryId } = req.body
+    console.log(req.body, '\n^---- req body')
+
+    const { title, description, CategoryId } = req.body
     const { id, OrganizationId } = req.user
 
     const input = {
-      title, description, CategoryId, OrganizationId, UserId: id
+      title,
+      description,
+      CategoryId,
+      OrganizationId,
+      UserId: id,
     }
 
     try {
       const task = await Task.create(input)
 
       res.status(200).json(task)
-      
     } catch (error) {
       next(error)
     }
   }
 
-
   static async putTask(req, res, next) {
-    console.log(req.body, '<<< put task controller')
+    console.log(
+      req.body,
+      '\n^----put task controller\n============================'
+    )
 
     try {
+      let { TaskId } = req.params
 
-      let {TaskId} = req.params
-
-      if (!await Task.findByPk(TaskId)) {
-        throw {status: 404, msg: 'Task was not found'}
+      if (!(await Task.findByPk(TaskId))) {
+        throw { status: 404, msg: 'Task was not found' }
       }
-  
-      let opt = {}
 
-      for (let key in req.body) {
-        opt[key] = req.body[key]
-      }
-  
       try {
-        await Task.update( opt, {
-          where: { id: TaskId }
+        await Task.update(req.body, {
+          where: { id: TaskId },
         })
-        
-        res.status(200).json({msg: 'Task was modified successfully'})
+
+        res.status(200).json({ msg: 'Task was modified successfully' })
       } catch (error) {
         next(error)
-        
       }
-      
     } catch (error) {
       next(error)
     }
-   
   }
 
   static async patchTask(req, res, next) {
     console.log(req.body, '<<< patch task controller')
-    
+
     try {
-      let {TaskId} = req.params
-      
+      let { TaskId } = req.params
 
       let newCategoryId = req.body.CategoryId
 
-      console.log({TaskId, newCategoryId})
+      console.log({ TaskId, newCategoryId })
 
       if (newCategoryId) {
-        await Task.update( {CategoryId: newCategoryId}, {
-          where: { id: TaskId }
-        })
-        
-        res.status(200).json({msg: `Task was moved successfully`})
+        await Task.update(
+          { CategoryId: newCategoryId },
+          {
+            where: { id: TaskId },
+          }
+        )
 
+        res.status(200).json({ msg: `Task was moved successfully` })
       } else {
-        throw { status: 404, msg: 'Task was not found'}
+        throw { status: 404, msg: 'Task was not found' }
       }
     } catch (error) {
       next(error)
@@ -140,22 +149,18 @@ class TaskController {
   }
 
   static async deleteTask(req, res, next) {
-
     console.log('delete task')
 
     try {
-
       await Task.destroy({
-        where: {id: req.params.TaskId}
+        where: { id: req.params.TaskId },
       })
 
-      res.status(200).json({msg: 'Task was deleted successfully'})
-      
+      res.status(200).json({ msg: 'Task was deleted successfully' })
     } catch (error) {
       next(error)
     }
-  } 
+  }
 }
-
 
 module.exports = TaskController

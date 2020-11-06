@@ -1,40 +1,35 @@
 const { Task, User, Category } = require('../models')
 
-async function isTaskCreator (req, res, next) {
-
+async function isTaskCreator(req, res, next) {
   /**
    *  Handles: update & delete task
-   * 
+   *
    *  check if task exists
    *  if task not exists:
    *    send 404 task not found
-   *  else: 
+   *  else:
    *     check:
    *       - if task's userId (creator) is equal user's id
    *       - if task's OrganizationId is equal user's OrganizationId
    *       - if task's category's OrganizationId is equal user's OrganizationId
-   *       if any of above points are false: 
+   *       if any of above points are false:
    *          send 403 not authorized
    *       else:
    *         next()
    */
 
   console.log('authorization: is task creator')
-  
+
   const { TaskId } = req.params
 
   try {
-
-    const task = await Task.findByPk(TaskId, {
-      include: Category
-    })
+    const task = await Task.findByPk(TaskId)
 
     if (!task) {
-      throw { msg: "Task not found", status: 404 }
+      throw { msg: 'Task not found', status: 404 }
     } else {
-
       if (task.UserId != req.user.id) {
-        throw { msg: "Not authorized", status: 403}
+        throw { msg: 'Not authorized', status: 403 }
       }
 
       // handle kasus ubah task's category
@@ -45,137 +40,132 @@ async function isTaskCreator (req, res, next) {
         const category = await Category.findByPk(req.body.CategoryId)
 
         if (!category) {
-          throw { status: 404, msg: 'Category not found'}
+          throw { status: 404, msg: 'Category not found' }
         }
 
         // console.log('cat org id:', category.OrganizationId, 'user org id:', req.user.OrganizationId)
 
         if (category.OrganizationId != req.user.OrganizationId) {
-          throw { msg: "Not authorized to post in other organization", status: 403}
+          throw {
+            msg: 'Not authorized to post in other organization',
+            status: 403,
+          }
         }
       }
       next()
     }
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     next(err)
   }
 }
 
-async function isMember (req, res, next) {
-
+async function isMember(req, res, next) {
   console.log('authorization: is member of organization')
 
   try {
-
-    if (!user) {
-      throw { msg: "Not authorized", status: 403}
+    if (!req.user) {
+      throw { msg: 'Not authorized', status: 403 }
     }
-    
+
     const { id, OrganizationId } = req.user
     req.body.OrganizationId = OrganizationId
-    
-    switch(req.originalUrl.split('/')[1]) {
 
+    switch (req.originalUrl.split('/')[1]) {
       case 'tasks':
-
-      // kasus create task
-      if (req.body.CategoryId) {
-
-        try {
-          const category = await Category.findByPk(req.body.CategoryId)
-
-          if (!category) {
-            throw({status: 400, msg: 'Must include category'})
+        // kasus create task
+        if (req.method === 'POST') {
+          if (!req.body.CategoryId) {
+            res
+              .status(400)
+              .json({
+                status: 400,
+                msg:
+                  'Category ID was not provided, please contact the web developer',
+              })
           }
+          try {
+            const category = await Category.findByPk(req.body.CategoryId)
 
-          if (category.OrganizationId != user.OrganizationId) {
-            throw({status: 403, msg: 'Not authorized to post in other organization'})
-          }
-
-          next()
-        } catch (error) {
-          console.log(error)
-          next(error)
-        }
-        
-      } else {
-
-        // kasus get task details
-        const { TaskId } = req.params
-        try {
-          const task = await Task.findByPk(TaskId, {
-            include: Category
-          })
-      
-          if (!task) {
-            throw { msg: "Task not found", status: 404 }
-  
-          } else {
-  
-            // console.log(task.toJSON())
-            if (task.OrganizationId != OrganizationId) {
-              throw { msg: "Not authorized", status: 403}
+            if (!category) {
+              throw { status: 400, msg: 'Must include category' }
             }
+
+            if (category.OrganizationId != req.user.OrganizationId) {
+              throw {
+                status: 403,
+                msg: 'Not authorized to post in other organization',
+              }
+            }
+
             next()
-          } 
-        } catch (err) {
+          } catch (error) {
+            console.log(error)
+            next(error)
+          }
+        } else if (req.method === 'GET') {
+          // kasus get task details
+          const { TaskId } = req.params
+          try {
+            const task = await Task.findByPk(TaskId)
+
+            if (!task) {
+              throw { msg: 'Task not found', status: 404 }
+            } else {
+              // console.log(task.toJSON())
+              if (task.OrganizationId != OrganizationId) {
+                throw { msg: 'Not authorized', status: 403 }
+              }
+              next()
+            }
+          } catch (err) {
             console.log(err)
             next(err)
           }
         }
-      break
+        break
 
-
-    case 'categories':
+      case 'categories':
         console.log(req.originalUrl.split('/')[1])
-      try {
-        const { OrganizationId } = user
-        const { CategoryId } = req.params
+        try {
+          const { OrganizationId } = user
+          const { CategoryId } = req.params
 
-        console.log({OrganizationId}, '>>> user')
+          console.log({ OrganizationId }, '>>> user')
 
-        if (CategoryId) {
+          if (CategoryId) {
+            try {
+              const category = await Category.findByPk(CategoryId)
 
-          try {
-            const category = await Category.findByPk(CategoryId)
-        
-            if (!category) {
-              throw { msg: "Category not found", status: 404 }
-
-            } else {
-
-              if (category.OrganizationId != OrganizationId) {
-                throw { msg: "Not authorized", status: 403}
+              if (!category) {
+                throw { msg: 'Category not found', status: 404 }
+              } else {
+                if (category.OrganizationId != OrganizationId) {
+                  throw { msg: 'Not authorized', status: 403 }
+                }
+                next()
               }
-              next()
-            } 
-          } catch (err) {
+            } catch (err) {
               console.log(err)
               next(err)
             }
-
-        } else {
-
-          console.log({CategoryId})
-          next()
+          } else {
+            console.log({ CategoryId })
+            next()
+          }
+        } catch (err) {
+          console.log(err)
+          next(err)
         }
-        
-      } catch (err) {
-        console.log(err)
-        next(err)
-        
-      }
         break
     }
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     next(err)
   }
-
 }
 
 module.exports = {
   isTaskCreator,
-  isMember
+  isMember,
 }

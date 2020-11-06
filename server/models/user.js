@@ -46,6 +46,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Password is required'
         }
       }},
+    avatarUrl: {
+      type: DataTypes.STRING
+    },
     OrganizationId: {
       type: DataTypes.INTEGER,
       }
