@@ -1,15 +1,15 @@
 <template>
   <div>
     <!-- Landing Page -->
-    <Login 
-      v-if="pageName === 'login-page'" 
+    <Login
+      v-if="pageName === 'login-page'"
       @login="login"
-      @changePage="changePage">
+      @changePage="changePage"
+    >
     </Login>
 
     <!-- Register Page -->
-    <Register v-else-if="pageName === 'register-page'"
-      @register="register"> 
+    <Register v-else-if="pageName === 'register-page'" @register="register">
     </Register>
 
     <!-- Main Page -->
@@ -94,22 +94,22 @@ export default {
         });
     },
 
-    register(payload){
+    register(payload) {
       axios({
-        url : "/register",
-        method : "POST",
-        data : {
-          email : payload.email,
-          password : payload.password
+        url: "/register",
+        method: "POST",
+        data: {
+          email: payload.email,
+          password: payload.password,
         },
       })
-      .then(({data}) => {
-        console.log(data)
-        this.pageName = "login-page"
-      })
-      .catch(err =>{
-        console.log(err, '<<<<< ini error dari register')
-      })
+        .then(({ data }) => {
+          console.log(data);
+          this.pageName = "login-page";
+        })
+        .catch((err) => {
+          console.log(err, "<<<<< ini error dari register");
+        });
     },
 
     toEditPage(payload) {
@@ -139,6 +139,26 @@ export default {
         .catch((err) => {
           console.log(err.response, "<<<<<<< ini data error login");
         });
+    },
+
+    onSignIn(googleUser) {
+      var google_access_token = googleUser.getAuthResponse().id_token;
+      console.log(google_access_token);
+      axios({
+        url: "/googlelogin",
+        method: "POST",
+        headers: {
+          google_access_token,
+        },
+      })
+        .then((data) => {
+          localStorage.setItem("access_token", data.access_token);
+          this.pageName = "home-page";
+          this.fetchKanban();
+        })
+        .catch(err =>{
+          console.log(err.response, '<<<<<<<< error dari google')
+        })
     },
 
     editCategory(payload) {

@@ -25,6 +25,8 @@
               </div>
               <button type="submit" class="btn btn-primary">Login</button>
             </form>
+            <span>Atau</span>
+              <div class="g-signin2 text-tengah" data-onsuccess="onSignIn"></div>
           </div>
         </div>
       </div>
@@ -53,6 +55,9 @@ export default {
         name : 'register-page'
       }
       this.$emit('changePage', payload)
+    },
+    toGoogleLogin(){
+      
     }
   }
 
