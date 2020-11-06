@@ -14,12 +14,14 @@ export default {
   components: {
     Card,
   },
-  props: [ "categoryTitle", "tasks" ],
+  props: ["categoryTitle", "tasks"],
   computed: {
     taskPerCat() {
-      return this.tasks.filter(task => task.category == this.categoryTitle.name)
-    }
-  }
+      return this.tasks.filter(
+        (task) => task.category == this.categoryTitle.name
+      );
+    },
+  },
 };
 </script>
 

@@ -1,16 +1,16 @@
 <template>
   <div>
     <!-- LOGIN PAGE -->
-    <Login v-if="currentPage == 'login-page'"></Login>
+    <Login v-if="currentPage == 'login-page'" @changePage="changePage"></Login>
 
     <!-- REGISTRATION PAGE -->
-    <Register v-else-if="currentPage == 'reg-page'"></Register>
+    <Register v-else-if="currentPage == 'reg-page'" @changePage="changePage"></Register>
 
     <!-- HOMEPAGE -->
     <HomePage
       v-else-if="currentPage == 'homepage'"
       :categories="categoryHead"
-      :tasks="tasks"
+      @changePage="changePage"
     >
     </HomePage>
   </div>
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       message: "Hello world",
-      currentPage: "homepage",
+      currentPage: "login-page",
       categoryHead: [
         {
           name: "Backlog",
@@ -51,24 +51,17 @@ export default {
     Login,
   },
   methods: {
-    fetchTasks() {
-      axios({
-        url: "/tasks",
-        method: "GET",
-        // headers: {
-
-        // }
-      })
-        .then(({ data }) => {
-          this.tasks = data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    changePage(name) {
+      this.currentPage = name;
     },
   },
   created() {
-    this.fetchTasks();
+    if(localStorage.access_token) {
+      this.currentPage = 'homepage'
+    }
+    else {
+      this.currentPage = 'login-page'
+    }
   },
 };
 </script>

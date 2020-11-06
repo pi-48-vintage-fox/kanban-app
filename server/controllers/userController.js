@@ -54,7 +54,7 @@ class UserController {
         }
       })
       .catch(err => {
-        console.log(err)
+        console.log("error cuk!")
         res.status(400).json({err})
       })
   }
