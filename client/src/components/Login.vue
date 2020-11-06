@@ -5,7 +5,7 @@
           <div class="col">
             <div class="row">
               <div class="col masuk">Masuk</div>
-              <div class="col register-click" onclick="showRegister()">
+              <div class="col register-click" @click.prevent="toRegister">
                 Register
               </div>
             </div>
@@ -47,6 +47,12 @@ export default {
         password : this.password
       }
       this.$emit('login', payload)
+    },
+    toRegister(){
+      let payload = {
+        name : 'register-page'
+      }
+      this.$emit('changePage', payload)
     }
   }
 

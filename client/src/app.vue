@@ -1,10 +1,16 @@
 <template>
   <div>
     <!-- Landing Page -->
-    <Login v-if="pageName === 'login-page'" @login="login"> </Login>
+    <Login 
+      v-if="pageName === 'login-page'" 
+      @login="login"
+      @changePage="changePage">
+    </Login>
 
     <!-- Register Page -->
-    <Register v-else-if="pageName === 'register-page'"> </Register>
+    <Register v-else-if="pageName === 'register-page'"
+      @register="register"> 
+    </Register>
 
     <!-- Main Page -->
     <HomePage
@@ -86,6 +92,24 @@ export default {
         .catch((err) => {
           console.log(err.response, "<<<<< ini error dari delete");
         });
+    },
+
+    register(payload){
+      axios({
+        url : "/register",
+        method : "POST",
+        data : {
+          email : payload.email,
+          password : payload.password
+        },
+      })
+      .then(({data}) => {
+        console.log(data)
+        this.pageName = "login-page"
+      })
+      .catch(err =>{
+        console.log(err, '<<<<< ini error dari register')
+      })
     },
 
     toEditPage(payload) {

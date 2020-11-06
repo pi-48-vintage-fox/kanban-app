@@ -10,13 +10,14 @@
             </div>
           </div>
 
-          <form onsubmit="register(event)">
+          <form @submit.prevent="register">
             <div class="form-group">
               <label form="name">Email</label>
               <input
                 type="email"
                 id="req-email"
                 class="form-control"
+                v-model="email"
                 autocomplete="email"
               />
             </div>
@@ -26,6 +27,7 @@
                 type="password"
                 id="req-password"
                 class="form-control"
+                v-model="password"
                 autocomplete="current-password"
               />
             </div>
@@ -41,6 +43,21 @@
 <script>
 export default {
   name: "Register",
+  data(){
+    return {
+      email : '',
+      password : ''
+    }
+  },
+  methods : {
+    register(){
+      let payload = {
+        email : this.email,
+        password : this.password
+      }
+      this.$emit('register', payload)
+    }
+  }
 };
 </script>
 
