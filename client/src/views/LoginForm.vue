@@ -26,12 +26,23 @@
           v-model="payload.password"
         />
       </div>
-      <div class="column">
-        <button type="submit" class="btn btn-success">login</button>\
+      <div>
         <div>
           <g-signin-button :params="googleSignInParams" @success="onSignIn">
-        Sign in with Google
-      </g-signin-button>
+            <img
+              src="http://www.three.co.uk/hub/wp-content/uploads/Google-logo-1-resized.jpg"
+              class="logo"
+              alt="google"
+            />
+            Sign in
+          </g-signin-button>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <button type="submit" class="btn btn-success col-6 mt-2">
+            login
+          </button>
+          <div class="col-3"></div>
         </div>
       </div>
     </form>
@@ -44,7 +55,7 @@ import GSignInButton from "vue-google-signin-button";
 export default {
   name: "LoginForm",
   components: {
-    GSignInButton
+    GSignInButton,
   },
   data() {
     return {
@@ -66,12 +77,12 @@ export default {
         method: "POST",
         url: `http://localhost:3000/googleLogin`,
         headers: {
-          google_access_token
+          google_access_token,
         },
       })
-        .then(({data}) => {
+        .then(({ data }) => {
           localStorage.access_token = data.access_token;
-          this.$emit('googleLogin')
+          this.$emit("googleLogin");
         })
         .catch((err) => {
           console.log(err);

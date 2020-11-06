@@ -2,10 +2,10 @@
   <nav class="navbar navbar-expand-lg bg-color-navbar flex-between">
     <ul class="navbar-nav">
       <li class="nav-item mx-2" v-show="page === 'tasks'">
-        <a class="text-color font-1  nav-link" type="button" @click.prevent="home">Home</a>
+        <a class="text-color font-1  nav-link" type="button">Home</a>
       </li>
       <li class="nav-item mx-2">
-        <a class="text-color font-1  nav-link" type="button">add Kanban</a>
+        <a class="text-color font-1  nav-link"></a>
       </li>
     </ul>
     <ul class="navbar-nav">

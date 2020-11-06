@@ -28,7 +28,13 @@
             v-model="payload.password"
           />
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <div class="row">
+          <div class="col-3"></div>
+          <button type="submit" class="btn bg-task col-6 mt-2">
+            <b>Register</b>
+          </button>
+          <div class="col-3"></div>
+        </div>
       </form>
     </div>
 </template>
