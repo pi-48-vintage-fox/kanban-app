@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(routesUser)
 app.use(routes)
-app.user(errorHandler)
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`Oh yeah port ${port}`)

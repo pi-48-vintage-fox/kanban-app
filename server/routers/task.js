@@ -9,6 +9,6 @@ routes.get('/', TaskController.getTask)
 routes.get('/:id', Authorization.authorization, TaskController.getTaskById)
 routes.put('/:id', Authorization.authorization, TaskController.putTask)
 routes.patch('/:id', Authorization.authorization, TaskController.patchTask)
-routes.delete('/:id', Authorization.authorization, Taskcontroller.delete)
+routes.delete('/:id', Authorization.authorization, TaskController.deleteTask)
 
 module.exports = routes

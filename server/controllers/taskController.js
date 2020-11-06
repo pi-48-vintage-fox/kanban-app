@@ -16,6 +16,7 @@ class TaskController {
         })
       })
       .catch(err => {
+        console.log(err, "<<<< masuk ke error")
         next(err)
       })
   }
@@ -83,7 +84,7 @@ class TaskController {
       })
   }
 
-  static delete(req, res, next) {
+  static deleteTask(req, res, next) {
     const id = req.params.id
     Task.destroy({
       where: {

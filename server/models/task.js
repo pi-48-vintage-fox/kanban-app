@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
-    
+
     static associate(models) {
       // define association here
       Task.belongsTo(models.User, {
@@ -33,15 +33,12 @@ module.exports = (sequelize, DataTypes) => {
     category: {
       type: DataTypes.STRING,
       validate: {
-        msg: "Can't be emtpy"
+        notEmpty: {
+          msg: "Can't be empty"
+        }
       }
     },
-    UserId: {
-      type: DataTypes.INTEGER,
-      validate: {
-        msg: "Can't be empty"
-      }
-    }
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Task',
