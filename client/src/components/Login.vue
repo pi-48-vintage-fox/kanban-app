@@ -67,6 +67,7 @@
               <hr />
             </div>
           </div>
+          <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>
           <div class="d-flex justify-content-end mr-4">
             <button type="button" class="btn btn-light" style="text-align: end"
             @click="$emit('client-page', 'registerPage')"
@@ -98,6 +99,7 @@ export default {
         data: {
           email: this.email,
           password: this.password,
+          clientId: '978195228129-vinli7ubjca1c5b8aa442nqbdoeq38n8.apps.googleusercontent.com'
         },
       })
         .then((response) => {
@@ -113,9 +115,27 @@ export default {
           this.$emit('client-page', 'loginPage')
         });
     },
+
+  OnGoogleAuthSuccess (idToken) {
+      console.log(idToken)
+      // Receive the idToken and make your magic with the backend
+    },
+    OnGoogleAuthFail (error) {
+      console.log(error)
+    }
+
   },
 };
 </script>
 
 <style>
+.google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 </style>

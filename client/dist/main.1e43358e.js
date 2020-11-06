@@ -10761,6 +10761,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   name: "Login",
   data: function data() {
@@ -10779,7 +10780,8 @@ var _default = {
         url: "".concat(this.baseUrl, "/login"),
         data: {
           email: this.email,
-          password: this.password
+          password: this.password,
+          clientId: '978195228129-vinli7ubjca1c5b8aa442nqbdoeq38n8.apps.googleusercontent.com'
         }
       }).then(function (response) {
         var access_token = response.data.access_token;
@@ -10794,6 +10796,12 @@ var _default = {
 
         _this.$emit('client-page', 'loginPage');
       });
+    },
+    OnGoogleAuthSuccess: function OnGoogleAuthSuccess(idToken) {
+      console.log(idToken); // Receive the idToken and make your magic with the backend
+    },
+    OnGoogleAuthFail: function OnGoogleAuthFail(error) {
+      console.log(error);
     }
   }
 };
@@ -10908,6 +10916,22 @@ exports.default = _default;
           ),
           _vm._v(" "),
           _vm._m(5),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "google-signin-button",
+                  rawName: "v-google-signin-button",
+                  value: _vm.clientId,
+                  expression: "clientId"
+                }
+              ],
+              staticClass: "google-signin-button"
+            },
+            [_vm._v(" Continue with Google")]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "d-flex justify-content-end mr-4" }, [
             _c(
@@ -12490,21 +12514,77 @@ render._withStripped = true
       
       }
     })();
-},{"./components/Login":"src/components/Login.vue","./components/Register":"src/components/Register.vue","./components/Home":"src/components/Home.vue","./components/Add":"src/components/Add.vue","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"./components/Login":"src/components/Login.vue","./components/Register":"src/components/Register.vue","./components/Home":"src/components/Home.vue","./components/Add":"src/components/Add.vue","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/vue-google-signin-button-directive/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _vue.default.directive('google-signin-button', {
+  bind: function (el, binding, vnode) {
+    CheckComponentMethods();
+    let clientId = binding.value;
+    let googleSignInAPI = document.createElement('script');
+    googleSignInAPI.setAttribute('src', 'https://apis.google.com/js/api:client.js');
+    document.head.appendChild(googleSignInAPI);
+    googleSignInAPI.onload = InitGoogleButton;
+
+    function InitGoogleButton() {
+      gapi.load('auth2', () => {
+        const auth2 = gapi.auth2.init({
+          client_id: clientId,
+          cookiepolicy: 'single_host_origin'
+        });
+        auth2.attachClickHandler(el, {}, OnSuccess, Onfail);
+      });
+    }
+
+    function OnSuccess(googleUser) {
+      vnode.context.OnGoogleAuthSuccess(googleUser.getAuthResponse().id_token);
+      googleUser.disconnect();
+    }
+
+    function Onfail(error) {
+      vnode.context.OnGoogleAuthFail(error);
+    }
+
+    function CheckComponentMethods() {
+      if (!vnode.context.OnGoogleAuthSuccess) {
+        throw new Error('The method OnGoogleAuthSuccess must be defined on the component');
+      }
+
+      if (!vnode.context.OnGoogleAuthFail) {
+        throw new Error('The method OnGoogleAuthFail must be defined on the component');
+      }
+    }
+  }
+});
+
+exports.default = _default;
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
 
 var _App = _interopRequireDefault(require("./App.vue"));
 
+var _vueGoogleSigninButtonDirective = _interopRequireDefault(require("vue-google-signin-button-directive"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 new _vue.default({
   render: function render(h) {
     return h(_App.default);
-  }
+  },
+  GoogleSignInButton: _vueGoogleSigninButtonDirective.default
 }).$mount('#app');
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue"}],"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue","vue-google-signin-button-directive":"node_modules/vue-google-signin-button-directive/index.js"}],"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -12532,7 +12612,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62145" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60993" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
