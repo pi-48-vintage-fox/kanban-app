@@ -17,7 +17,7 @@
             ><i class="fa fa-pencil mb-3" aria-hidden="true" @click="showEdit"></i
           ></a>
           <a type="button"
-            ><i class="fa fa-trash-o" aria-hidden="true"></i
+            ><i class="fa fa-trash-o" aria-hidden="true" @click="delTask"></i
           ></a>
         </div>
       </div>
@@ -44,6 +44,7 @@
 <script>
 import editTitle from './editTitle'
 import editMove from './editMove'
+import axios from '../config/axios'
 
 export default {
   name: "kanban",
@@ -71,6 +72,22 @@ export default {
     showMove(){
       this.moveShow = !this.moveShow
     },
+    delTask(){
+      let id =this.task.id
+      let access_token = localStorage.getItem('access_token')
+
+      axios({
+        url:`/task/${id}`,
+        method:'DELETE',
+        headers:{access_token}
+      })
+      .then(res=>{
+        this.reload()
+      })
+      .catch(err=>{
+        console.log(err.response.msg)
+      })
+    }
 
   },
 
