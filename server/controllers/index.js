@@ -101,7 +101,11 @@ class Controller {
                 return !data ? User.create(user) : data
             })
             .then((data) => {
-                const {id, email, full_name} = data
+                const {
+                    id,
+                    email,
+                    full_name
+                } = data
                 const access_token = generateToken({
                     id,
                     email,
@@ -120,65 +124,26 @@ class Controller {
     }
 
     static getTask(req, res, next) {
-        let categories = null
-        Category.findAll()
+        Task.findAll()
             .then((result) => {
-                categories = result.map((el) => {
-                    return {
-                        id: el.id,
-                        name: el.name
-                    }
-                })
-                return Task.findAll({
-                    where: {
-                        include: [{
-                                model: Category,
-                                attributes: ["name"]
-                            },
-                            {
-                                model: User,
-                                attributes: ["email"]
-                            },
-                        ],
-                        order: [
-                            ["updatedAt", "ASC"]
-                        ]
-                    }
-                })
-            })
-            .then((result) => {
-                let output = {}
-                categories.forEach(element => {
-                    output[element.name] = []
-                });
-                result.forEach(({
-                    id,
-                    title,
-                    description,
-                    User,
-                    CategoryId,
-                    Category,
-                    createdAt
-                }) => {
-                    output[Category.name].push({
-                        id,
-                        title,
-                        description,
-                        email: User.email,
-                        CategoryId,
-                        category_name: Category.name,
-                        createdAt: createdAt.toLocaleDateString("id")
+                res.status(200).json(result)
 
-                    })
-                });
-                res.status(200).json(output)
             })
             .catch((err) => {
                 next(err)
             })
-
-
     }
+
+    static getCategory(req, res, next) {
+        Category.findAll()
+            .then((result) => {
+                res.status(200).json(result)
+            })
+            .catch((err) => {
+                next(err)
+            })
+    }
+
 
     static postTask(req, res, next) {
         const newTask = {
@@ -187,6 +152,7 @@ class Controller {
             UserId: req.userData.id,
             CategoryId: req.body.CategoryId || 1
         }
+        console.log(newTask)
         Task.create(newTask)
             .then(result => {
                 res.status(201).json(result)
