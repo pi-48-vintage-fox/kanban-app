@@ -16,6 +16,7 @@ class UserController {
         audience: process.env.CLIENT_ID
       })
       const payload = tiket.getPayload()
+      console.log(payload);
       let user = await User.findOne({where:{email:payload.email}})
       if(!user){
         let data = {
@@ -32,8 +33,19 @@ class UserController {
           msg:"success",
           access_token
         })
+      }else{
+        const token = signToken({
+          id: user.id,
+          email: user.email
+        })
+        req.loggedInUser = user
+        res.status(200).json({
+          msg:"success",
+          access_token: token
+        })
       }
     } catch (err) {
+      console.log(err);
       next(err)
     }
   }
