@@ -4,39 +4,57 @@
         <div class="row">
             <div class="col-3">
                 <h5 class="text-center">BackLog</h5>
-                <div class="col my-2 p-3 card overflow-auto" style="height: 500px">
+                <div class="col my-2 p-3 card overflow-auto bg-warning" style="height: 500px">
                     <task v-for="backlog in fetchBacklog"
-                    :key="fetchBacklog.id"
+                    :key="backlog.id"
+                    :dataTask="backlog"
+                   
+                    :fetchTask="fetchTask"
+                    @updateData="updateData"
                     ></task>
                 </div>
             </div>
 
              <div class="col-3">
                 <h5 class="text-center">Todos</h5>
-                <div class="col my-2 p-3 card overflow-auto" style="height: 500px">
-                    <task v-for="backlog in fetchTodo"
-                    :key="fetchTodo.id"></task>
+                <div class="col my-2 p-3 card overflow-auto bg-primary" style="height: 500px">
+                    <task  v-for="todo in fetchTodo"
+                    :key="todo.id"
+                    :dataTask="todo"
+                    
+                     :fetchTask="fetchTask"
+                     @updateData="updateData"
+                    ></task>
                 </div>
             </div>
-
+ 
             <div class="col-3">
                 <h5 class="text-center">Doing</h5>
-                <div class="col my-2 p-3 card overflow-auto" style="height: 500px">
-                    <task v-for="backlog in fetchDoing"
-                    :key="fetchDoing.id"></task>
+                <div class="col my-2 p-3 card overflow-auto bg-secondary" style="height: 500px">
+                    <task  v-for="doing in fetchDoing"
+                    :key="doing.id"
+                    :dataTask="doing"
+
+                    :fetchTask="fetchTask"
+                    @updateData="updateData"
+                    ></task>
                 </div>
             </div>
 
             <div class="col-3">
                 <h5 class="text-center">Done</h5>
-                <div class="col my-2 p-3 card overflow-auto" style="height: 500px">
-                    <task v-for="backlog in fetchDone"
-                    :key="fetchDone.id"
+                <div class="col my-2 p-3 card overflow-auto bg-success" style="height: 500px">
+                    <task  v-for="done in fetchDone"
+                    :key="done.id"
+                    :dataTask="done"
+                    
+                     :fetchTask="fetchTask"
+                     @updateData="updateData"
                     ></task>
                 </div>
             </div>
         </div>
-       
+        
   </div>
 </template>
 
@@ -56,6 +74,7 @@ export default {
             let access_token = localStorage.getItem("access_token")
             axios({
                 url: "/task",
+                method: "GET",
                 headers: { access_token }
             })
             .then(response => {
@@ -65,6 +84,9 @@ export default {
             .catch(err => {
                 console.log(err);
             })
+        },
+        updateData(payload) {
+            this.$emit("updateData", payload)
         }
     },
     computed: {

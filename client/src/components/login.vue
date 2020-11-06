@@ -1,9 +1,8 @@
 <template>
   <div>
       <div class="container">
-          <h1 class=" row justify-content-center mt-5">Kanban Apps</h1>
+          <h1 class="row justify-content-center mt-5">Kanban Apps</h1>
           <div class="row justify-content-center mt-5">
-              <img src="" alt="" srcset="">
             <form @submit.prevent="login">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -20,9 +19,13 @@
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
             <button @click.prevent="registerForm" class="btn btn-warning">Register</button>
-
+            </form>
           </div>
+          <br>
+          <center><button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button></center> 
+        
       </div>
+     
   </div>
 </template>
 
@@ -35,11 +38,12 @@ export default {
             data: {
                 email: '',
                 password: ''
-            }
+            },
+            clientId: '305905869131-gs7en60rj22r277if8u7vok8a7mpjovs.apps.googleusercontent.com'
         }
     },
     methods: {
-        login() {
+        login(email) {
             axios({
                 url: '/login',
                 method: 'POST',
@@ -49,25 +53,64 @@ export default {
                 }
             })
             .then(response => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Login successfuly',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
                 localStorage.setItem('access_token', response.data.access_token)
+                localStorage.setItem('emailIsLogin', this.data.email)
                 this.$emit('login')
             })
             .catch(err => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'username / password is wrong...',
+                    text: err.response.data
                     })
             })
         },
         registerForm() {
             console.log("dari login");
             this.$emit('registerForm','registerForm')
+        },
+        OnGoogleAuthSuccess (idToken) {
+            console.log(idToken)
+            // Receive the idToken and make your magic with the backend
+
+            axios({
+                url: "/googleLogin",
+                method: "POST",
+                data: { google_access_token : idToken}
+            })
+            .then(response => {
+                console.log(response);
+                localStorage.setItem('access_token', response.data.access_token)
+                localStorage.setItem('emailIsLogin', response.data.email)
+                this.$emit('login')
+            })
+            .catch(err => {
+                console.log(err.response.data);
+            })
+        },
+        OnGoogleAuthFail (error) {
+            console.log(error)
         }
+        
     }
 }
 </script>
 
 <style>
-
+.google-signin-button {
+  color: green;
+  background-color: whitesmoke;
+  height: 30px;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 </style>

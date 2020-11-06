@@ -3,11 +3,15 @@
         <navigasi
         @logout="logout"
         @add='add'
-        >
-        </navigasi>
+        :emailIsLogin="emailIsLogin"
+        ></navigasi>
+
         <div class="container">
-            <category></category>
-        </div> 
+            <category
+            @updateData="updateData"
+            ></category>
+        </div>
+        <center><p> Kanban Aplication 2020</p></center>
   </div>
 </template>
 
@@ -23,6 +27,7 @@ export default {
             data: []
         }
     },
+    props: [ 'emailIsLogin'],
     components: {
         category, navigasi
     },
@@ -33,6 +38,9 @@ export default {
         add() {
             this.$emit('add')
         },
+        updateData(payload) {
+            this.$emit("updateData", payload)
+        }
     },
     
 }

@@ -107,7 +107,7 @@ class UserController {
                 email: dataUser.email
             }
             let access_token = createJWT(data)
-            res.status(200).json({access_token: access_token})
+            res.status(200).json({access_token: access_token, email:dataUser.email})
         })
         .catch(err => {
             res.status(500).json(err)

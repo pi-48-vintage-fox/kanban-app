@@ -47,11 +47,22 @@ export default {
                 }
             })
             .then(response => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Register successfuly',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
                 localStorage.setItem('access_token', response.data.access_token)
                 this.$emit('afterRegister')
             })
             .catch(err => {
-                console.log(err.response);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.response.data
+                    })
             })
         }
     }

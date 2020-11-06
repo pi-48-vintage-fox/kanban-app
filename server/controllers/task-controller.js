@@ -1,9 +1,11 @@
-const { Task } = require("../models/index")
+const { Task, User } = require("../models/index")
 
 class TaskController {
     
     static getAllTask(req, res) {
-        Task.findAll()
+        Task.findAll({
+            include: [ 'User']
+        })
         .then(result => {
             res.status(201).json(result)
         })

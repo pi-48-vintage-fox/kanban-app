@@ -46,10 +46,21 @@ export default {
                 }
            })
            .then(response => {
+               Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
                this.$emit('add')
            })
            .catch(err => {
-               console.log(err);
+               Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.response.data
+                    })
            })
         }
     }
