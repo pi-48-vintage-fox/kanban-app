@@ -1,0 +1,36 @@
+<template>
+         <div class="col-sm-6 col-md-4 col-xl-3">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6 class="card-title text-uppercase text-truncate py-2">{{category}}</h6>
+                        <div class="items border border-light">
+                            <Task
+                                v-for="(ta, i) in category"
+                                :key = "i"
+                                :task="ta.task"
+                            ></Task> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+</template>
+
+<script>
+import Task from './Task'
+export default {
+    name: 'Category',
+    components: {
+        Task
+    },
+    props : ["category"],
+    computed :{
+        filterCategory(){
+            this.category.filter
+        }
+    }
+}
+</script>
+
+<style>
+
+</style>

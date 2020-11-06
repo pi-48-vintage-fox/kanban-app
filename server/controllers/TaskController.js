@@ -21,15 +21,12 @@ class Controller {
     }
 
     static readTask(req,res){
-        Task.findAll({
-            where:{
-                UserId: req.decoded.id
-            }
-        })
+        Task.findAll()
         .then(result => {
-            res.status(200).json(result)
+        res.status(200).json(result)
         })
         .catch(err => {
+            console.log(err)
             next(err)
         })
     }
