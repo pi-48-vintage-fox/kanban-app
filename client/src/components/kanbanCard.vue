@@ -20,13 +20,21 @@
             ><i class="fa fa-trash-o" aria-hidden="true"></i
           ></a>
         </div>
-        
       </div>
-      <div>
-        <p class="card-text">
+      <div class='d-flex justify-content-between ml-1 mr-3 mt-1'>
+        <p class="card-text" v-show='!moveShow'>
           Posted by {{ task.User.name }} on {{datePost}}
         </p>
+        <div class="col" v-show="moveShow">
+         <editMove :idTask='task.id' :refreshData='reload' @changeMove='methodMove'></editMove>
+        </div>
+
+        <a type="button"
+            ><i class="fa fa-arrows mb-3 moved" aria-hidden="true" @click="showMove" ></i
+          ></a>
+          
       </div>
+      
       <div class="card shadow-lg rounded"></div>
     </div>
     <br />
@@ -35,17 +43,18 @@
 
 <script>
 import editTitle from './editTitle'
+import editMove from './editMove'
 
 export default {
   name: "kanban",
   data(){
     return{
       isShow:false,
-  
+      moveShow:false
     }
   },
   components:{
-    editTitle
+    editTitle,editMove
   },
   props: ["task","reload"],
 
@@ -53,11 +62,15 @@ export default {
     methodShow(value){
       this.isShow = value
     },
+    methodMove(value){
+      this.moveShow = value
+    },
     showEdit(){
       this.isShow = !this.isShow
-      console.log(this.task.id)
     },
-    
+    showMove(){
+      this.moveShow = !this.moveShow
+    },
 
   },
 
@@ -78,5 +91,8 @@ p {
 }
 .fa {
   color: cyan;
+}
+.moved{
+  color:darkcyan
 }
 </style>

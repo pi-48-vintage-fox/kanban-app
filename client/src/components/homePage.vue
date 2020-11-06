@@ -1,6 +1,6 @@
 <template>
   <section id="homePage">
-    <userInfo></userInfo>
+    <userInfo @changePage='afterLogout'></userInfo>
     
     <!-- pembungkus card dan row diluar component,, sehingga kanbancard buat col yang dalam row biar kesamping -->
     <div class="card-title ml-4 mr-4 mt-3">
@@ -25,6 +25,9 @@
     methods:{
       addtask(value){
         console.log(value)
+        this.$emit('changePage',value)
+      },
+      afterLogout(value){
         this.$emit('changePage',value)
       }
     },

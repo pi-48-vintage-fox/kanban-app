@@ -20,7 +20,6 @@ export default {
   props:['catDetail','tasks','reloadData'],
   methods:{
     addtask(){
-      console.log('sini')
       this.$emit('changePage','addTask-page')
     }
   },
