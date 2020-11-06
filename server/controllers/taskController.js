@@ -16,6 +16,7 @@ class TaskController {
     const obj = {
       title: req.body.title,
       category: req.body.category,
+      description: req.body.description,
       UserId: id
     }
     Task.create(obj)
@@ -50,7 +51,8 @@ class TaskController {
     const id = req.params.id
     const obj = {
       title: req.body.title,
-      category: req.body.category
+      category: req.body.category,
+      description: req.body.description
     }
     Task.update(obj, {
       where: {

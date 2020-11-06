@@ -7,46 +7,69 @@
     <Register v-else-if="currentPage == 'reg-page'"></Register>
 
     <!-- HOMEPAGE -->
-    <HomePage 
-    v-else-if="currentPage == 'homepage'"
-    :categories="categoryHead">
+    <HomePage
+      v-else-if="currentPage == 'homepage'"
+      :categories="categoryHead"
+      :tasks="tasks"
+    >
     </HomePage>
   </div>
 </template>
 
 <script>
-import HomePage from './components/HomePage'
-import Register from './components/Register'
-import Login from './components/Login'
-import axios from './config/axios'
+import HomePage from "./components/HomePage";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import axios from "./config/axios";
 
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
       message: "Hello world",
       currentPage: "homepage",
       categoryHead: [
         {
-          name: 'Backlog'
+          name: "Backlog",
         },
         {
-          name: 'Todo'
+          name: "Todo",
         },
         {
-          name: 'Doing'
+          name: "Doing",
         },
         {
-          name: 'Done'
-        }
-      ]
+          name: "Done",
+        },
+      ],
+      tasks: [],
     };
   },
   components: {
     HomePage,
     Register,
-    Login
-  }
+    Login,
+  },
+  methods: {
+    fetchTasks() {
+      axios({
+        url: "/tasks",
+        method: "GET",
+        // headers: {
+
+        // }
+      })
+        .then(({ data }) => {
+          this.tasks = data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  created() {
+    this.fetchTasks();
+  },
 };
 </script>
 

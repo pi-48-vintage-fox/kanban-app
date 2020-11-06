@@ -2,7 +2,7 @@
   <div class="col-3">
     <div class="card">
       <h5 class="card-header">{{ categoryTitle.name }}</h5>
-      <Card></Card>
+      <Card v-for="task in taskPerCat" :key="task.id" :task="task"></Card>
     </div>
   </div>
 </template>
@@ -14,7 +14,12 @@ export default {
   components: {
     Card,
   },
-  props: ["categoryTitle"],
+  props: [ "categoryTitle", "tasks" ],
+  computed: {
+    taskPerCat() {
+      return this.tasks.filter(task => task.category == this.categoryTitle.name)
+    }
+  }
 };
 </script>
 

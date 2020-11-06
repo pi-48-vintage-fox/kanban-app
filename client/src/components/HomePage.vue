@@ -23,6 +23,7 @@
           v-for="(cat, i) in categories"
           :key="i"
           :categoryTitle="cat"
+          :tasks="tasks"
         ></Category>
       </div>
     </div>
@@ -36,7 +37,7 @@ export default {
   components: {
     Category
   },
-  props: [ 'categories' ]
+  props: [ 'categories', 'tasks' ]
 };
 </script>
 
