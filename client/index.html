@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- meta google oauth -->
   <meta name="google-signin-client_id"
-    content="407146176632-63cm8pstokd17s907c10v4obhd6dfc2k.apps.googleusercontent.com">
-  <!-- css -->
+    content="407146176632-mkifgn1cg29tmaiv0sgjte63j0jaef7g.apps.googleusercontent.com">
+  <!-- CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="src/style.css">
   <title>Kanban</title>
 </head>
 
 <body>
+  <div class="app"></div>
   <!-- navbar -->
+  <!-- Mobile Navigation Bar -->
   <div class="topnav">
-    <!-- Mobile Navigation Bar -->
     <a href="javascript:void(0);" class="active col-xl" onclick="myFunction()">
       <i href="#home" class="active fab fa-korvue fa-lg"> Kanban</i>
     </a>
@@ -57,10 +58,6 @@
       <div class="col-4 fas">
         <h1 class="text-white fa-3x">Register</h1>
         <form onsubmit="register(event)">
-          <div class="form-group">
-            <label form="name">Name</label>
-            <input type="text" id="req-name" class="form-control" placeholder="input your name" autocomplete="name">
-          </div>
           <div class="form-group">
             <label form="name">Email</label>
             <input type="email" id="req-email" class="form-control" placeholder="input your email" autocomplete="email">
@@ -222,7 +219,9 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <!-- library google oauth -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <script src="main.js"></script>
+  <!-- vue -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  <script src="src/main.js"></script>
 </body>
 
 </html>

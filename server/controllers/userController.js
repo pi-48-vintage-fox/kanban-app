@@ -5,13 +5,18 @@ const { signToken } = require('../helpers/jwt')
 
 class UserController {
 
-  static signup(req, res, next) {
+  static register(req, res, next) {
     const obj = {
       email: req.body.email,
       password: req.body.password
     }
     User.create(obj)
       .then(data => {
+        if (!data) {
+          res.status(400).json({
+            message: 'Email has been register!'
+          })
+        }
         res.status(201).json({
           id: data.id,
           email: data.email
@@ -22,7 +27,7 @@ class UserController {
       })
   }
 
-  static signin(req, res, next) {
+  static login(req, res, next) {
     const obj = {
       email: req.body.email,
       password: req.body.password

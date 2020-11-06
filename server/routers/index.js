@@ -1,6 +1,6 @@
 const routes = require('express').Router()
-const Tasks = require('./tasks')
+const Task = require('./task')
 
-routes.use('/tasks', Tasks)
+routes.use('/tasks', Task)
 
 module.exports = routes

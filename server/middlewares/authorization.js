@@ -19,11 +19,7 @@ class Authorization {
         }
       })
       .catch(err => {
-        const status = err.status || 500
-        const msg = err.msg || 'Internal Server Error'
-        res.status(status).json({
-          error: msg
-        })
+        next(err)
       })
   }
 
