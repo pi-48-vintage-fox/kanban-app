@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import kanbanCard from '../components/KanbanCard.vue'
+import kanbanCard from '../components/Category.vue'
 export default {
   name: 'Dashboard',
   components: {

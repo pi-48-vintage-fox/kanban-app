@@ -59,7 +59,7 @@
 
 <script>
 import axios from "axios";
-import kanbanList from "./KanbanList";
+import kanbanList from "./Task";
 import swal from "sweetalert";
 export default {
   name: "kanbanCard",

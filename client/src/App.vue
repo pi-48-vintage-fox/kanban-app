@@ -19,8 +19,8 @@ export default {
     data(){
         return {
             page:'loginPage',
-            // baseUrl: 'https://kanban-app-iqbal-sahrizal.herokuapp.com',
-            baseUrl: 'http://localhost:3000',
+            baseUrl: 'https://kanban-app-iqbal-sahrizal.herokuapp.com',
+            // baseUrl: 'http://localhost:3000',
             tasks:[]
         }
     },

@@ -33,7 +33,6 @@ _Response (201 - Created)_
     "id": 1,
     "name": "user",
     "email": "user@mail.com",
-    "access_token": "<access_token>"
 }
 ```
 

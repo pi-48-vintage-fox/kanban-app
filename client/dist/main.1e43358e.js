@@ -11586,7 +11586,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","sweetalert":"node_modules/sweetalert/dist/sweetalert.min.js","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/KanbanList.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","sweetalert":"node_modules/sweetalert/dist/sweetalert.min.js","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Task.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11712,14 +11712,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $1165b3 = exports.default || module.exports;
+        var $3e9a4b = exports.default || module.exports;
       
-      if (typeof $1165b3 === 'function') {
-        $1165b3 = $1165b3.options;
+      if (typeof $3e9a4b === 'function') {
+        $3e9a4b = $3e9a4b.options;
       }
     
         /* template */
-        Object.assign($1165b3, (function () {
+        Object.assign($3e9a4b, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11885,7 +11885,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-1165b3",
+            _scopeId: "data-v-3e9a4b",
             functional: undefined
           };
         })());
@@ -11898,9 +11898,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$1165b3', $1165b3);
+            api.createRecord('$3e9a4b', $3e9a4b);
           } else {
-            api.reload('$1165b3', $1165b3);
+            api.reload('$3e9a4b', $3e9a4b);
           }
         }
 
@@ -11911,7 +11911,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","sweetalert":"node_modules/sweetalert/dist/sweetalert.min.js","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/KanbanCard.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","sweetalert":"node_modules/sweetalert/dist/sweetalert.min.js","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Category.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11921,7 +11921,7 @@ exports.default = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _KanbanList = _interopRequireDefault(require("./KanbanList"));
+var _Task = _interopRequireDefault(require("./Task"));
 
 var _sweetalert = _interopRequireDefault(require("sweetalert"));
 
@@ -11990,7 +11990,7 @@ var _default = {
   name: "kanbanCard",
   props: ["taskLists", "type", "baseUrl"],
   components: {
-    kanbanList: _KanbanList.default
+    kanbanList: _Task.default
   },
   data: function data() {
     return {
@@ -12032,14 +12032,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $c2ef00 = exports.default || module.exports;
+        var $734d58 = exports.default || module.exports;
       
-      if (typeof $c2ef00 === 'function') {
-        $c2ef00 = $c2ef00.options;
+      if (typeof $734d58 === 'function') {
+        $734d58 = $734d58.options;
       }
     
         /* template */
-        Object.assign($c2ef00, (function () {
+        Object.assign($734d58, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12175,7 +12175,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-c2ef00",
+            _scopeId: "data-v-734d58",
             functional: undefined
           };
         })());
@@ -12188,9 +12188,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$c2ef00', $c2ef00);
+            api.createRecord('$734d58', $734d58);
           } else {
-            api.reload('$c2ef00', $c2ef00);
+            api.reload('$734d58', $734d58);
           }
         }
 
@@ -12201,7 +12201,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","./KanbanList":"src/components/KanbanList.vue","sweetalert":"node_modules/sweetalert/dist/sweetalert.min.js","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/views/Dashboard.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./Task":"src/components/Task.vue","sweetalert":"node_modules/sweetalert/dist/sweetalert.min.js","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/views/Dashboard.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12209,7 +12209,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _KanbanCard = _interopRequireDefault(require("../components/KanbanCard.vue"));
+var _Category = _interopRequireDefault(require("../components/Category.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12218,7 +12218,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var _default = _defineProperty({
   name: 'Dashboard',
   components: {
-    kanbanCard: _KanbanCard.default
+    kanbanCard: _Category.default
   },
   data: function data() {
     return {
@@ -12336,7 +12336,7 @@ render._withStripped = true
       
       }
     })();
-},{"../components/KanbanCard.vue":"src/components/KanbanCard.vue","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+},{"../components/Category.vue":"src/components/Category.vue","_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12538,7 +12538,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49813" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51663" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

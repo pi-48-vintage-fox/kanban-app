@@ -81,12 +81,14 @@ class UserController {
     static googleLogin(req, res, next) {
         const client = new OAuth2Client(process.env.CLIENT_ID);
         let email = ''
+        let name = ''
         client.verifyIdToken({
-            idToken: req.headers.google_access_token,
+            idToken: req.headers.google_token,
             audience: process.env.CLIENT_ID,
         })
             .then(ticket => {
                 let payload = ticket.getPayload()
+                name = payload.name
                 email = payload.email
                 return User.findOne({ where: { email } })
             })
@@ -94,6 +96,7 @@ class UserController {
                 if (!user) {
                     var userObj = {
                         email: email,
+                        name: name,
                         password: 'randompassword'
                     }
                     return User.create(userObj)
@@ -102,8 +105,8 @@ class UserController {
                 }
             })
             .then(user => {
-                const access_token = signToken({ id: user.id, email: user.email })
-                return res.status(201).json({ message: 'Login with google successfully', access_token })
+                const access_token = signToken({ id: user.id, name: user.name, email: user.email })
+                return res.status(201).json({ access_token })
             })
             .catch(err => {
                 console.log(err);
