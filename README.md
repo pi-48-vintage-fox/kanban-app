@@ -10,6 +10,7 @@ Membuat task list dan menampilkan task list yang telah dibuat
 | DELETE | /tasks/:id | Menghapus task berdasarkan id |
 | POST | /login | Login Menggunakan Email & Password |
 | POST | /register | Register Menggunakan Email & Password |
+| POST | /googleLogin | Login Menggunakan Google Account |
 
 
 ## POST /tasks
@@ -373,7 +374,7 @@ Mengupdate tasks berdasarkan parameter id
 
 ## **POST /login**
 ---
-  Mengembalikan accessToken JSON setelah berhasil login.
+  Mengembalikan JSON access_token, id, dan email setelah berhasil login.
 
 * **URL**
 
@@ -389,8 +390,10 @@ Mengupdate tasks berdasarkan parameter id
     **Content:** 
     ```json
     {
-        "access_token": "eyJhbXXXXXXXX.ayaXXXX"
-    }
+    "access_token": "eyJhbGciOiJIUzzkxkzxkzlxklzklxxxxxxxxxxxxxxxxxxxxxxx",
+    "id": 2,
+    "email": "coba@email.com"
+}
     ```
  
 * **Error Response:**
@@ -470,3 +473,42 @@ Mengupdate tasks berdasarkan parameter id
         },
       })
   ```
+
+  ## **POST /googleLogin**
+---
+  Mengembalikan JSON access_token, id, dan email setelah berhasil login dengan Google Account.
+
+* **URL**
+
+  /googleLogin
+
+* **Method:**
+
+  `POST`
+
+* **Success Response:**
+
+  * **Code:** 200 **OK** <br />
+    **Content:** 
+    ```json
+    {
+    "access_token": "eyJhbGciOiJIUzI1zxkzxkzxkxxxxxxxxxxxxxxxx",
+    "id": 2,
+    "email": "tesregister@gmail.com"
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ msg : "Internal Server Error." }`
+
+* **Sample Call:**
+  ```js
+  axios({
+        method: 'POST',
+        url: '/googleLogin',
+        data : {
+            google_token
+        }
+    })

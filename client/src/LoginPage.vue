@@ -47,6 +47,7 @@
         {{btnTxt}}
       </button>
     </form>
+    <button v-google-signin-button="clientId" class="btn btn-outline-primary btn-block"><i class="fab fa-google"></i> {{btnTxt}} </button>
   </div>
 </template>
 
@@ -59,6 +60,7 @@ export default {
       return {
         email : '',
         password : '',
+        clientId: '400139034231-q4fan6eteb0tm8diqdoouvcltsc26bfb.apps.googleusercontent.com',
         btnTxt: 'LOGIN'
       }
   },
@@ -93,6 +95,42 @@ export default {
                     this.password = ""
                 })
                 
+        },
+        OnGoogleAuthSuccess (idToken) {
+        this.btnTxt = "Please Wait..."
+            axios({
+                method: 'post',
+                url: '/googleLogin',
+                data : {
+                    google_token : idToken
+                }
+              })
+                .then(result => {
+                    this.btnTxt = "LOGIN"
+                    localStorage.email = result.data.email
+                    localStorage.id = result.data.id
+                    localStorage.access_token = result.data.access_token
+                    this.email = ""
+                    this.password = ""
+                    this.$emit('change-page','home-page')
+                })
+                .catch(error=>{
+                  this.btnTxt = "LOGIN"
+                    Swal.fire(
+                      'ALERT',
+                      `${error.response.data.msg}`,
+                      'error'
+                    )
+                    this.email = ""
+                    this.password = ""
+                })
+        },
+        OnGoogleAuthFail (error) {
+          Swal.fire(
+            'ALERT',
+            `Cancel Login with Google Account`,
+            'error'
+          )
         }
   },
   props: []
