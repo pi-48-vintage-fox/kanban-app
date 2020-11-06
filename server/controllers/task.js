@@ -11,25 +11,6 @@ class TaskController {
         })
     }
 
-    // static taskById(req, res, next) {
-    //     const id = req.params.id
-    //     Task.findByPk(id, {include: [User, Category]})
-    //     .then(task => {
-    //         if(!id){
-    //             let err = {
-    //                 name: 'Not Found'
-    //             }
-    //             throw next(err)
-    //         }
-    //         else{
-    //             res.status(200).json(task)
-    //         }
-    //     })
-    //     .catch(err => {
-    //         next(err)
-    //     })
-    // }
-
     static addTask (req, res, next) {
         const payload = {
             title: req.body.title,

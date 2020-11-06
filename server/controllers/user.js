@@ -61,11 +61,11 @@ class UserController {
     static async googleLogin (req, res, next) {
 
         let {google_access_token} = req.body 
-        const client = new OAuth2Client('365819165459-244erimjnuagnlvtirgm2t6isncdinpq.apps.googleusercontent.com')
+        const client = new OAuth2Client(process.env.CLIENT_ID)
         async function verify(){
             const ticket = await client.verifyIdToken({
                 idToken:google_access_token,
-                audience: '365819165459-244erimjnuagnlvtirgm2t6isncdinpq.apps.googleusercontent.com'
+                audience: process.env.CLIENT_ID
             })
             const payload = ticket.getPayload()
             let findUser = await User.findOne({where:{email:payload.email}})
@@ -76,7 +76,7 @@ class UserController {
             else{
                 let newData = {
                     email:payload.email,
-                    password:'udahadaaaaa',
+                    password: process.env.NEW_PASSWORD,
                     name: payload.name
                 }
                 let createUser = await User.create(newData)
