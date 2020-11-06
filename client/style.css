@@ -14,15 +14,14 @@
   border-radius: 8px;
   box-shadow: 1px 2px 3px grey;
 }
-
+/* 
 .creator {
   text-align: left;
   position: absolute;
-  top: 109%;
-  left: 11%;
+  text
   transform: translate(-50%, -50%);
   color: white;
-}
+} */
 
 .navbar {
   background-color: #34495e;
@@ -136,15 +135,28 @@ hr {
 }
 
 .title {
-  margin: 10px;
+  margin: 6px;
   border-top: 0px ;
   border-top: 1px solid #bdc3c7;
   border-bottom: 1px solid #bdc3c7;
   border-left: 1px solid #bdc3c7;
   border-right: 1px solid #bdc3c7;
   border-radius: 3px;
-  box-shadow: 0px 1px 1px grey;
+  box-shadow: 1px 1px 0px grey;
   background-color: #ffffff;
+}
+
+.date {
+  font-size: 14px;
+  font-family: cursive;
+}
+
+.card-text {
+  font-size: 13px;
+}
+
+.card-title {
+  padding-bottom: initial;
 }
 
 .card-body:hover {
@@ -152,6 +164,9 @@ hr {
 }
 
 .card{
+  background-color: lawngreen;
   height: 500px;
-  overflow: auto;;
+  overflow: auto;
 }
+
+/* Add */

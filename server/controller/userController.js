@@ -3,7 +3,7 @@ const { comparePassword } = require('../helpers/bcryptjs')
 const { signToken } = require('../helpers/jwt')
 
 class userController {
-static login(req, res) {
+static login(req, res, next) {
   let obj = {
     email: req.body.email,
     password: req.body.password
@@ -15,13 +15,9 @@ static login(req, res) {
   })
   .then(data => {
     if (!data) {
-      res.status(401).json({
-        message: "Wrong email/password!"
-      })
+      throw {message: "Wrong email/password!"}
     } else if(!comparePassword(obj.password, data.password)) {
-      res.status(401).json({
-        message: "Wrong email/password!"
-      })
+      throw {message: "Wrong email/password!"}
     } else {
       const access_token = signToken({
         id: data.id,
@@ -31,13 +27,13 @@ static login(req, res) {
     }
   })
   .catch(err => {
-    res.status(400).json(err)
+    next(err)
   })
 
 
 }
 
-static register(req, res) {
+static register(req, res, next) {
   let obj = {
     email: req.body.email, 
     password: req.body.password
@@ -50,7 +46,7 @@ static register(req, res) {
     })
   })
   .catch(err => {
-    res.status(400).json(err)
+    next(err)
   }) 
 }
 

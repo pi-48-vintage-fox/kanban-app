@@ -2,7 +2,7 @@ const { Task } = require('../models/index')
 
 
 class taskController {
-  static create(req, res) {
+  static create(req, res, next) {
     // console.log(req.loggedInUser.id);
     const userId = req.loggedInUser.id
     let obj = {
@@ -16,18 +16,18 @@ class taskController {
       res.status(201).json(data)
     })
     .catch(err => {
-      res.status(401).json(err)
+      next(err)
     })
   } 
 
 
-  static showAll(req, res) {
+  static showAll(req, res, next) {
     Task.findAll()
     .then(data => {
       res.status(200).json(data)
     })
     .catch(err => {
-      res.status(400).json(err)
+      next(err)
     })
   } 
 
@@ -50,7 +50,7 @@ class taskController {
       res.status(201).json(data)
     })
     .catch(err => {
-      res.status(400).json(err)
+      next(err)
     })
   }
 
@@ -69,12 +69,12 @@ class taskController {
       res.status(201).json(data)
     })
     .catch(err => {
-      res.status(400).json(err)
+      next(err)
     })
   }
 
 
-  static delete(req, res) {
+  static delete(req, res, next) {
     let id = +req.params.id
     Task.destroy({
       where: {
@@ -85,7 +85,7 @@ class taskController {
       res.status(200).json({ message: "Success delete task"})
     })
     .catch(err => {
-      res.status(400).json(err)
+      next(err)
     })
   }
 }

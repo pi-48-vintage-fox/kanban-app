@@ -1,7 +1,7 @@
 const { Task } = require('../models/index')
 
 function authorization(req, res, next) {
-  const {  } = req.params
+  const { id } = req.params
   Task.findByPk(id)
   .then(data => {
     if (!data) {
@@ -9,7 +9,7 @@ function authorization(req, res, next) {
     } else if(data.userId == req.loggedInUser.id) {
       next()
     } else {
-      throw { message: "Task not found", status: 401 }
+      throw { message: "Unauthorized", status: 401 }
     }
   })
   .catch(err => {

@@ -1,4 +1,3 @@
-const { decode } = require('jsonwebtoken')
 const { verifyToken } = require('../helpers/jwt')
 const { User } = require('../models/index')
 
@@ -28,5 +27,7 @@ async function authentication(req, res, next) {
     res.status(status).json({ err: message })
   }
 }
+
+
 
 module.exports = authentication
