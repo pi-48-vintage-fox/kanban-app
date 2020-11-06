@@ -1,12 +1,12 @@
-const { Task } =  require('../models/index')
+const { Task, Category } =  require('../models/index')
 
 class Controller {
     static addTask(req, res, next){
         let date = new Date()
         const obj = {
             title:req.body.title,
-            category:"backlog",
             tag:req.body.tag,
+            CategoryId:1,
             UserId:req.decoded.id,
             createdAt: date,
             updatedAt: date
@@ -20,8 +20,19 @@ class Controller {
         })
     }
 
-    static readTask(req,res){
+    static readTask(req,res,next){
         Task.findAll()
+        .then(result => {
+        res.status(200).json(result)
+        })
+        .catch(err => {
+            console.log(err)
+            next(err)
+        })
+    }
+
+    static readCategory(req,res,next){
+        Category.findAll()
         .then(result => {
         res.status(200).json(result)
         })
@@ -49,7 +60,7 @@ class Controller {
         const id = +req.params.id
         const obj = {
             title: req.body.title,
-            category: req.body.category,
+            tag: req.body.tag,
         }
         Task.update(obj, {
             where: {
@@ -68,7 +79,7 @@ class Controller {
     static updateTask(req, res, next){
         const id = +req.params.id
         const obj = {
-            category: req.body.category
+            CategoryId: req.body.CategoryId
         }
         Task.update(obj, {
             where: {

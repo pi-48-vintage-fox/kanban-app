@@ -6,7 +6,15 @@
 
         <AddPage v-else-if="pageName == 'add-page'" @add="add"></AddPage>
 
-        <HomePage v-else-if="pageName == 'home-page'" :tasks = "tasks" @changePage="changePage"></HomePage>
+        <EditPage v-else-if="pageName == 'edit-page'" @edit="edit"></EditPage>
+
+        <HomePage v-else-if="pageName == 'home-page'" 
+        :tasks = "tasks" 
+        :categories = "categories" 
+        @changePage="changePage"
+        @deleteTask="deleteTask"
+        @editTask="edit"
+        ></HomePage>
 
     </div>
 </template>
@@ -16,20 +24,23 @@ import Login from './components/Login'
 import Register from './components/Register'
 import AddPage from './components/AddPage'
 import HomePage from './components/HomePage'
+import EditPage from './components/EditPage'
 import axios from './config/axios'
 export default {
     name: 'App',
     data(){
         return{
             pageName: "login-page",
-            tasks: []
+            tasks: [],
+            categories : []
         }
     },
     components: {
         Login,
         Register,
         AddPage,
-        HomePage
+        HomePage,
+        EditPage
     },
     methods:{
      changePage(payload) {
@@ -46,8 +57,24 @@ export default {
             }
         })
         .then((result) =>{
-        console.log(result)
         this.tasks = result.data
+        })
+        .catch(err=>{
+        console.log(err);
+        })
+    },
+    fetchCategory(){
+        const access_token = localStorage.getItem('access_token')
+        axios({
+            url : '/category',
+            method : 'GET',
+            headers: {
+                access_token : access_token
+            }
+        })
+        .then((result) =>{
+        console.log(result.data)
+        this.categories = result.data
         })
         .catch(err=>{
         console.log(err);
@@ -66,12 +93,53 @@ export default {
             },
         })
         .then(result=>{
-        console.log(result)
         this.fetchTasks()
+        this.fetchCategory()
         this.pageName = "home-page"
         })
         .catch(err=>{
         console.log(err);
+        })
+    },
+    edit(payload){
+        const access_token = localStorage.getItem('access_token')
+        axios({
+            url : '/task/'+payload.id,
+            method : 'PUT',
+            headers: {
+                access_token : access_token
+            },
+            data: {
+                title: payload.title,
+            },
+        })
+        .then(result=>{
+        this.fetchTasks()
+        this.fetchCategory()
+        this.pageName = "home-page"
+        })
+        .catch(err=>{
+        console.log(err);
+        })
+    },
+    deleteTask(id){
+    const access_token = localStorage.getItem('access_token')
+            axios({
+            url : '/task/ ' + id,
+            method: 'DELETE',
+            headers: {
+                access_token : access_token
+            },
+        })
+        .then(result =>{
+            console.log('success delete')
+            this.pageName = "home-page"
+            this.fetchTasks()
+            this.fetchCategory()
+        })
+        .catch(err =>{
+            console.log('delete unsuccess')
+            console.log(err)
         })
     },
     login(payload){
@@ -89,6 +157,7 @@ export default {
             localStorage.setItem('access_token', result.data.access_token)
             this.pageName = "home-page"
             this.fetchTasks()
+            this.fetchCategory()
         })
         .catch(err =>{
             console.log('login unsuccess')
@@ -117,6 +186,7 @@ export default {
         if(localStorage.getItem('access_token')){
             this.pageName = "home-page"
             this.fetchTasks()
+            this.fetchCategory()
         }else{
             this.pageName = "login-page"
         }

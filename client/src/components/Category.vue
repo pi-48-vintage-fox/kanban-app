@@ -2,12 +2,15 @@
          <div class="col-sm-6 col-md-4 col-xl-3">
                 <div class="card bg-light">
                     <div class="card-body">
-                        <h6 class="card-title text-uppercase text-truncate py-2">{{filterCategory}}</h6>
+                        <h6 class="card-title text-uppercase text-truncate py-2">{{categor.name}}</h6>
                         <div class="items border border-light">
                             <Task
-                                v-for="(ta, i) in filterCategory"
+                                v-for="(task, i) in filterTaskByCategor"
                                 :key = "i"
-                                :task="ta.task"
+                                :task="task"
+                                @deleteTask="deleteTask"
+                                @changePage="changePage"
+                                @editTask="editTask"
                             ></Task> 
                         </div>
                     </div>
@@ -22,12 +25,26 @@ export default {
     components: {
         Task
     },
-    props : ["category"],
-    computed : {
-    filterCategory(){
-        return this.category.filter((result) => result.category == this.category)
+    methods :{
+        deleteTask(id){
+            this.$emit("deleteTask",id)
+        },
+        changePage(){
+            this.$emit('changePage', 'edit-page')
+        },
+        editTask(obj){
+            this.$emit("editTask",obj)
         }
-    }
+    },
+    computed:{
+        filterTaskByCategor(){
+            let filter = this.tasks.filter(e =>{
+                return e.CategoryId == this.categor.id
+            })
+            return filter
+        }
+    },
+    props : ["categor","tasks"],
 }
 </script>
 

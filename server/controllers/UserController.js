@@ -37,7 +37,7 @@ class Controller{
                     })
                 }else if(!CompareHash(input.password, user.password)){
                     res.status(401).json({
-                        message: "Wrong email or Password"
+                        message: "Wrong Password"
                     })
                 }else{
                     const decoded = SignToken({

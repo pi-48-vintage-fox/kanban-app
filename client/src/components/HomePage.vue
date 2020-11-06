@@ -20,9 +20,13 @@
         <button class="btn btn-primary" @click.prevent="toAdd" type="button">Add Task</button>
         <div class="row flex-row flex-sm-nowrap py-3">
             <Category
-            v-for="(cat, i) in tasks"
+            v-for="(cat, i) in categories"
             :key = "i"
-            :category="cat.category"
+            :categor="cat"
+            :tasks="tasks"
+            @deleteTask="deleteTask"
+            @changePage="changePage"
+            @editTask="editTask"
             ></Category>
         </div>
     </div>
@@ -36,15 +40,24 @@ export default {
     components: {
         Category
     },
-    props: ['tasks'],
+    props: ['tasks','categories'],
     methods : {
         logout(){
             localStorage.clear()
         },
         toAdd(){
             this.$emit('changePage', 'add-page')
+        },
+        deleteTask(id){
+            this.$emit('deleteTask', id)
+        },
+        changePage(){
+            this.$emit('changePage', 'edit-page')
+        },
+        editTask(obj){
+            this.$emit("editTask",obj)
         }
-    }
+    },
 }
 </script>
 
