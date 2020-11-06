@@ -37,7 +37,7 @@ class UserController {
         // console.log(data.toJSON())
         // console.log('^----- user sdh ada di database')
 
-        let { avatarUrl } = data
+        let { avatarUrl, id } = data
         let organization = data.Organization.name
 
         const access_token = signToken({
@@ -45,7 +45,7 @@ class UserController {
           email: data.email,
           OrganizationId: data.OrganizationId,
         })
-        res.status(200).json({ access_token, avatarUrl, organization })
+        res.status(200).json({ access_token, id, avatarUrl, organization })
       } else {
         console.log('user belum ada di database, bikin sekarang')
 
@@ -76,6 +76,7 @@ class UserController {
       const payload = {
         email: req.body.email,
         password: req.body.password,
+        OrganizationId: req.body.OrganizationId,
       }
 
       const user = await User.create(payload)
@@ -103,6 +104,7 @@ class UserController {
       // Try finding user with his/her email address
       let user = await User.findOne({
         where: { email: payload.user },
+        include: Organization,
       })
 
       if (!user) {
@@ -131,6 +133,7 @@ class UserController {
 
             res.status(200).json({
               access_token,
+              id: user.id,
               avatarUrl: user.avatarUrl,
               organization: user.Organization.name,
             })
@@ -144,18 +147,19 @@ class UserController {
         next({ status: 401, msg: 'Invalid email or password' })
       } else {
         // User is found using his/her email address
+        console.log(JSON.stringify(user, null, 2))
         const access_token = signToken({
           id: user.id,
           email: user.email,
+          OrganizationId: user.OrganizationId
         })
 
-        res
-          .status(200)
-          .json({
-            access_token,
-            avatarUrl: user.avatarUrl,
-            organization: user.Organization.name,
-          })
+        res.status(200).json({
+          access_token,
+          id: user.id,
+          avatarUrl: user.avatarUrl,
+          organization: user.Organization.name,
+        })
       }
     } catch (err) {
       console.log(err)
