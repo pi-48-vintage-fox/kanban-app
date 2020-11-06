@@ -18,5 +18,4 @@ routes.put('/tasks/:id', authorization, Controller.editTask)
 routes.delete('/tasks/:id', authorization, Controller.deleteTask)
 routes.patch('/tasks/:id', authorization, Controller.moveTask)
 
-
 module.exports = routes

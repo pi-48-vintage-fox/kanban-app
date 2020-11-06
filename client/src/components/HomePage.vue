@@ -7,7 +7,7 @@
             <div class="scroll" style="width: 20%; height: auto;">
                 <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
                 Backlog
-                <i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;"></i>
+                <i class="fa fa-plus" aria-hidden="true"></i>
                 </div>
                 <!-- ====================================== -->
                 <TaskPage
@@ -24,7 +24,7 @@
             <div class="scroll" style="width: 20%; height: auto;">
                 <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
                 Product
-                <i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;"></i>
+                <i class="fa fa-plus" aria-hidden="true"></i>
                 </div>
                 <!-- ====================================== -->
                 <TaskPage
@@ -41,7 +41,7 @@
             <div class="scroll" style="width: 20%; height: auto;">
                 <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
                 Development
-                <i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;"></i>
+                <i class="fa fa-plus" aria-hidden="true"></i>
                 </div>
                 <!-- ====================================== -->
                 <TaskPage
@@ -58,7 +58,7 @@
             <div class="scroll" style="width: 20%; height: auto;">
                 <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
                 Done
-                <i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;"></i>
+                <i class="fa fa-plus" aria-hidden="true"></i>
                 </div>
                 <!-- ====================================== -->
                 <TaskPage
@@ -82,7 +82,7 @@
             </div>
             <div id="window-menu" class="window-body">
                 <div v-on:click.prevent="showAdd()" class="menu-btn"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 5px;"></i> Add New Task</div>
-                <div class="menu-btn"><i class="fa fa-bolt" aria-hidden="true" style="margin-right: 5px; margin-left: 3px"></i> Dance Revolution!</div>
+                <a href="https://dakochan666.github.io/dance-revolution/"><div class="menu-btn"><i class="fa fa-bolt" aria-hidden="true" style="margin-right: 5px; margin-left: 3px"></i> Dance Revolution!</div></a>
                 <div v-on:click.prevent="logout()" class="menu-btn"><i class="fa fa-power-off" aria-hidden="true" style="margin-right: 5px;"></i> Log Out</div>
             </div>
         </div>
@@ -101,7 +101,7 @@
                     <input v-model="titleAdd" class="form-control form-control-sm" type="text" style="margin-bottom: 10px;" placeholder="Type your task title..">
                     <p class="text-login" style="font-size: 12px; color: rgb(59, 58, 58); margin-bottom: 5px;">Description :</p>
                     <input v-model="descriptionAdd" class="form-control form-control-sm" type="text" style="margin-bottom: 10px;" placeholder="Describe your task..">
-                    <button id="submitlogin" type="submit" style="margin-bottom: 20px;">Register</button>
+                    <button id="submitlogin" type="submit" style="margin-bottom: 20px;">Submit</button>
                 </form>
             </div>
         </div>
@@ -120,7 +120,7 @@
                     <input v-model="titleEdit" class="form-control form-control-sm" type="text" style="margin-bottom: 10px;" placeholder="Type your task title..">
                     <p class="text-login" style="font-size: 12px; color: rgb(59, 58, 58); margin-bottom: 5px;">Description :</p>
                     <input v-model="descriptionEdit" class="form-control form-control-sm" type="text" style="margin-bottom: 10px;" placeholder="Describe your task..">
-                    <button id="submitlogin" type="submit" style="margin-bottom: 20px;">Register</button>
+                    <button id="submitlogin" type="submit" style="margin-bottom: 20px;">Submit</button>
                 </form>
             </div>
         </div>

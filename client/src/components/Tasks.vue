@@ -3,8 +3,8 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title" style="font-size: small;">{{ tasks.title }}</h5>
-                <!-- <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">13 March 2020</h6> -->
                 <p class="card-text" style="font-size: smaller;">{{ tasks.description }}</p>
+                <h6 class="card-subtitle mb-2 text-muted" style="font-size: smaller;">{{ tasks.User.name }}</h6>
                 <div class="edit-delete-check">
                     <i v-on:click.prevent="move()" class="fa fa-check" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
                     <i v-on:click.prevent="showEdit()" class="fa fa-pencil" aria-hidden="true" style="margin-right: 10px; cursor: pointer;"></i>
@@ -24,7 +24,7 @@ export default {
         move() {
             let category = "Backlog"
             if(this.tasks.category === "Backlog") {
-                category = "Products"
+                category = "Product"
             } else if (this.tasks.category === "Product") {
                 category = "Development"
             } else if (this.tasks.category === "Development") {

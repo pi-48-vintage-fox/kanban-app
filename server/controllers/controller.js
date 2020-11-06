@@ -1,7 +1,6 @@
 const { Task, User } = require("../models/index")
 const { comparePassword } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
-const { default: Axios } = require('axios')
 const {OAuth2Client} = require('google-auth-library')
 
 class Controller {
@@ -82,7 +81,7 @@ class Controller {
     }
 
     static async googleLogin(req, res, next) {
-        const { google_access_token } = req.body
+        const { name, google_access_token } = req.body
         const client = new OAuth2Client(process.env.CLIENT_ID);
 
         let email = ''
@@ -99,19 +98,22 @@ class Controller {
           if(user){
             return user
           }else{
-            let newUser = {
-                email,
-                password:'12345678'
-            }
+              let newUser = {
+                  name,
+                  email,
+                  password:'12345678'
+                }
             return User.create(newUser)
           }
         })
         .then(data=>{
+            let name = data.name
             let userId = data.id
             let access_token = signToken({id: data.id, email:data.email})
-            res.status(200).json({access_token, userId})
+            res.status(200).json({access_token, userId, name})
         })
         .catch(err=>{
+            console.log(err);
             next(err)
         })
     }

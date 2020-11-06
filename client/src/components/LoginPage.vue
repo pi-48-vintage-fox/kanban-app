@@ -18,7 +18,7 @@
                     <button v-on:click.prevent="showRegister()">Create New Account</button>
                     <div class="text-right" style="text-align: right;">
                         <p class="text-login" style="font-size: 12px; color: rgb(59, 58, 58); margin-bottom: 0px;">or Login using..</p>
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>  
+                        <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Google Login</GoogleLogin>
                     </div>
                 </div>
             </div>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login';
 export default {
     name: 'LoginPage',
     data() {
@@ -60,8 +61,19 @@ export default {
             passwordInput: '',
             nameRegis: '',
             emailRegis: '',
-            passwordRegis: ''
+            passwordRegis: '',
+            params: {
+                    client_id: "482363522772-40b3pq35rms4l3f5i4n17v6pla8kvkjo.apps.googleusercontent.com"
+            },
+            renderParams: {
+                    width: 250,
+                    height: 50,
+                    longtitle: true
+            }
         }
+    },
+    components: {
+        GoogleLogin
     },
     methods: {
         showRegister() {
@@ -85,6 +97,22 @@ export default {
             }
             this.unshowRegister()
             this.$emit('register', payload)
+        },
+        onSuccess(googleUser) {
+            // console.log(googleUser);
+ 
+            // This only gets the user information: id, name, imageUrl and email
+            // console.log(googleUser.getBasicProfile().getName());
+            var google_access_token = googleUser.getAuthResponse().id_token;
+            // console.log(google_access_token);
+            const payload = {
+                name: googleUser.getBasicProfile().getName(),
+                google_access_token
+            }
+            this.$emit('GoogleLogin', payload)
+        },
+        onFailure(error) {
+            console.log(error);
         }
     }
 }

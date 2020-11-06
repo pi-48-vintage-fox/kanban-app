@@ -11,11 +11,13 @@
     <LoginPage
         v-else-if="pageName == 'login-page'"
         @login="login"
-        @register="register">
+        @register="register"
+        @GoogleLogin="GoogleLogin">
     </LoginPage>
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login';
 import HomePage from './components/HomePage'
 import LoginPage from './components/LoginPage'
 import axios from './config/axios'
@@ -54,6 +56,7 @@ export default {
                     timer: 1500
                 })
                 this.pageName = 'home-page' 
+                this.showTask()
             })
             .catch(err => {
                 Swal.fire(err.response.data.message);
@@ -95,6 +98,11 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.pageName = 'login-page'
+                    localStorage.clear()
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                        console.log('User signed out.');
+                    });
                     Swal.fire(
                         'Good Bye!',
                         'Thanks for Coming.',
@@ -122,6 +130,7 @@ export default {
                 }
             })
             .then(data => {
+                this.showTask()
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -161,6 +170,7 @@ export default {
                 }
             })
             .then(data => {
+                this.showTask()
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -170,6 +180,7 @@ export default {
                 })
             })
             .catch(err => {
+                console.log(err);
                 Swal.fire(err.response.data.message);
             })
         },
@@ -182,6 +193,7 @@ export default {
                 }
             })
             .then(data => {
+                this.showTask()
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -207,6 +219,7 @@ export default {
                 }
             })
             .then(data => {
+                this.showTask()
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -216,6 +229,35 @@ export default {
                 })
             })
             .catch(err => {
+                Swal.fire(err.response.data.message);
+            })
+        },
+        GoogleLogin(payload) {
+            axios({
+                url: `/google-login`,
+                method: 'POST',
+                data: {
+                    name: payload.name,
+                    google_access_token: payload.google_access_token
+                }
+            })
+            .then(({data}) => {
+                console.log(data);
+                localStorage.setItem('access_token', data.access_token)
+                localStorage.setItem('id', data.userId)
+                localStorage.setItem('name', data.name)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Login Succes',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.pageName = 'home-page' 
+                this.showTask()
+            })
+            .catch(err => {
+                // console.log(err);
                 Swal.fire(err.response.data.message);
             })
         }  
