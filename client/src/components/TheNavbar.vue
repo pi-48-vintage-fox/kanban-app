@@ -55,10 +55,11 @@
           const auth2 = gapi.auth2.getAuthInstance()
           auth2.signOut().then(() => {
             console.log('User signed out.')
+            console.log('clearing localstorage')
+            localStorage.clear()
+            this.$emit('changePage', 'landing-page')
           })
         }
-        localStorage.clear()
-        this.$emit('changePage', 'landing-page')
       },
       getAvatar() {
         return localStorage.getItem('avatarUrl')

@@ -220,15 +220,15 @@
         if (!gapi) return
         gapi.signin2.render('gSignIn', {
           onsuccess: (user) => {
-            onSignIn(user)
+            this.onSignIn(user)
           },
           onerror: (err) => {
             console.log('Google signIn2.render button err: ' + err)
           },
         })
       },
-      onSignIn() {
-        this.$emit('onSignIn')
+      onSignIn(user) {
+        this.$emit('onSignIn', user)
       },
     },
   }

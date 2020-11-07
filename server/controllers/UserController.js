@@ -38,7 +38,10 @@ class UserController {
         // console.log('^----- user sdh ada di database')
 
         let { avatarUrl, id } = data
-        let organization = data.Organization.name
+        let organization =
+          data.Organization && data.Organization.name
+            ? data.Organization.name
+            : ''
 
         const access_token = signToken({
           id: data.id,
@@ -151,7 +154,7 @@ class UserController {
         const access_token = signToken({
           id: user.id,
           email: user.email,
-          OrganizationId: user.OrganizationId
+          OrganizationId: user.OrganizationId,
         })
 
         res.status(200).json({
