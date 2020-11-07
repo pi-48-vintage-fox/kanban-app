@@ -79,11 +79,11 @@
           >
         </select>
         <div
-          v-if="errors.organization.length > 0"
+          v-if="errors.OrganizationId.length > 0"
           class="notification notification-error"
         >
           <ul>
-            <li v-for="(error, i) in errors.organization" :key="i">
+            <li v-for="(error, i) in errors.OrganizationId" :key="i">
               {{ error }}
             </li>
           </ul>
@@ -119,7 +119,7 @@
           email: [],
           password: [],
           confirmPassword: [],
-          organization: [],
+          OrganizationId: [],
         },
         errorBanner: null,
       }
@@ -137,7 +137,7 @@
           email,
           username,
           confirmPassword,
-          organization,
+          OrganizationId,
           errors,
         } = this
 
@@ -147,7 +147,7 @@
           email,
           password,
           confirmPassword,
-          organization,
+          OrganizationId,
         })
 
         if (this.validateRegistration()) {
@@ -161,7 +161,7 @@
               username,
               email,
               password,
-              OrganizationId: organization,
+              OrganizationId,
             },
           })
             .then(({ data }) => {
@@ -173,7 +173,7 @@
                 msg: 'Account registration successful',
                 type: 'success',
               })
-              this.isLoginForm = true
+              this.$emit('toggleLoginForm')
             })
             .catch((err) => {
               console.log(err)
@@ -204,8 +204,8 @@
           )
         }
 
-        if (!this.organization) {
-          this.errors.organization.push('Please choose your organization')
+        if (!this.OrganizationId) {
+          this.errors.OrganizationId.push('Please choose your organization')
         }
 
         for (let key in this.errors) {
