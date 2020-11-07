@@ -6,14 +6,18 @@
 
         <AddPage v-else-if="pageName == 'add-page'" @add="add"></AddPage>
 
-        <EditPage v-else-if="pageName == 'edit-page'" @edit="edit"></EditPage>
+        <EditCategory v-else-if="pageName == 'edit-category'" 
+        @editCategory="editCategory" 
+        :taskId="taskId">
+        </EditCategory>
 
         <HomePage v-else-if="pageName == 'home-page'" 
         :tasks = "tasks" 
         :categories = "categories" 
         @changePage="changePage"
         @deleteTask="deleteTask"
-        @editTask="edit"
+        @toCategory="toCategory"
+        @editCategory="editCategory"
         ></HomePage>
 
     </div>
@@ -24,7 +28,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import AddPage from './components/AddPage'
 import HomePage from './components/HomePage'
-import EditPage from './components/EditPage'
+import EditCategory from './components/EditCategory'
 import axios from './config/axios'
 export default {
     name: 'App',
@@ -33,6 +37,7 @@ export default {
             pageName: "login-page",
             tasks: [],
             categories : [],
+            id:0
         }
     },
     components: {
@@ -40,7 +45,7 @@ export default {
         Register,
         AddPage,
         HomePage,
-        EditPage
+        EditCategory
     },
     methods:{
      changePage(payload) {
@@ -139,6 +144,31 @@ export default {
         })
         .catch(err =>{
             console.log('delete unsuccess')
+            console.log(err)
+        })
+    },
+    toCategory(obj){
+        this.pageName = 'edit-category'
+        this.taskId=obj.id
+    },
+    editCategory(obj){
+        const access_token = localStorage.getItem('access_token')
+            axios({
+            url : '/category/'+obj.id,
+            method: 'PATCH',
+            headers: {
+                access_token : access_token
+            },
+            data:{
+                CategoryId: obj.category
+            }
+        })
+        .then((result) =>{
+            this.pageName = "home-page"
+            this.fetchTasks()
+            this.fetchCategory()
+        })
+        .catch(err =>{
             console.log(err)
         })
     },

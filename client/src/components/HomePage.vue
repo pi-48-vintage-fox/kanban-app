@@ -27,6 +27,8 @@
             @deleteTask="deleteTask"
             @changePage="changePage"
             @editTask="editTask"
+            @toCategory="toCategory"
+            @editCategory="editCategory"
             ></Category>
         </div>
     </div>
@@ -56,6 +58,12 @@ export default {
         },
         editTask(obj){
             this.$emit("editTask",obj)
+        },
+        toCategory(obj){
+            this.$emit('toCategory',obj)
+        },
+        editCategory(){
+            this.$emit('editCategory', payload)
         }
     },
 }

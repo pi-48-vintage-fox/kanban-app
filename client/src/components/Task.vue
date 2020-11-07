@@ -20,6 +20,7 @@
                     {{task.tag}}
                 </p>
                 <button class="btn btn-primary btn-sm" @click.prevent="toEdit(task.id)">Edit</button>
+                <button class="btn btn-primary btn-sm" @click.prevent="toCategory(task.id)">Move</button>
         </div>
     </div>
 </template>
@@ -52,6 +53,13 @@ export default {
             this.$emit("editTask",obj)
             this.taskData.id = ''
             this.taskData.title = ''
+        },
+        toCategory(id){
+            const obj = {
+                id: this.task.id,
+                name: 'edit-category'
+            }
+            this.$emit('toCategory',obj)
         }
     }
 }
