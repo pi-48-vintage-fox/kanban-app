@@ -71,6 +71,18 @@ class UserController {
     }
   }
 
+  static async getUserDetails(req, res, next) {
+    console.log("fetching user's details")
+
+    try {
+      const user = await User.findByPk(req.user.id)
+      res.status(200).json(user)
+    } catch (error) {
+      console.log(error)
+      next(error)
+    }
+  }
+
   static async register(req, res, next) {
     console.log(req.body)
     console.log('register')

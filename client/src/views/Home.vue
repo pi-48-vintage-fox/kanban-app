@@ -39,10 +39,26 @@
     created() {
       this.fetchCategories()
       this.fetchTasks()
+      this.fetchUserDetails()
     },
     methods: {
       getToken() {
         return localStorage.getItem('access_token')
+      },
+      fetchUserDetails() {
+        console.log('fetching user details')
+        axios({
+          url: '/user',
+          headers: {
+            access_token: this.getToken(),
+          },
+        })
+          .then(({ user }) => {
+            console.log(user, '<<< user data')
+          })
+          .catch((err) => {
+            console.log("Error fetching user's details:", err)
+          })
       },
       fetchCategories() {
         console.log('fetch categories')
