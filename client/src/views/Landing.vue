@@ -32,10 +32,10 @@
                 autofocus
                 required
               />
-              <!-- <label v-if="!isLoginForm" for="username"
+               <label v-if="!isLoginForm" for="username"
                 >Username<small>*optional</small></label
-              > -->
-              <!-- <input
+              > 
+               <input
                 v-if="!isLoginForm"
                 type="text"
                 name="username"
@@ -45,7 +45,7 @@
                 autofocus
                 required
               /> -->
-              <label v-if="!isLoginForm" for="user">Email</label>
+        <!-- <label v-if="!isLoginForm" for="user">Email</label>
               <input
                 v-if="!isLoginForm"
                 type="text"
@@ -86,6 +86,7 @@
                 v-model="organization"
                 name="organization"
               >
+              <option default selected>-- Please select --</option>
                 <option
                   v-for="org of organizations"
                   :key="org.id"
@@ -126,13 +127,28 @@
             </form>
           </div>
         </div> -->
+        <FormLogin
+          @onSignIn="onSignIn"
+          @showMessage="showMessage"
+          @toggleLoginForm="toggleLoginForm"
+          v-if="isLoginForm"
+        ></FormLogin>
+        <FormRegister
+          @onSignIn="onSignIn"
+          @showMessage="showMessage"
+          @toggleLoginForm="toggleLoginForm"
+          :organizations="organizations"
+          v-if="!isLoginForm"
+        ></FormRegister>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
+  import FormLogin from '../components/FormLogin'
+  import FormRegister from '../components/FormRegister'
+  import axios from '../../config/axios'
   export default {
     name: 'LandingPage',
     data() {
@@ -155,17 +171,18 @@
         },
       }
     },
+    components: {
+      FormLogin,
+      FormRegister,
+    },
     created() {
       this.fetchOrganizations()
     },
     methods: {
-      getToken() {
-        return localStorage.getItem('access_token')
+      setLoginForm(value) {
+        isLoginForm(value)
       },
 
-      saveToken(token) {
-        localStorage.setItem('access_token', token)
-      },
       getAvatar() {
         return localStorage.getItem('avatarUrl')
       },
@@ -181,7 +198,7 @@
         console.log('fetch organizations')
         axios({
           method: 'GET',
-          url: this.baseUrl + '/organizations',
+          url: '/organizations',
         })
           .then(({ data }) => {
             console.log(data, '<<<< organizations')
@@ -197,7 +214,6 @@
       },
 
       signOut() {
-        console.log('ini token', getToken())
         const auth2 = gapi.auth2.getAuthInstance()
         auth2.signOut().then(() => {
           console.log('User signed out.')
@@ -223,7 +239,7 @@
 
           axios({
             method: 'POST',
-            url: this.baseUrl + '/login',
+            url: '/login',
             data: {
               user,
               password,
@@ -231,8 +247,8 @@
           })
             .then(({ data }) => {
               console.log('berhasil login', data)
-              this.saveToken(data.access_token)
-              this.saveAvatar(data.avatarUrl)
+              localStorage.setItem('access_token', data.access_token)
+              localStorage.setItem('avatarUrl', data.avatarUrl)
               localStorage.setItem('organization', data.organization)
               this.user = ''
               this.password = ''
@@ -263,7 +279,7 @@
           if (this.validateRegistration) {
             axios({
               method: 'POST',
-              url: this.baseUrl + '/register',
+              url: '/register',
               data: {
                 username,
                 email,
@@ -321,7 +337,7 @@
         console.log('id_token', id_token)
         axios({
           method: 'POST',
-          url: this.baseUrl + '/googleLogin',
+          url: '/googleLogin',
           data: { token: id_token },
         })
           .then(({ response }) => {
@@ -340,6 +356,9 @@
             console.log(err)
             this.$emit('showMessage', { msg: err, type: 'error' })
           })
+      },
+      showMessage(payload) {
+        this.$emit('showMessage', payload)
       },
     },
   }

@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import axios from '../../config/axios'
   import BaseModal from './BaseModal'
 
   export default {
@@ -85,7 +85,7 @@
 
         axios({
           method: 'POST',
-          url: this.baseUrl + '/tasks',
+          url: '/tasks',
           data: {
             title: this.title,
             description: this.description,

@@ -162,8 +162,15 @@ body {
 
 .notification {
   margin: 0.5rem 0;
-  /* padding: 0.75rem;  */
-  text-align: center;
+  /* text-align: center; */
+  font-size: 0.85rem;
+}
+
+.notification-banner {
+  background-color: rgb(247, 199, 199);
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 500;
 }
 
 .notification-error {

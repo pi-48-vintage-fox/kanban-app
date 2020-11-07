@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import axios from '../../config/axios'
   import TheNavbar from '../components/TheNavbar'
   import TheBoardList from '../components/TheBoardList'
   import BaseModal from '../components/BaseModal'
@@ -48,7 +48,7 @@
         console.log('fetch categories')
         axios({
           method: 'GET',
-          url: this.baseUrl + '/categories',
+          url: '/categories',
           headers: {
             access_token: this.getToken(),
           },
@@ -65,7 +65,7 @@
         console.log('fetch task')
         axios({
           method: 'GET',
-          url: this.baseUrl + '/tasks',
+          url: '/tasks',
           headers: {
             access_token: this.getToken(),
           },

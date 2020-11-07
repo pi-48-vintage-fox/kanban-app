@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import axios from '../../config/axios'
   import BaseModal from './BaseModal'
   export default {
     name: 'ButtonCategoryAdd',
@@ -65,7 +65,7 @@
 
         axios({
           method: 'POST',
-          url: this.baseUrl + '/categories',
+          url: '/categories',
           data: {
             name: this.name,
           },

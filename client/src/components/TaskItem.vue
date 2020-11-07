@@ -49,7 +49,7 @@
             ></textarea>
 
             <label for="categories">Move to</label>
-            <select v-model="selected" name="categories">
+            <select v-model="CategoryId" name="categories">
               <option
                 v-for="category in filteredCategories"
                 :key="category.id"
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import axios from '../../config/axios'
   import BaseModal from './BaseModal'
   export default {
     data() {
@@ -120,7 +120,7 @@
         description: this.task.description,
         showTaskDetailsModal: false,
         showDeleteItemModal: false,
-        selected: '',
+        CategoryId: this.task.CategoryId,
       }
     },
     props: {
@@ -144,17 +144,17 @@
         console.log({
           title: this.title,
           description: this.description,
-          CategoryId: this.selected,
+          CategoryId: this.CategoryId,
         })
 
         this.showTaskDetailsModal = false
         axios({
           method: 'PUT',
-          url: this.baseUrl + '/tasks/' + this.task.id,
+          url: '/tasks/' + this.task.id,
           data: {
             title: this.title,
             description: this.description,
-            CategoryId: this.selected,
+            CategoryId: this.CategoryId,
           },
           headers: {
             access_token: localStorage.getItem('access_token'),
@@ -180,7 +180,7 @@
         console.log('delete task')
         axios({
           method: 'DELETE',
-          url: this.baseUrl + '/tasks/' + this.task.id,
+          url: '/tasks/' + this.task.id,
           headers: {
             access_token: localStorage.getItem('access_token'),
           },
