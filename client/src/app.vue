@@ -11,7 +11,11 @@
     </Login>
 
     <!-- Register Page -->
-    <Register v-else-if="pageName === 'register-page'" @register="register">
+    <Register 
+      v-else-if="pageName === 'register-page'" 
+      @register="register"
+      @changePage="changePage"
+    >
     </Register>
 
     <!-- Main Page -->

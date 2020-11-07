@@ -83,3 +83,16 @@
   font-weight: bold;
 }
 
+.login-icon {
+  width: 100%;
+}
+
+.google-icon {
+  padding: 10px;
+}
+
+.or-icon {
+  align-self: center;
+  padding: 5px;
+
+}
