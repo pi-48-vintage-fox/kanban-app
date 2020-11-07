@@ -2,6 +2,7 @@
   <div id="BoardList" class="actions">
     <TaskBoard
       v-for="(category, i) in categories"
+      :user="user"
       :key="i"
       :tasks="tasks"
       :category="category"
@@ -32,6 +33,7 @@
       ButtonCategoryAdd,
     },
     props: {
+      user: Object,
       categories: Array,
       tasks: Array,
     },

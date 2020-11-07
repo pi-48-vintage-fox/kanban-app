@@ -78,7 +78,16 @@ class UserController {
       const user = await User.findByPk(req.user.id, {
         include: Organization,
       })
-      res.status(200).json(user)
+      const { id, name, email, avatarUrl, OrganizationId } = user
+      let output = {
+        id,
+        name,
+        email,
+        avatarUrl,
+        OrganizationId,
+        Organization: data.Organization.name,
+      }
+      res.status(200).json(output)
     } catch (error) {
       console.log(error)
       next(error)

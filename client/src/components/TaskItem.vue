@@ -11,7 +11,13 @@
           class="task-item-icon"
           :src="task.User.avatarUrl"
         />
-        <p v-if="task.User" class="task-item-creator">
+        <p
+          v-if="task.User && task.User.id === user.id"
+          class="task-item-creator"
+        >
+          By You
+        </p>
+        <p v-if="task.User.id != user.id" class="task-item-creator">
           By {{ task.User.name }}
         </p>
       </div>
@@ -124,6 +130,7 @@
       }
     },
     props: {
+      user: Object,
       task: Object,
       category: Object,
       categories: Array,

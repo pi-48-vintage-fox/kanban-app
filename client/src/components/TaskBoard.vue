@@ -12,6 +12,7 @@
       <ul class="task-list">
         <TaskItem
           v-for="task in filteredTasks"
+          :user="user"
           :key="task.id"
           :task="task"
           :category="category"
@@ -38,6 +39,7 @@
       ButtonTaskAdd,
     },
     props: {
+      user: Object,
       category: Object,
       categories: Array,
       tasks: Array,

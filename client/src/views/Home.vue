@@ -1,16 +1,24 @@
 <template>
-  <div id="home-page">
-    <BaseModal v-if="showModal === true"></BaseModal>
-    <TheNavbar @showMessage="showMessage" @changePage="changePage"></TheNavbar>
-    <div class="container container-home fullwidth">
-      <TheBoardList
-        :categories="categories"
-        :tasks="tasks"
+  <div>
+    <div v-if="!user">LOADING</div>
+    <div v-if="user" id="home-page">
+      <BaseModal v-if="showModal === true"></BaseModal>
+      <TheNavbar
+        :user="user"
         @showMessage="showMessage"
         @changePage="changePage"
-        @fetchTasks="fetchTasks"
-        @fetchCategories="fetchCategories"
-      ></TheBoardList>
+      ></TheNavbar>
+      <div class="container container-home fullwidth">
+        <TheBoardList
+          :user="user"
+          :categories="categories"
+          :tasks="tasks"
+          @showMessage="showMessage"
+          @changePage="changePage"
+          @fetchTasks="fetchTasks"
+          @fetchCategories="fetchCategories"
+        ></TheBoardList>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +37,7 @@
         categories: [],
         tasks: [],
         showModal: false,
+        user: null,
       }
     },
     components: {
@@ -55,6 +64,20 @@
         })
           .then(({ data }) => {
             console.log(data, '<<< user data')
+            if (!data.OrganizationId) {
+              this.showOrganizationSelection()
+            }
+
+            const { id, avatarUrl, OrganizationId, name, email } = data
+
+            this.user = {
+              id,
+              name,
+              email,
+              avatarUrl,
+              OrganizationId,
+              Organization: data.Organization.name,
+            }
           })
           .catch((err) => {
             console.log("Error fetching user's details:", err)
