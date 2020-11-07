@@ -75,7 +75,9 @@ class UserController {
     console.log("fetching user's details")
 
     try {
-      const user = await User.findByPk(req.user.id)
+      const user = await User.findByPk(req.user.id, {
+        include: Organization,
+      })
       res.status(200).json(user)
     } catch (error) {
       console.log(error)

@@ -53,8 +53,8 @@
             access_token: this.getToken(),
           },
         })
-          .then(({ user }) => {
-            console.log(user, '<<< user data')
+          .then(({ data }) => {
+            console.log(data, '<<< user data')
           })
           .catch((err) => {
             console.log("Error fetching user's details:", err)
