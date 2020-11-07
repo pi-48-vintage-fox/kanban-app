@@ -193,19 +193,19 @@
           this.errors[key] = []
         }
         if (!this.email) {
-          errors.email.push('Email is required')
+          this.errors.email.push('Email is required')
         }
         if (!this.password) {
-          errors.password.push('Password is required')
+          this.errors.password.push('Password is required')
         }
         if (this.confirmPassword !== this.password) {
-          errors.confirmPassword.push(
+          this.errors.confirmPassword.push(
             'Password and password confirmation are different'
           )
         }
 
         if (!this.organization) {
-          errors.organization.push('Please choose your organization')
+          this.errors.organization.push('Please choose your organization')
         }
 
         for (let key in this.errors) {
