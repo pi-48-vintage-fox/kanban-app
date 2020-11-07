@@ -113,15 +113,19 @@
           })
             .then(({ data }) => {
               console.log('berhasil login', data)
-              localStorage.setItem('access_token', data.access_token)
-              localStorage.setItem('avatarUrl', data.avatarUrl)
-              localStorage.setItem('organization', data.organization)
+              if (data.access_token)
+                localStorage.setItem('access_token', data.access_token)
+              if (data.avatarUrl)
+                localStorage.setItem('avatarUrl', data.avatarUrl)
+              if (data.organization)
+                localStorage.setItem('organization', data.organization)
               this.user = ''
               this.password = ''
               this.$emit('showMessage', {
                 type: 'success',
                 msg: 'Login successful',
               })
+              console.log('from login page -> home-page')
               this.$emit('changePage', 'home-page')
             })
             .catch((err) => {

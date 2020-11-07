@@ -12,12 +12,14 @@
           @onSignIn="onSignIn"
           @showMessage="showMessage"
           @toggleLoginForm="toggleLoginForm"
+          @changePage="changePage"
           v-if="isLoginForm"
         ></FormLogin>
         <FormRegister
           @onSignIn="onSignIn"
           @showMessage="showMessage"
           @toggleLoginForm="toggleLoginForm"
+          @changePage="changePage"
           :organizations="organizations"
           v-if="!isLoginForm"
         ></FormRegister>
@@ -126,6 +128,9 @@
       },
       showMessage(payload) {
         this.$emit('showMessage', payload)
+      },
+      changePage(payload) {
+        this.$emit('changePage', payload)
       },
     },
   }
