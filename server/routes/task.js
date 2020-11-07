@@ -8,7 +8,6 @@ router.post('/', controller.addTask)
 router.get('/', controller.readTask)
 router.get('/:id', controller.readById)
 router.put('/:id',authorization, controller.editTask)
-router.patch('/:id',authorization, controller.updateTask)
 router.delete('/:id',authorization, controller.delete)
 
 

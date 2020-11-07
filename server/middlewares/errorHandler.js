@@ -18,6 +18,7 @@ function errorHandler (err, req, res, next){
         status = 401
         msg = 'You are unauthorized'
     }
+    console.log(err)
     res.status(status).json({msg})
 }
 
