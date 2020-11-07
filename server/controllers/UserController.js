@@ -85,7 +85,7 @@ class UserController {
         email,
         avatarUrl,
         OrganizationId,
-        Organization: data.Organization.name,
+        Organization: user.Organization.name,
       }
       res.status(200).json(output)
     } catch (error) {

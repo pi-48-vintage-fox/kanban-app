@@ -1,6 +1,15 @@
 <template>
   <div>
-    <div v-if="!user">LOADING</div>
+    <div v-if="!user" class="loader-container">
+      <lottie-player
+        src="https://assets3.lottiefiles.com/packages/lf20_h59xofz0.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px;"
+        loop
+        autoplay
+      ></lottie-player>
+    </div>
     <div v-if="user" id="home-page">
       <BaseModal v-if="showModal === true"></BaseModal>
       <TheNavbar
