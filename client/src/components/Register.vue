@@ -42,19 +42,8 @@ export default {
         }
     },
     methods: {
-      register(){
-            axios({
-                method: 'POST',
-                url: this.server + '/register',
-                data: this.userRegister
-            })
-            .then(res => {
-                console.log(res);
-                this.page = 'login-page'
-            })
-            .catch(err => {
-                swal(err.response.data.message);
-            })
+        register(){
+            this.$emit('register')
         },
         loginPage(){
             this.$emit('changePage', 'login-page');

@@ -16,7 +16,8 @@
         <RegisterPage 
             v-else-if="page == 'register-page'" 
             @changePage="changePage" 
-            @fetchTasks="fetchTasks">
+            @fetchTasks="fetchTasks"
+            @register="register">
         </RegisterPage>
         <HomePage 
             v-else-if="page == 'home-page'" 
@@ -51,7 +52,7 @@ export default {
             page: 'login-page',
             show: false,
             showEdit: false,
-            server: 'http://localhost:3000',
+            server: 'https://kanban-web-app.herokuapp.com',
             userLogin: {
                 email: '',
                 password: ''
@@ -72,7 +73,7 @@ export default {
             },
             errorMessage: '',
             categories: ['Backlog', 'Todo', 'Doing', 'Done'],
-            clientId: '300714736469-s4d33v7bq72f28a96rp123o1o8ss5r0n.apps.googleusercontent.com'
+            clientId: process.env.CLIENT_ID
         }
     },
     components: {
@@ -103,6 +104,19 @@ export default {
             .catch(err => {
                 console.log(err);
                 swal(err.response.statusText);
+            })
+        },
+        register(){
+            axios({
+                method: 'POST',
+                url: this.server + '/register',
+                data: this.userRegister
+            })
+            .then(res => {
+                this.page = 'login-page'
+            })
+            .catch(err => {
+                swal(err.response.data.message);
             })
         },
         logout(){

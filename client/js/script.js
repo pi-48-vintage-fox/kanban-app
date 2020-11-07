@@ -4,7 +4,7 @@ let app = new Vue({
         page: 'login-page',
         show: false,
         showEdit: false,
-        server: 'http://localhost:3000',
+        server: 'https://kanban-web-app.herokuapp.com',
         userLogin: {
             email: '',
             password: ''

@@ -40,7 +40,7 @@ export default {
             const payload = JSON.parse(jsonPayload);
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/google-login',
+                url: 'https://kanban-web-app.herokuapp.com/google-login',
                 data: {
                     email: payload.email
                 }
