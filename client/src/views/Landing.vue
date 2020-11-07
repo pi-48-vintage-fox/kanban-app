@@ -1,9 +1,14 @@
 <template>
   <div id="landing-page">
-    <section id="landing-page-left"></section>
+    <section id="landing-page-left">
+      <p class="landing-title">Kanban App</p>
+      <p class="landing-subtitle">
+        Easy to use Kanban App to easily manage your projects
+      </p>
+    </section>
     <section id="landing-page-right">
       <div id="container-auth">
-        <div id="auth-content">
+        <!-- <div id="auth-content">
           <div v-if="isLoginForm" id="auth-title">Login</div>
           <div v-if="!isLoginForm" id="auth-title">Create Account</div>
           <div id="auth-oauth">
@@ -120,7 +125,7 @@
               </p>
             </form>
           </div>
-        </div>
+        </div> -->
       </div>
     </section>
   </div>
@@ -229,6 +234,8 @@
               this.saveToken(data.access_token)
               this.saveAvatar(data.avatarUrl)
               localStorage.setItem('organization', data.organization)
+              this.user = ''
+              this.password = ''
               this.$emit('showMessage', {
                 type: 'success',
                 msg: 'Login successful',
@@ -266,6 +273,9 @@
             })
               .then(({ data }) => {
                 console.log('berhasil register', data)
+                this.username = ''
+                this.password = ''
+                this.confirmPassword = ''
                 this.$emit('showMessage', {
                   msg: 'Account registration successful',
                   type: 'success',
@@ -273,8 +283,6 @@
                 this.isLoginForm = true
               })
               .catch((err) => {
-                console.log(err)
-                console.log(err.response)
                 this.$emit('showMessage', {
                   msg: err.data,
                   type: 'error',
