@@ -5,10 +5,11 @@ const { Task, User, Category } = require('../models')
 class TaskController {
   static async tasks(req, res, next) {
     try {
+      console.log('fetching tasks ----------------------------------')
+      // console.log('requser', req.user)
       const { OrganizationId } = req.user
 
       console.log({ OrganizationId })
-      console.log('fetching tasks')
       let tasks = await Task.findAll({
         where: { OrganizationId },
         include: User,
@@ -71,7 +72,7 @@ class TaskController {
   }
 
   static async addTask(req, res, next) {
-    console.log(req.user, '\n^---- req user')
+    // console.log(req.user, '\n^---- req user')
     console.log(req.body, '\n^---- req body')
 
     const { title, description, CategoryId } = req.body

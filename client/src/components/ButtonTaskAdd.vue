@@ -63,7 +63,6 @@
         showAddTaskModal: false,
         title: '',
         description: '',
-        baseUrl: 'https://kanban-app-riva.herokuapp.com',
       }
     },
     components: {
@@ -97,7 +96,6 @@
         })
           .then(({ data }) => {
             console.log(data, '<<<< new task')
-            this.$emit('pushTask', data)
             this.$emit('fetchTasks')
           })
           .catch((err) => {

@@ -15,4 +15,32 @@ app.use(express.json())
 
 app.use(router)
 
-app.listen(port, () => console.log('App running on port ' + port))
+// const server = require('http').Server(app)
+
+const server = app.listen(port, () => {
+  console.log('App running on port ' + port)
+})
+
+var io = require('socket.io')(server, {
+  cors: true,
+  origins: ['http://localhost:1234', 'https://kanban-app-riva.web.app/'],
+})
+
+io.on('connection', (socket) => {
+  console.log('a user connected')
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected')
+  })
+
+  socket.on('organizations', (data) => {
+    io.emit('organizations', data)
+  })
+
+  socket.on('tasks', (data) => {
+    socket.broadcast.emit('tasks', data)
+  })
+  socket.on('categories', (data) => {
+    socket.broadcast.emit('categories', data)
+  })
+})

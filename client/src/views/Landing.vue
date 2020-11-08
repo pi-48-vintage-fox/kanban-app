@@ -39,6 +39,7 @@
     props: {
       organizations: Array,
     },
+    created() {},
     data() {
       return {
         user: '',
@@ -48,7 +49,6 @@
         confirmPassword: '',
         isLoginForm: true,
         organization: '',
-        baseUrl: 'https://kanban-app-riva.herokuapp.com',
         errors: {
           email: '',
           user: '',
@@ -67,13 +67,6 @@
         isLoginForm(value)
       },
 
-      getAvatar() {
-        return localStorage.getItem('avatarUrl')
-      },
-
-      saveAvatar(url) {
-        localStorage.setItem('avatarUrl', url)
-      },
       toggleLoginForm() {
         this.isLoginForm = !this.isLoginForm
       },
@@ -92,10 +85,6 @@
             console.log(response, '>>> google sign in response')
             if (response.data.access_token)
               localStorage.setItem('access_token', response.data.access_token)
-            if (response.data.avatarUrl)
-              localStorage.setItem('avatarUrl', response.data.avatarUrl)
-            if (response.data.organization)
-              localStorage.setItem('organization', response.data.organization)
 
             this.$emit('showMessage', {
               msg: 'Login successfull',

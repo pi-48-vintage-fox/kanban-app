@@ -44,12 +44,14 @@
   import TheNavbar from '../components/TheNavbar'
   import TheBoardList from '../components/TheBoardList'
   import ModalCompleteRegistration from '../components/ModalCompleteRegistration'
+  // import io from 'socket.io-client'
+  const socket = io('http://localhost:3000')
+  console.log({ socket })
 
   export default {
     name: 'Home',
     data() {
       return {
-        baseUrl: 'https://kanban-app-riva.herokuapp.com',
         categories: [],
         tasks: [],
         user: null,
@@ -71,6 +73,13 @@
     },
     created() {
       this.fetchUserDetails()
+
+      socket.on('tasks', (data) => {
+        this.tasks = data
+      })
+      socket.on('categories', (data) => {
+        this.categories = data
+      })
     },
     methods: {
       getToken() {
@@ -126,6 +135,8 @@
           .then(({ data }) => {
             console.log(data, '<<<< categories')
             this.categories = data
+
+            socket.emit('categories', data)
           })
           .catch((err) => {
             console.log(err)
@@ -143,6 +154,8 @@
           .then(({ data }) => {
             console.log(data, '<<<<< tasks')
             this.tasks = data
+
+            socket.emit('tasks', data)
           })
           .catch((err) => {
             console.log(err)

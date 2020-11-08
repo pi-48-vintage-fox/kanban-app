@@ -15,6 +15,8 @@ async function authentication(req, res, next) {
 
     const user = await User.findByPk(decoded.id)
 
+    // console.log(user.toJSON())
+
     if (!user) {
       console.log('user not found')
       throw { msg: 'Not authenticated', status: 401 }

@@ -117,7 +117,6 @@
   export default {
     data() {
       return {
-        baseUrl: 'https://kanban-app-riva.herokuapp.com',
         title: this.task.title,
         description: this.task.description,
         showTaskDetailsModal: false,

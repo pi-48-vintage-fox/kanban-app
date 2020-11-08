@@ -45,7 +45,6 @@
     },
     data() {
       return {
-        baseUrl: 'https://kanban-app-riva.herokuapp.com',
         showCategoryForm: false,
         name: '',
       }

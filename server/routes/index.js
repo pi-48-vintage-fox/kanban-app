@@ -8,6 +8,7 @@ const OrganizationController = require('../controllers/OrganizationController')
 const errorHandler = require('../middlewares/errorHandler')
 
 router.get('/', (req, res) => res.send('Kanban App'))
+
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 router.post('/googleLogin', UserController.googleLogin)
@@ -16,10 +17,10 @@ router.get('/user', authentication, UserController.getUserDetails)
 router.get('/organizations', OrganizationController.findAll)
 
 router.use('/categories', categoryRoutes)
-router.use(authentication)
-router.get('/users/', UserController.findOrgMembers)
-router.get('/users/:UserId', UserController.findById)
-router.put('/users/:UserId', UserController.putUser)
+
+router.get('/users/', authentication, UserController.findOrgMembers)
+router.get('/users/:UserId', authentication, UserController.findById)
+router.put('/users/:UserId', authentication, UserController.putUser)
 
 router.use('/tasks', taskRoutes)
 

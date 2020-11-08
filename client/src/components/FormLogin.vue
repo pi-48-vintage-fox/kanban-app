@@ -115,10 +115,6 @@
               console.log('berhasil login', data)
               if (data.access_token)
                 localStorage.setItem('access_token', data.access_token)
-              if (data.avatarUrl)
-                localStorage.setItem('avatarUrl', data.avatarUrl)
-              if (data.organization)
-                localStorage.setItem('organization', data.organization)
               this.user = ''
               this.password = ''
               this.$emit('showMessage', {

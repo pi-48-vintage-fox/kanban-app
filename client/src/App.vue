@@ -23,6 +23,9 @@
   import axios from '../config/axios'
   import Home from './views/Home'
   import Landing from './views/Landing'
+  // import io from 'socket.io-client'
+  const socket = io('http://localhost:3000')
+
   export default {
     name: 'App',
     data() {
@@ -36,6 +39,11 @@
       Landing,
     },
     created() {
+      socket.on('organizations', (data) => {
+        console.log('socket organizations:', data)
+        this.organizations = data
+      })
+
       this.fetchOrganizations()
       console.log(
         'from App: access_token:',
@@ -60,6 +68,8 @@
           .then(({ data }) => {
             console.log(data, '<<<< organizations')
             this.organizations = data
+
+            socket.emit('organizations', this.organizations)
           })
           .catch((err) => {
             console.log(err.data)
