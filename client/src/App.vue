@@ -1,0 +1,111 @@
+<template>
+  <section id="early-page">
+    <LoginPage @changePage="changePage" v-if="pageName === 'login-page'" :login="login"></LoginPage>
+    <RegisterPage @changePage="changePage" v-else-if="pageName === 'register-page'"></RegisterPage>
+    <KanbanHome
+      @changePage="changePage"
+      @fetchKanban="fetchKanban"
+      v-else-if="pageName === 'kanban-homepage'"
+      :categories="categories"
+      :tasks="tasks"
+    >
+    </KanbanHome>
+  </section>
+</template>
+
+<script>
+import axios from "./config/axios";
+import LoginPage from "./components/LoginPage";
+import RegisterPage from "./components/RegisterPage";
+import KanbanHome from "./components/KanbanHome";
+export default {
+  name: "App",
+  data() {
+    return {
+      pageName: "login-page",
+      tasks: [],
+      categories: [],
+    };
+  },
+  components: {
+    LoginPage,
+    RegisterPage,
+    KanbanHome,
+  },
+  methods: {
+    changePage(payload) {
+      this.pageName = payload;
+    },
+
+    login(payload) {
+      axios({
+        url: "/login",
+        method: "post",
+        data: {
+          email: payload.email,
+          password: payload.password,
+        },
+      })
+        .then(({ data }) => {
+          localStorage.setItem("access_token", data.access_token);
+          this.pageName = "kanban-homepage";
+          this.fetchKanban();
+          this.fetchCategories();
+        })
+        .catch((err) => {
+          console.log(err.response, "<<<<< ini data error login");
+        });
+    },
+
+    fetchKanban() {
+      console.log("<<< ini fetch kanban")
+      const token = localStorage.getItem("access_token");
+      axios({
+        url: "/tasks",
+        method: "get",
+        headers: {
+          access_token: token,
+        },
+      })
+        .then((result) => {
+          console.log(result, "<<<<< ini result kanban");
+          this.tasks = result.data;
+        })
+        .catch((err) => {
+          console.log(err, "<<<< ini error fetch");
+        });
+    },
+
+    fetchCategories() {
+      const token = localStorage.getItem("access_token");
+      axios({
+        url: "/categories",
+        method: "get",
+        headers: {
+          access_token: token,
+        },
+      })
+        .then((result) => {
+          console.log(result, "<<<<< ini result categori");
+          this.categories = result.data;
+        })
+        .catch((err) => {
+          console.log(err, "<<<< ini error fetch kategori");
+        });
+    },
+  },
+
+  created() {
+    if (localStorage.getItem("access_token")) {
+      this.pageName = "kanban-homepage";
+      this.fetchKanban();
+      this.fetchCategories();
+    } else {
+      this.pageName = "login-page";
+    }
+  },
+};
+</script>
+
+<style>
+</style>
