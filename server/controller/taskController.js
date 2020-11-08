@@ -33,17 +33,14 @@ class taskController {
 
 
   static update(req, res) {
-    let id = +req.params.id
-    const userId = req.loggerInUser.id
+    let id = req.params.id
     let obj = {
       title: req.body.title,
-      category: req.body.category,
       description: req.body.description
     }
     Task.update(obj, {
       where: {
-        id: id,
-        userId
+        id: +id
       }
     })
     .then(data => {
@@ -56,13 +53,12 @@ class taskController {
 
 
   static updateCategory(req, res) {
-    let id = +req.params.id
-    let obj = {
-      category: req.body.category
-    }
+    let id = req.params.id
     Task.update({
+      category: req.body.category
+    },{
       where: {
-        id: id
+        id: +id
       }
     })
     .then(data => {
@@ -75,10 +71,10 @@ class taskController {
 
 
   static delete(req, res, next) {
-    let id = +req.params.id
+    let id = req.params.id
     Task.destroy({
       where: {
-        id: id
+        id: +id
       }
     })
     .then(data => {

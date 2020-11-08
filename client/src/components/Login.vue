@@ -67,7 +67,8 @@
               <hr />
             </div>
           </div>
-          <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>
+          <!-- Login Google -->
+          <!-- <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button> -->
           <div class="d-flex justify-content-end mr-4">
             <button type="button" class="btn btn-light" style="text-align: end"
             @click="$emit('client-page', 'registerPage')"
@@ -111,7 +112,11 @@ export default {
         })
         .catch(err => {
           console.log(err);
-          swal.fire(`${err}`)
+          swal.fire(
+            'Failed',
+            'Wrong email/password',
+            'error'
+          )
           this.$emit('client-page', 'loginPage')
         });
     },

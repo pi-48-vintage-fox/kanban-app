@@ -82,9 +82,23 @@ hr {
   width: 100%;
 }
 
+.button-cancel {
+  padding: 5px;
+  background-color: #95a5a6;
+  align-items: center;
+  border: 0px solid;
+  border-radius: 3px;
+  width: 100%;
+}
+
 .button-login:hover {
   box-shadow: 0px 1px 2px grey;
   background-color: #2980b9;
+}
+
+.button-cancel:hover {
+  box-shadow: 0px 1px 2px grey;
+  background-color: #7f8c8d;
 }
 
 .category {
@@ -132,6 +146,14 @@ hr {
 
 .delete:hover {
   color: #e84118;
+}
+
+.forward{
+  color: #718093;
+}
+
+.forward:hover {
+  color: #2ecc71;
 }
 
 .title {

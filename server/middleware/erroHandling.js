@@ -1,5 +1,5 @@
 function errorHandling(err, req, res, next) {
-  if (err.message == 'SequelizeValidationError' || err.message == "Email cannot be empty!" || err.message == "Must be format email!" || err.message == 'Password cannot be empty') {
+  if (err.name == 'SequelizeValidationError' || err.message == "Email cannot be empty!" || err.message == "Must be format email!" || err.message == 'Password cannot be empty' || err.message == 'Cannot be empty') {
       res.status(400).json({
           message: "There is something wrong"
       })
@@ -7,10 +7,8 @@ function errorHandling(err, req, res, next) {
       res.status(404).json({
           message: "Task not found"
       })
-  } else if (err.message == 'Authenticaion failed!') {
-      res.status(401).json({
-          message: "Wrong email or password"
-      })
+  } else if (err.name == 'Authorization failed!') {
+      res.status(err.status).json({message})
   } else if (err.message == 'Unauthorized') {
       res.status(401).json({
           message: "Unauthorized"
@@ -19,6 +17,8 @@ function errorHandling(err, req, res, next) {
       res.status(401).json({
           message: "Wrong email/password"
       })
+  } else if (err.name.includes('sequelize')) {
+      req.status(400).json(err.errors)
   }
 }
 

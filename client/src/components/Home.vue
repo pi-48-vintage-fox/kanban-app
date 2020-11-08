@@ -35,6 +35,7 @@
           :categoryName="cat"
           :fetch="fetchTask"
           :tasks="tasks"
+          @toEditPage="toEditPage"
         ></Category>
       </div>
     </div>
@@ -60,6 +61,10 @@ export default {
   },
 
   methods: {
+    toEditPage(payload) {
+      this.$emit('toEditPage', payload)
+    },
+
     changePage(value) {
       this.page = value;
     },
@@ -84,6 +89,7 @@ export default {
             )}`;
           });
           this.tasks = response.data;
+          // console.log(this.tasks);
         })
         .catch((err) => {
           console.log(err);

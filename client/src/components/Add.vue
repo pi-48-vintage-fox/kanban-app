@@ -41,8 +41,13 @@
               rows="3"
             ></textarea>
           </div>
+          <div class="d-flex justify-content-center mb-3">
+            <button type="submit" class="btn btn-primary btn-block">Add</button>
+          </div>
           <div class="d-flex justify-content-center mb-4">
-          <button type="submit" class="btn btn-primary btn-block">Add</button>
+            <button type="submit" class="btn btn-dark btn-block" 
+            @click="$emit('client-page', 'homePage')"
+            >Cancel</button>
           </div>
         </form>
       </div>
@@ -77,14 +82,14 @@ export default {
         },
       })
       .then(response => {
-        console.log(response)
+        swal.fire(
+          'SUCCESS',
+          `Add task to ${this.category} category success`,
+          'success'
+        )
         this.title = ''
         this.category = ''
         this.description = ''
-        swal.fire(
-          'SUCCESS',
-          `Task add to ${this.category} category success`
-        )
         this.$emit('client-page', 'homePage')
       })
       .catch(err => {

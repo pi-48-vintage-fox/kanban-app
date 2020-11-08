@@ -2,7 +2,7 @@
   <div>
     <div class="container mt-5" style="width: 30%">
       <h5 style="text-align: center" class="mt-3">Register</h5>
-      <form @submit.prevent="register" class="mt-3 ml-3 mr-3 mb-5">
+      <form @submit.prevent="register" class="mt-3 ml-3 mr-3 mb-2">
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
           <input
@@ -31,6 +31,15 @@
           </button>
         </div>
       </form>
+      <div class="col mb-4">
+          <button
+            type="submit"
+            class="button-cancel text-white font-weight-bold"
+            @click="$emit('client-page', 'loginPage')"
+          >
+            Cancel
+          </button>
+      </div>
     </div>
   </div>
 </template>
@@ -61,7 +70,11 @@ export default {
           this.$emit("client-page", "loginPage");
         })
         .catch(err => {
-          console.log(err);
+          swal.fire(
+            'Failed',
+            'Please correct input',
+            'error'
+          )
         });
     },
   },

@@ -1,92 +1,52 @@
 <template>
-  <!-- Backlog -->
-  <!-- <div> -->
-    <!-- Edit -->
-    <div class="col-3">
-      <div class="category backlog text-white" :class="categoryName">
-        {{ categoryName }}
-      </div>
-      <div class="card bg-light mb-0">
-        <div class="title" v-for="task in taskFilter" :key="task.id">
-          <div class="card-body">
-            <h5 class="card-title">{{ task.title }}</h5>
-            <p class="card-text">{{ task.description }}</p>
-            <p class="date mb-0">
-              <small
-                ><i>{{ task.createdAt }}</i></small
-              >
-            </p>
-            <div class="card-footer icon">
-              <i
-                type="button"
-                class="material-icons edit"
-                data-toggle="modal"
-                data-target="#editTask"
-                data-whatever="edit"
-                @click.prevent="editTask(task.id)"
-                >edit</i
-              >
-              <i
-                type="button"
-                class="material-icons md-dark"
-                @click.prevent="deleteTask(task.id)"
-              >
-                face</i
-              >
-              <i
-                type="button"
-                class="material-icons delete"
-                @click.prevent="deleteTask(task.id)"
-              >
-                delete</i
-              >
-            </div>
+
+      <div class="col-3">
+        <div>
+          <div class="category backlog text-white" :class="categoryName">
+            {{ categoryName }}
           </div>
-        </div>
-        <div class="card-footer"></div>
-      </div>
-      
-      <!-- Edit -->
-      <div class="modal fade" id="editTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel" style="text-align: center">Edit Task</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+          <div class="card bg-light mb-0">
+            <div class="title" v-for="task in taskFilter" :key="task.id">
+              <div class="card-body">
+                <h5 class="card-title">{{ task.title }}</h5>
+                <p class="card-text">{{ task.description }}</p>
+                <p class="date mb-0">
+                  <small
+                    ><i>{{ task.createdAt }}</i></small
+                  >
+                </p>
+                <div class="card-footer icon">
+                  <i
+                    type="button"
+                    class="material-icons edit"
+                    data-toggle="modal"
+                    data-target="#editTask"
+                    data-whatever="edit"
+                    @click.prevent="toEditPage(task.id, task.title, task.description)"
+                    >edit</i
+                  >
+                  <i
+                    type="button"
+                    class="material-icons delete"
+                    @click.prevent="deleteTask(task.id)"
+                  >
+                    delete</i
+                  >
+                  <i
+                    type="button"
+                    class="material-icons forward"
+                    @click.prevent="patchTask(task.category, task.id)"
+                  >
+                    forward</i
+                  >
+                </div>
+              </div>
             </div>
-            <div class="modal-body">
-              <form @submit.prevent="editTask">
-                <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">Title</label>
-                  <input type="text" class="form-control" v-model="title" id="recipient-name">
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlSelect1">Category</label>
-                  <select class="form-control" id="exampleFormControlSelect1" v-model="category">
-                    <option value="" disabled hidden selected>Select your Category</option>
-                    <option>backlog</option>
-                    <option>todo</option>
-                    <option>doing</option>
-                    <option>done</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="message-text" class="col-form-label">Description:</label>
-                  <textarea class="form-control" v-model="description" id="message-text"></textarea>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Edit</button>
-                </div>
-              </form>
-            </div>
+            <div class="card-footer"></div>
           </div>
         </div>
       </div>
 
-    </div>
 
 </template>
 
@@ -96,65 +56,96 @@ export default {
   name: "Category",
   data() {
     return {
+      isEdit: false,
       title: "",
       description: "",
-      category: "",
+      category: '',
+      changeCategory: "",
       baseUrl: "http://localhost:3000",
       headers: {},
     };
   },
   props: ["categoryName", "tasks", "fetch"],
   methods: {
-    editTask(id) {
-      axios({
-        method: "PUT",
-        url: `${this.baseUrl}/task/${+id}`,
-        data: {
-          title: this.title,
-          category: this.category,
-          description: this.description
-        },
-        headers: {
-          access_token: localStorage.getItem("access_token"),
-        },
-        params: {
-          id: +id,
-        },
-      })
-        .then((response) => {
-          this.title = ''
-          this.category = ''
-          this.description = ''
-          swal.fire("DONE", "Change task success");
-          this.fetch();
 
-        })
-        .catch((err) => {});
+    toEditPage(id, title, description) {
+
+      let payload = {
+        page: 'editPage',
+        id: id,
+        title: title,
+        description: description
+      }
+      this.$emit('toEditPage', payload)
     },
 
-    patchTask(category, id) {
+    // editTask(id) {
+    //   axios({
+    //     method: "PUT",
+    //     url: `${this.baseUrl}/task/${+id}`,
+    //     data: {
+    //       title: this.title,
+    //       description: this.description
+    //     },
+    //     headers: {
+    //       access_token: localStorage.getItem("access_token"),
+    //     },
+    //     params: {
+    //       id: +id,
+    //     },
+    //   })
+    //     .then((response) => {
+    //       this.title = ''
+    //       this.category = this.task.category
+    //       this.description = ''
+    //       swal.fire("DONE", "Change task success");
+    //       this.fetch();
+
+    //     })
+    //     .catch((err) => {});
+    // },
+
+    patchTask(newCategory, id) {
+      if (newCategory == 'backlog') {
+        newCategory = 'todo'
+      } else if(newCategory == 'todo') {
+        newCategory = 'doing'
+      } else if(newCategory == 'doing') {
+        newCategory = 'done'
+      }
       axios({
         method: "PATCH",
         url: `${this.baseUrl}/task/${id}`,
         data: {
-          category: category,
+          category: newCategory,
         },
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
-        params: {
-          id: +id,
-        },
       })
         .then(response => {
-          swal.fire(
-            'DONE'
-          )
+          if (response.category == 'done') {
+            swal.fire(
+            'Success',
+            'Task is finished',
+            'success'
+            )
+          } else {
+            swal.fire(
+              'Success',
+              'Category update',
+              'success'
+            )
+          }
           this.fetch();
 
         })
         .catch((err) => {
-          console.log(err);
+          swal.fire(
+            'Failed',
+            'Not your authorization',
+            'error'
+          )
         });
     },
 
@@ -165,15 +156,21 @@ export default {
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
-        params: {
-          id: +id,
-        },
       })
         .then((response) => {
+          swal.fire(
+            'Success',
+            'Delete task success',
+            'success'
+          )
           this.fetch();
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(err => {
+          swal.fire(
+            'Failed',
+            'Not your authorization',
+            'error'
+          )
         });
     },
   },
@@ -185,6 +182,10 @@ export default {
       );
       return dataTask;
     },
+    changeTask() {
+      this.changeCategory = newCategory
+    }
+
   },
 };
 </script>

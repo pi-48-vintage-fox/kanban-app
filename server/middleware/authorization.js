@@ -1,22 +1,24 @@
 const { Task } = require('../models/index')
 
-function authorization(req, res, next) {
+async function authorization(req, res, next) {
   const { id } = req.params
-  Task.findByPk(id)
-  .then(data => {
-    if (!data) {
-      throw { message: "Task not found", status: 401 }
-    } else if(data.userId == req.loggedInUser.id) {
-      next()
+  let userId = +req.loggedInUser.id
+  try {
+    const task = await Task.findByPk(+id)
+    console.log(id);
+    console.log(task.userId);
+    console.log(userId);
+    if (!task) {
+      throw {message: 'Task not found', status: 401}
+    } else if (task.userId == userId) {
+      return next()
     } else {
-      throw { message: "Unauthorized", status: 401 }
+      throw {message: "Authorization Failed", status: 401}
     }
-  })
-  .catch(err => {
-    const status = err.status || 500
-    const message = err.message || 'Internal server error'
-    res.status(status).json({ err: message })
-  })
+  }
+  catch(err) {
+    next(err)
+  }
 }
 
 module.exports = authorization
