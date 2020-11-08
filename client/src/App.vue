@@ -1,11 +1,11 @@
 <template>
   <section id="early-page">
-    <LoginPage v-if="isPage === 'login-page'" :login="login"></LoginPage>
-    <RegisterPage v-else-if="isPage === 'add-page'"></RegisterPage>
+    <LoginPage v-if="pageName === 'login-page'" :login="login"></LoginPage>
+    <RegisterPage v-else-if="pageName === 'add-page'"></RegisterPage>
     <KanbanHome
       @changePage="changePage"
-      @fetchTasks="fetchKanban"
-      v-else-if="isPage === 'kanban-homepage'"
+      @fetchKanban="fetchKanban"
+      v-else-if="pageName === 'kanban-homepage'"
       :categories="categories"
       :tasks="tasks"
       
@@ -23,7 +23,7 @@ export default {
   name: "App",
   data() {
     return {
-      isPage: "login-page",
+      pageName: "login-page",
       tasks: [],
       categories: [],
     };
@@ -35,8 +35,7 @@ export default {
   },
   methods: {
     changePage(payload) {
-      this.isPage = payload;
-      console.log("masuk sini");
+      this.pageName = payload;
     },
 
     login(payload) {
@@ -50,7 +49,7 @@ export default {
       })
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
-          this.isPage = "kanban-homepage";
+          this.pageName = "kanban-homepage";
           this.fetchKanban();
           this.fetchCategories();
         })
@@ -60,6 +59,7 @@ export default {
     },
 
     fetchKanban() {
+      console.log("<<< ini fetch kanban")
       const token = localStorage.getItem("access_token");
       axios({
         url: "/tasks",
@@ -94,38 +94,15 @@ export default {
           console.log(err, "<<<< ini error fetch kategori");
         });
     },
-
-    deleteTask(id) {
-      const token = localStorage.getItem("access_token");
-      axios({
-        url: `/delete/${id}`,
-        method: "delete",
-        headers: {
-          access_token: token,
-        },
-      })
-        .then((result) => {
-          console.log("ini delete data");
-        })
-        .catch((err) => {
-          console.log(err, "<<<< ini error di delete");
-        });
-    },
-
-    editTask(id){
-      const token = localStorage.getItem("access_token");
-    }
-
-
   },
 
   created() {
     if (localStorage.getItem("access_token")) {
-      this.isPage = "kanban-homepage";
+      this.pageName = "kanban-homepage";
       this.fetchKanban();
       this.fetchCategories();
     } else {
-      this.isPage = "login-page";
+      this.pageName = "login-page";
     }
   },
 };

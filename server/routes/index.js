@@ -15,6 +15,6 @@ router.get("/tasks", Controller.getTask)
 router.post("/tasks", Controller.postTask)
 router.put("/tasks/:id", authorization, Controller.putTask)
 router.patch("/tasks/:id", authorization, Controller.patchTaskCategory)
-router.delete("/delete/:id", authorization, Controller.deleteTask)
+router.delete("/tasks/:id", authorization, Controller.deleteTask)
 
 module.exports = router

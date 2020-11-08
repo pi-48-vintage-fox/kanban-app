@@ -11,9 +11,11 @@ function authentication(req, res, next) {
         access_token
     } = req.headers
     if (access_token) {
+        // console.log(access_token)
         req.userData = verifyToken(access_token)
         User.findByPk(req.userData.id)
             .then((data) => {
+                console.log(data)
                 if (!data) {
                     res.status(404).json({
                         name: "NotFound",

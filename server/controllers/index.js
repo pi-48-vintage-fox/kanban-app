@@ -165,6 +165,13 @@ class Controller {
     }
 
     static putTask(req, res, next) {
+        console.log(" ini di put task")
+        console.log({
+            title: req.body.title,
+            description: req.body.description,
+            UserId: req.userData.id,
+            CategoryId: req.body.CategoryId,
+        })
         const taskData = {
             title: req.body.title,
             description: req.body.description,

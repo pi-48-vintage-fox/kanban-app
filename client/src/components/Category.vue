@@ -17,9 +17,9 @@
             :key="task.id"
             :task="task"
             :categoryDetail="categoryDetail"
-            @deleteTask="deleteTask"
             @editTask="editTask"
-            @updateTask="updateTask"
+            @changePage="changePage"
+            @fetchKanban="fetchKanban"
           ></Task>
         </div>
       </div>
@@ -42,17 +42,18 @@ export default {
     Task, addTask
   },
   methods: {
-    deleteTask(id) {
-      this.$emit("deleteTask", id);
-    },
     editTask(id) {
       this.$emit("editTask", id);
     },
     addTask() {
       this.$emit("addTask", this.categoryDetail.id);
     },
-    updateTask(){
-
+    changePage(payload){
+      this.$emit("changePage", payload)
+    },
+    fetchKanban(){
+            console.log('<<< fetch kanban on category');
+      this.$emit("fetchKanban")
     }
   },
   props: ["categoryDetail", "tasks"],

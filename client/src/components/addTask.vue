@@ -66,8 +66,8 @@ export default {
         }
       })
       .then((result) => {
-          console.log(result)
-          this.$emit("fetchTasks")
+          this.$emit("changePage", "kanban-homepage")
+          this.$emit("fetchKanban")
       })
       .catch((err) => {
           console.log(err);

@@ -17,9 +17,10 @@
           :key="i"
           :categoryDetail="cat"
           :tasks="tasks"
-          @deleteTask="deleteTask"
           @editTask="editTask"
           @addTask="addTask"
+          @changePage="changePage"
+          @fetchKanban="fetchKanban"
         >
         </Category>
 
@@ -28,8 +29,9 @@
     <addTask 
     v-if="showAddForm"
     @closeAddForm="showAddForm = false"
+    @changePage="changePage"
+    @fetchKanban="fetchKanban"
     :CategoryId="CategoryId"
-    @fetchTasks="fetchTasks"
     >
     </addTask>
   </section>
@@ -39,7 +41,6 @@
 import axios from "../config/axios";
 import Category from "./Category";
 import addTask from "./addTask";
-import editTask from "./editTask";
 export default {
   name: "KanbanHome",
   data() {
@@ -57,9 +58,7 @@ export default {
       localStorage.clear();
       this.$emit("changePage", "login-page");
     },
-    deleteTask(id) {
-      this.$emit("deleteTask", id);
-    },
+  
     editTask(id) {
       this.$emit("editTask", id);
     },
@@ -67,8 +66,11 @@ export default {
         this.showAddForm = true
         this.CategoryId = id
     },
-    fetchTasks(){
-        this.$emit("fetchTasks")
+    fetchKanban(){
+        this.$emit("fetchKanban")
+    },
+    changePage(payload){
+      this.$emit("changePage", payload)
     }
   },
 };
