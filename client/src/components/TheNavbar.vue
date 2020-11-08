@@ -13,6 +13,10 @@
         <img :src="user.avatarUrl" alt="" />
       </div>
       <div v-if="showUserMenu" id="usermenu">
+        <div class="user-details">
+          <p class="user-name">{{ user.name }}</p>
+          <p class="user-email">{{ user.email }}</p>
+        </div>
         <ul>
           <li class="usermenu-item actions">
             <i class="usermenu-icon material-icons">settings</i>

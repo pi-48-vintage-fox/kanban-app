@@ -135,3 +135,14 @@ div#avatar {
   font-size: 1rem;
   margin: 0 0.5rem 0 0.5rem;
 }
+
+.user-details {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--grey);
+}
+
+.user-email {
+  font-size: 0.85rem;
+  color: var(--grey-dark);
+}
