@@ -1,0 +1,57 @@
+
+body {
+    background-color:  #f5619e;
+}
+.bg-color1 {
+    background-color:  #37003c;
+    border-radius: 5%;
+}
+.bg-color-navbar {
+    background-color:  #37003c;
+}
+.text-color {
+    color:  #ff2883;
+}
+.font-1 {
+    font-weight: 300;
+    font-size: large;
+}
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+.cards {
+    display:flex;
+    justify-content: center;
+}
+.bg-task {
+    background-color:  #ff2883;
+}
+.bg-card {
+    background-color: #00ff87;
+}
+.text-task {
+    color: #37003c
+}
+.display-5 {
+    font-size: x-large;
+}
+.footer {
+    font-size: small;
+}
+.description {
+    font-size: smaller;
+}
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+.g-signin-button {
+    /* This is where you control how the button looks. Be creative! */
+    display: inline-block;
+    padding: 4px;
+    border-radius: 3px;
+    background-color: white;
+    color: black;
+    box-shadow: 0 3px 0 gray;
+  }
+  .logo {
+      height: 40px;
+  }
