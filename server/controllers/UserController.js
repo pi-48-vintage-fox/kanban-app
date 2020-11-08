@@ -37,18 +37,12 @@ class UserController {
         // console.log(data.toJSON())
         // console.log('^----- user sdh ada di database')
 
-        let { avatarUrl, id } = data
-        let organization =
-          data.Organization && data.Organization.name
-            ? data.Organization.name
-            : ''
+        let { id } = data
 
         const access_token = signToken({
           id: data.id,
-          email: data.email,
-          OrganizationId: data.OrganizationId,
         })
-        res.status(200).json({ access_token, id, avatarUrl, organization })
+        res.status(200).json({ access_token })
       } else {
         console.log('user belum ada di database, bikin sekarang')
 
@@ -60,8 +54,6 @@ class UserController {
 
         const access_token = signToken({
           id: newUser.id,
-          email: newUser.email,
-          organization: '',
         })
         res.status(200).json({ access_token })
       }
@@ -85,7 +77,10 @@ class UserController {
         email,
         avatarUrl,
         OrganizationId,
-        Organization: user.Organization.name,
+        Organization:
+          user.Organization && user.Organization.name
+            ? user.Organization.name
+            : '',
       }
       res.status(200).json(output)
     } catch (error) {
@@ -219,6 +214,37 @@ class UserController {
       }
     } catch (error) {
       console.log(error, '\n^----- error find user by id')
+      next(error)
+    }
+  }
+
+  static async putUser(req, res, next) {
+    console.log(
+      req.body,
+      '\n^----put task controller\n============================'
+    )
+
+    try {
+      let { UserId } = req.params
+
+      if (!(await User.findByPk(UserId))) {
+        throw { status: 404, msg: 'User was not found' }
+      }
+
+      const { name, username, avatarUrl, password, OrganizationId } = req.body
+
+      const input = { name, username, avatarUrl, password, OrganizationId }
+
+      try {
+        await User.update(input, {
+          where: { id: UserId },
+        })
+
+        res.status(200).json({ msg: 'User was modified successfully' })
+      } catch (error) {
+        next(error)
+      }
+    } catch (error) {
       next(error)
     }
   }

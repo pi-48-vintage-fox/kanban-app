@@ -11,12 +11,15 @@ router.get('/', (req, res) => res.send('Kanban App'))
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 router.post('/googleLogin', UserController.googleLogin)
-router.get('/organizations', OrganizationController.findAll)
 router.get('/user', authentication, UserController.getUserDetails)
+
+router.get('/organizations', OrganizationController.findAll)
+
 router.use('/categories', categoryRoutes)
 router.use(authentication)
 router.get('/users/', UserController.findOrgMembers)
 router.get('/users/:UserId', UserController.findById)
+router.put('/users/:UserId', UserController.putUser)
 
 router.use('/tasks', taskRoutes)
 

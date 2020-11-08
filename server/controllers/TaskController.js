@@ -107,8 +107,12 @@ class TaskController {
         throw { status: 404, msg: 'Task was not found' }
       }
 
+      const { title, description, CategoryId } = req.body
+
+      const input = { title, description, CategoryId }
+
       try {
-        await Task.update(req.body, {
+        await Task.update(input, {
           where: { id: TaskId },
         })
 
