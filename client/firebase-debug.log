@@ -1,0 +1,27 @@
+[debug] [2020-11-08T18:03:38.932Z] ----------------------------------------------------------------------
+[debug] [2020-11-08T18:03:38.937Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\HP\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2020-11-08T18:03:38.937Z] CLI Version:   8.14.1
+[debug] [2020-11-08T18:03:38.938Z] Platform:      win32
+[debug] [2020-11-08T18:03:38.938Z] Node Version:  v14.8.0
+[debug] [2020-11-08T18:03:38.945Z] Time:          Mon Nov 09 2020 01:03:38 GMT+0700 (Western Indonesia Time)
+[debug] [2020-11-08T18:03:38.946Z] ----------------------------------------------------------------------
+[debug] [2020-11-08T18:03:38.946Z] 
+[debug] [2020-11-08T18:03:38.992Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-08T18:03:38.994Z] > authorizing via signed-in user
+[debug] [2020-11-08T18:03:38.995Z] [iam] checking project kanban-app-riva for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-11-08T18:03:39.000Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-11-08T18:03:39.001Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-08T18:03:39.218Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Sun, 08 Nov 2020 18:03:39 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-08T18:03:39.228Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/kanban-app-riva:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-11-08T18:03:40.499Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 08 Nov 2020 18:03:40 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1062","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-08T18:03:40.503Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/kanban-app-riva  
+ 
+[debug] [2020-11-08T18:03:40.819Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 08 Nov 2020 18:03:41 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'kanban-app-riva'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2020-11-08T18:03:40.831Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/kanban-app-riva/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}

@@ -45,7 +45,7 @@
   import TheBoardList from '../components/TheBoardList'
   import ModalCompleteRegistration from '../components/ModalCompleteRegistration'
   // import io from 'socket.io-client'
-  const socket = io('http://localhost:3000')
+  import socket from '../../config/socket'
   console.log({ socket })
 
   export default {

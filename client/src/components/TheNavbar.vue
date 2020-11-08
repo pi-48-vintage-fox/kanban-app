@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  const socket = io('http://localhost:3000')
+  import socket from '../../config/socket'
   export default {
     name: 'Navbar',
     props: {
@@ -49,14 +49,9 @@
     created() {
       this.avatar = localStorage.getItem('avatarUrl')
       this.organization = localStorage.getItem('organization')
-
-      socket.on('togglemenu', () => {
-        console.log('socket toggle menu')
-      })
     },
     methods: {
       toggleUserMenu() {
-        console.log('toggle')
         this.showUserMenu = !this.showUserMenu
       },
       signOut() {
