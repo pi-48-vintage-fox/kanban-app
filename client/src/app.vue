@@ -107,12 +107,13 @@ export default {
         });
     },
     editTask(value) {
+      console.log(value.title, value.description, value.category)
       Axios.put(
-        `https://kanban-app-1.herokuapp.com/${value.id}`,
+        `https://kanban-app-1.herokuapp.com/task/${value.id}`,
         {
           title: value.title,
           description: value.description,
-          category: value.category,
+          category: value.category
         },
         {
           headers: {
@@ -123,14 +124,15 @@ export default {
         .then(({ data }) => {
           this.fetchTasks();
         })
-        .catch(({ err }) => {
+        .catch(( err ) => {
           this.fetchTasks();
-          console.log(err);
+          console.log(err)
         });
     },
     editCategory(value) {
+      console.log(value.id);
       Axios.patch(
-        `https://kanban-app-1.herokuapp.com/${value.id}`,
+        `https://kanban-app-1.herokuapp.com/task/${value.id}`,
         {
           category: value.category,
         },
@@ -144,12 +146,10 @@ export default {
           this.fetchTasks();
         })
         .catch(({ err }) => {
-          this.fetchTasks();
-          console.log("err");
+          console.log(err);
         });
     },
     deleteTask(value) {
-      console.log(value);
       Axios.delete(`https://kanban-app-1.herokuapp.com/task/${value}`, {
         headers: {
           access_token: localStorage.getItem("access_token"),

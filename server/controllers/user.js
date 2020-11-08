@@ -53,6 +53,7 @@ class UserController {
     static googleLogin(req, res, next) {
         let email = ""
         const client = new OAuth2Client(process.env.CLIENT_ID);
+        console.log(client)
         client.verifyIdToken({
             idToken: req.headers.google_access_token,
             audience: process.env.CLIENT_ID,
@@ -89,7 +90,7 @@ class UserController {
                 
             })
             .catch(err => {
-               console.log('err')
+               console.log(err)
             })
     }
 

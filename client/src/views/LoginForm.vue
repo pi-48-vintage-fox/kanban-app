@@ -63,7 +63,7 @@ export default {
       payload: {},
       googleSignInParams: {
         client_id:
-          "21177283159-on299n33tkcj9fnfu729tp4simrgj8l1.apps.googleusercontent.com",
+          "91771540786-gnjbj25hsqe1gvk74uuddn94uaaepftj.apps.googleusercontent.com",
       },
     };
   },
