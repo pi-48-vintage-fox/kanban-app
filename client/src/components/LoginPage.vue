@@ -34,13 +34,8 @@
           />
           <div class="form-border"></div>
           <input id="submit-btn" type="submit" name="submit" value="LOGIN" />
-          <a href="#" id="signup">Don't have account yet?</a>
-          <!-- <button
-            v-google-signin-button="clientId"
-            class="google-signin-button"
-          >
-            Continue with Google
-          </button> -->
+          <button @click.prevent="toRegisterPage" >Don't have account yet?</button>
+      
         </form>
       </div>
     </div>
@@ -64,6 +59,9 @@ export default {
         password: this.password
       }
       this.login(payload)
+    },
+    toRegisterPage(){
+      this.$emit('changePage','register-page')
     }
   }
 };

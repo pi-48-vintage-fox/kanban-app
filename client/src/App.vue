@@ -1,14 +1,13 @@
 <template>
   <section id="early-page">
-    <LoginPage v-if="pageName === 'login-page'" :login="login"></LoginPage>
-    <RegisterPage v-else-if="pageName === 'add-page'"></RegisterPage>
+    <LoginPage @changePage="changePage" v-if="pageName === 'login-page'" :login="login"></LoginPage>
+    <RegisterPage @changePage="changePage" v-else-if="pageName === 'register-page'"></RegisterPage>
     <KanbanHome
       @changePage="changePage"
       @fetchKanban="fetchKanban"
       v-else-if="pageName === 'kanban-homepage'"
       :categories="categories"
       :tasks="tasks"
-      
     >
     </KanbanHome>
   </section>
