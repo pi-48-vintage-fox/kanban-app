@@ -35,7 +35,7 @@
         </template>
 
         <template #modal-content>
-          <form @submit.prevent="submitNewTask">
+          <form @submit.prevent="submitUpdateTask">
             <label for="title">Title</label>
             <input
               v-model="title"
@@ -71,11 +71,7 @@
               >
                 Cancel
               </button>
-              <button
-                type="submit"
-                class="button"
-                @click.prevent="submitUpdateTask"
-              >
+              <button type="submit" class="button">
                 Update Task
               </button>
             </div>

@@ -44,12 +44,9 @@
   padding: 0.8rem 1rem;
 }
 
-.modal-header .modal-close {
-  font-size: 1.5rem;
-}
-
 .modal-title {
   font-weight: 700;
+  font-size: 1rem;
 }
 
 .modal-close {

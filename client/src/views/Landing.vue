@@ -1,10 +1,12 @@
 <template>
   <div id="landing-page">
     <section id="landing-page-left">
-      <p class="landing-title">Kanban App</p>
-      <p class="landing-subtitle">
-        Easy to use Kanban App to easily manage your projects
-      </p>
+      <div class="landing-title-container">
+        <p class="landing-title">Kanban Vue</p>
+        <p class="landing-subtitle">
+          Manage your projects easily <em>Kanban-style</em>
+        </p>
+      </div>
     </section>
     <section id="landing-page-right">
       <div id="container-auth">
@@ -34,6 +36,9 @@
   import axios from '../../config/axios'
   export default {
     name: 'LandingPage',
+    props: {
+      organizations: Array,
+    },
     data() {
       return {
         user: '',
@@ -43,7 +48,6 @@
         confirmPassword: '',
         isLoginForm: true,
         organization: '',
-        organizations: '',
         baseUrl: 'https://kanban-app-riva.herokuapp.com',
         errors: {
           email: '',
@@ -57,9 +61,6 @@
     components: {
       FormLogin,
       FormRegister,
-    },
-    created() {
-      this.fetchOrganizations()
     },
     methods: {
       setLoginForm(value) {
@@ -75,25 +76,6 @@
       },
       toggleLoginForm() {
         this.isLoginForm = !this.isLoginForm
-      },
-
-      fetchOrganizations() {
-        console.log('fetch organizations')
-        axios({
-          method: 'GET',
-          url: '/organizations',
-        })
-          .then(({ data }) => {
-            console.log(data, '<<<< organizations')
-            this.organizations = data
-          })
-          .catch((err) => {
-            console.log(err.data)
-            this.$emit('showMessage', {
-              msg: err.data,
-              type: 'error',
-            })
-          })
       },
 
       onSignIn(googleUser) {

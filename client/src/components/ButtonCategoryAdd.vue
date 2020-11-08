@@ -1,9 +1,5 @@
 <template>
-  <button
-    type="button"
-    class="button button-grey button-lg"
-    @click="showCategoryForm = true"
-  >
+  <button type="button" @click="showCategoryForm = true">
     <div class="actions">
       <i class="material-icons button-icon-left">add_circle_outline</i>
       <p>Add Category</p>

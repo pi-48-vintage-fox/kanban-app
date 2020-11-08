@@ -2,11 +2,13 @@
   <div>
     <Home
       v-if="page === 'home-page'"
+      :organizations="organizations"
       @showMessage="showMessage"
       @changePage="changePage"
     ></Home>
     <Landing
       v-if="page === 'landing-page'"
+      :organizations="organizations"
       @changePage="changePage"
       @showMessage="showMessage"
     ></Landing>
@@ -18,6 +20,7 @@
 </template>
 
 <script>
+  import axios from '../config/axios'
   import Home from './views/Home'
   import Landing from './views/Landing'
   export default {
@@ -25,6 +28,7 @@
     data() {
       return {
         page: 'landing-page',
+        organizations: null,
       }
     },
     components: {
@@ -32,6 +36,7 @@
       Landing,
     },
     created() {
+      this.fetchOrganizations()
       console.log(
         'from App: access_token:',
         localStorage.getItem('access_token')
@@ -45,6 +50,24 @@
         console.log('change page to', page)
         this.page = page
         console.log('current page:', this.page)
+      },
+      fetchOrganizations() {
+        console.log('fetch organizations')
+        axios({
+          method: 'GET',
+          url: '/organizations',
+        })
+          .then(({ data }) => {
+            console.log(data, '<<<< organizations')
+            this.organizations = data
+          })
+          .catch((err) => {
+            console.log(err.data)
+            this.$emit('showMessage', {
+              msg: err.data,
+              type: 'error',
+            })
+          })
       },
       showMessage(options) {
         let { msg, type } = options

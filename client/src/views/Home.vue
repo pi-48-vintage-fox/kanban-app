@@ -10,8 +10,15 @@
         autoplay
       ></lottie-player>
     </div>
-    <div v-if="user" id="home-page">
-      <BaseModal v-if="showModal === true"></BaseModal>
+
+    <ModalCompleteRegistration
+      v-else-if="!user.OrganizationId || !user.name"
+      :organizations="organizations"
+      :user="user"
+      @registrationCompleted="registrationCompleted"
+    ></ModalCompleteRegistration>
+
+    <div v-else id="home-page">
       <TheNavbar
         :user="user"
         @showMessage="showMessage"
@@ -36,7 +43,7 @@
   import axios from '../../config/axios'
   import TheNavbar from '../components/TheNavbar'
   import TheBoardList from '../components/TheBoardList'
-  import BaseModal from '../components/BaseModal'
+  import ModalCompleteRegistration from '../components/ModalCompleteRegistration'
 
   export default {
     name: 'Home',
@@ -45,18 +52,24 @@
         baseUrl: 'https://kanban-app-riva.herokuapp.com',
         categories: [],
         tasks: [],
-        showModal: false,
         user: null,
+        OrganizationId: null,
+        errorBanner: false,
+        errors: {
+          name: [],
+          OrganizationId: [],
+        },
       }
+    },
+    props: {
+      organizations: Array,
     },
     components: {
       TheNavbar,
       TheBoardList,
+      ModalCompleteRegistration,
     },
-    beforeCreate() {},
     created() {
-      this.fetchCategories()
-      this.fetchTasks()
       this.fetchUserDetails()
     },
     methods: {
@@ -73,11 +86,15 @@
         })
           .then(({ data }) => {
             console.log(data, '<<< user data')
-            if (!data.OrganizationId) {
-              this.showOrganizationSelection()
-            }
 
-            const { id, avatarUrl, OrganizationId, name, email } = data
+            const {
+              id,
+              avatarUrl,
+              OrganizationId,
+              name,
+              email,
+              Organization,
+            } = data
 
             this.user = {
               id,
@@ -85,7 +102,12 @@
               email,
               avatarUrl,
               OrganizationId,
-              Organization: data.Organization.name,
+              Organization,
+            }
+
+            if (data.OrganizationId) {
+              this.fetchCategories()
+              this.fetchTasks()
             }
           })
           .catch((err) => {
@@ -126,18 +148,17 @@
             console.log(err)
           })
       },
-      addTask() {
-        console.log('add task')
-      },
-      addCategory() {
-        console.log('add category')
-      },
       showMessage(payload) {
         this.$emit('showMessage', payload)
       },
       changePage(payload) {
         console.log('changePage from home:', payload)
         this.$emit('changePage', payload)
+      },
+
+      registrationCompleted() {
+        this.user = null
+        this.fetchUserDetails()
       },
     },
   }

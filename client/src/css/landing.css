@@ -27,18 +27,34 @@
 }
 
 #landing-page-left {
-  width: 55vw;
+  width: 60vw;
 }
 
 #landing-page-right {
-  width: 45vw;
+  width: 40vw;
 }
 
-#landing-title-container {
-  width: 70%;
-  margin: 3rem auto;
+.landing-title-container {
+  margin-top: 10vh;
+  margin-left: 4vw;
+  padding-right: 1rem;
 }
 
+.landing-title {
+  font-family: 'Archivo Black';
+  font-family: 'Archivo';
+  font-family: 'Oswald';
+  font-family: 'Montserrat';
+  font-size: 5rem;
+  font-weight: 800;
+}
+
+.landing-subtitle {
+  margin-top: 2rem;
+  font-family: 'Work Sans';
+  font-size: 2rem;
+  font-weight: 500;
+}
 #landing-page-left {
   display: flex;
   flex-direction: column;
@@ -87,7 +103,6 @@
 #container-auth {
   margin-top: 3rem;
   background-color: var(--grey-lightest);
-
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
@@ -143,4 +158,29 @@ label.error {
 label small {
   margin-left: 0.5rem;
   font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  #landing-page {
+    flex-direction: column;
+    padding: 4vh 4vw;
+  }
+
+  #landing-page-left,
+  #landing-page-right,
+  #container-auth {
+    width: 100%;
+    max-width: unset;
+  }
+  .landing-title-container {
+    margin: 0;
+  }
+
+  .landing-title {
+    font-size: 4rem;
+  }
+
+  .landing-subtitle {
+    font-size: 1.5rem;
+  }
 }

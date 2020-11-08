@@ -2,27 +2,24 @@
   <header id="top-nav">
     <section id="top-nav-left_control">
       <!-- <div id="home-icon">KANBAN</div> -->
-      <div class="title-organization">{{ organization }}</div>
+      <div class="title-organization">{{ user.Organization }}</div>
       <!-- <div id="search">
           <input type="text" name="search" id="search" placeholder="search">
         </div> -->
     </section>
 
     <section id="top-nav-right_control">
-      <!-- <button class="top-nav-btn add-task" @click="addTaskModal" type="button">
-          <span>＋</span>Add Task
-        </button>   -->
       <div id="avatar" @click="toggleUserMenu">
-        <img :src="avatar" alt="" />
+        <img :src="user.avatarUrl" alt="" />
       </div>
       <div v-if="showUserMenu" id="usermenu">
         <ul>
           <li class="usermenu-item actions">
-            <i class="usermenu-icon material-icons md-18 md-dark">settings</i>
+            <i class="usermenu-icon material-icons">settings</i>
             <p class="usermenu-title">Settings</p>
           </li>
           <li class="usermenu-item actions" @click="signOut">
-            <i class="usermenu-icon material-icons md-32">directions_run</i>
+            <i class="usermenu-icon material-icons">directions_run</i>
             <p class="usermenu-title">Sign Out</p>
           </li>
         </ul>
@@ -33,7 +30,10 @@
 
 <script>
   export default {
-    nameL: 'Navbar',
+    name: 'Navbar',
+    props: {
+      user: Object,
+    },
     data() {
       return {
         avatar: '',

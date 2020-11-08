@@ -15,7 +15,7 @@
       @showMessage="showMessage"
       @pushCategory="pushCategory"
       @fetchCategories="fetchCategories"
-      class="button-add-category"
+      class="button button-lg button-add-category"
     ></ButtonCategoryAdd>
   </div>
 </template>

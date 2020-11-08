@@ -79,6 +79,8 @@
 .button-add-category {
   margin-right: 2rem;
   white-space: nowrap;
+  background-color: rgba(0, 0, 0, 0.15);
+  color: var(--grey-lighter);
 }
 
 .button-add-task {
