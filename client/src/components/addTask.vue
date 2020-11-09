@@ -45,13 +45,13 @@ export default {
     };
   },
   name: "AddTask",
-  props: ["CategoryId"],
+  props: ["CategoryId", "reloadTask"],
   methods: {
     cancelAddTask() {
       this.$emit("closeAddForm");
     },
     postTask() {
-      this.$emit("closeAddForm")
+      
       console.log(this.title, this.description, this.CategoryId);
       axios({
         url: "/tasks",
@@ -66,8 +66,12 @@ export default {
         }
       })
       .then((result) => {
+          this.reloadTask()
+          this.$emit("closeAddForm")
           this.$emit("changePage", "kanban-homepage")
-          this.$emit("fetchKanban")
+
+        
+          
       })
       .catch((err) => {
           console.log(err);

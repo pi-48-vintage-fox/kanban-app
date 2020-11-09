@@ -30,8 +30,8 @@
     v-if="showAddForm"
     @closeAddForm="showAddForm = false"
     @changePage="changePage"
-    @fetchKanban="fetchKanban"
     :CategoryId="CategoryId"
+    :reloadTask="reloadTask"
     >
     </addTask>
   </section>
@@ -52,7 +52,7 @@ export default {
   components: {
     Category, addTask
   },
-  props: ["categories", "tasks"],
+  props: ["categories", "tasks", "reloadTask"],
   methods: {
     logout() {
       localStorage.clear();
@@ -67,9 +67,11 @@ export default {
         this.CategoryId = id
     },
     fetchKanban(){
+      console.log("masuk kanban home");
         this.$emit("fetchKanban")
     },
     changePage(payload){
+      console.log(payload);
       this.$emit("changePage", payload)
     }
   },

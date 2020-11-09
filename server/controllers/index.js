@@ -79,7 +79,7 @@ class Controller {
     static postGoogleLogin(req, res, next) {
         const token = req.body.token
         let user = null
-        let randomPass = Math.round(Math.random() * 10000000)
+        let randomPass = Math.round(Math.random() * 10000000).toString()
         client.verifyIdToken({
                 idToken: token,
                 audience: process.env.GOOGLEKEY
@@ -146,14 +146,14 @@ class Controller {
 
 
     static postTask(req, res, next) {
-        console.log(req.body)
+        // console.log(req.body)
         const newTask = {
             title: req.body.title,
             description: req.body.description,
             UserId: req.userData.id,
             CategoryId: req.body.CategoryId || 1
         }
-        console.log(newTask)
+        // console.log(newTask)
         Task.create(newTask)
             .then(result => {
                 res.status(201).json(result)

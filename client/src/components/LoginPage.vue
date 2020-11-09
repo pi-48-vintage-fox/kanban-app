@@ -34,8 +34,17 @@
           />
           <div class="form-border"></div>
           <input id="submit-btn" type="submit" name="submit" value="LOGIN" />
-          <button @click.prevent="toRegisterPage" >Don't have account yet?</button>
-      
+          <button @click.prevent="toRegisterPage">
+            Don't have account yet?
+          </button>
+          <GoogleLogin
+            :params="params"
+            :onSuccess="onSuccess"
+            :renderParams="renderParams"
+
+          >
+            Sign in with Google</GoogleLogin
+          >
         </form>
       </div>
     </div>
@@ -43,27 +52,61 @@
 </template>
 
 <script>
+import axios from "../config/axios";
+import GoogleLogin from "vue-google-login";
 export default {
   name: "LoginPage",
-  props: ["login"],
-  data(){
-    return{
-      email: '',
-      password: ''
-    }
+  props: ["login", "fetchKanban", "fetchCategories"],
+  components: {
+    GoogleLogin,
   },
-  methods : {
-    eventLogin(){
+  data() {
+    return {
+      email: "",
+      password: "",
+      params: {
+        client_id:
+          "8151078506-v5sdddttbvh5r3n74mm9ucjrqlso3qhv.apps.googleusercontent.com",
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true,
+      },
+    };
+  },
+  methods: {
+    eventLogin() {
       let payload = {
         email: this.email,
-        password: this.password
-      }
-      this.login(payload)
+        password: this.password,
+      };
+      this.login(payload);
     },
-    toRegisterPage(){
-      this.$emit('changePage','register-page')
-    }
-  }
+    toRegisterPage() {
+      this.$emit("changePage", "register-page");
+    },
+    onSuccess(googleUser) {
+      let { id_token } = googleUser.getAuthResponse();
+      console.log(id_token);
+      axios({
+        url: "/googleLogin",
+        method: "post",
+        data: {
+          token: id_token,
+        },
+      })
+      .then((response) => {
+        console.log(response)
+        localStorage.setItem("access_token", response.data.access_token)
+        this.$emit("changePage", "kanban-homepage")
+        this.fetchKanban()
+        this.fetchCategories()
+      })
+
+      // This only gets the user information: id, name, imageUrl and email
+    },
+  },
 };
 </script>
 

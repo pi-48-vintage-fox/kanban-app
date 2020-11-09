@@ -102,9 +102,6 @@ export default {
   components: {
     editTask2,
   },
-  created() {
-    console.log(this.task, "<<< ini di bapaknya task");
-  },
   changePage(payload) {
     this.$emit("changePage", payload);
   },
