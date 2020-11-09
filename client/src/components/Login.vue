@@ -68,7 +68,7 @@
             </div>
           </div>
           <!-- Login Google -->
-          <!-- <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button> -->
+          <div v-google-signin-button="clientId" class="g-signin2" data-onsuccess="onSignIn"></div>
           <div class="d-flex justify-content-end mr-4">
             <button type="button" class="btn btn-light" style="text-align: end"
             @click="$emit('client-page', 'registerPage')"
@@ -90,6 +90,7 @@ export default {
       email: "",
       password: "",
       baseUrl: "http://localhost:3000",
+      clientId: '978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com'
     };
   },
   methods: {
@@ -100,7 +101,7 @@ export default {
         data: {
           email: this.email,
           password: this.password,
-          clientId: '978195228129-vinli7ubjca1c5b8aa442nqbdoeq38n8.apps.googleusercontent.com'
+          clientId: '978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com'
         },
       })
         .then((response) => {
@@ -121,12 +122,32 @@ export default {
         });
     },
 
-  OnGoogleAuthSuccess (idToken) {
-      console.log(idToken)
-      // Receive the idToken and make your magic with the backend
+    OnGoogleAuthSuccess (idToken) {
+      const google_access_token = idToken
+      // console.log(google_access_token);
+      axios({
+        method: 'POST',
+        url: `http://localhost:3000/google-login`,
+        data: {
+          google_access_token
+        }
+      })
+      .then(response => {
+        console.log(response);
+        localStorage.setItem("access_token", response.data.access_token);
+        this.email = ''
+        this.password = ''
+        this.$emit('client-page', 'homePage')
+
+      })
+      .catch(err => {
+        console.log(err);
+      })
     },
+
     OnGoogleAuthFail (error) {
-      console.log(error)
+      localStorage.removeItem("access_token");
+      this.$emit("client-page", "loginPage");
     }
 
   },

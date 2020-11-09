@@ -10769,7 +10769,8 @@ var _default = {
     return {
       email: "",
       password: "",
-      baseUrl: "http://localhost:3000"
+      baseUrl: "http://localhost:3000",
+      clientId: '978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com'
     };
   },
   methods: {
@@ -10782,7 +10783,7 @@ var _default = {
         data: {
           email: this.email,
           password: this.password,
-          clientId: '978195228129-vinli7ubjca1c5b8aa442nqbdoeq38n8.apps.googleusercontent.com'
+          clientId: '978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com'
         }
       }).then(function (response) {
         var access_token = response.data.access_token;
@@ -10799,10 +10800,30 @@ var _default = {
       });
     },
     OnGoogleAuthSuccess: function OnGoogleAuthSuccess(idToken) {
-      console.log(idToken); // Receive the idToken and make your magic with the backend
+      var _this2 = this;
+
+      var google_access_token = idToken; // console.log(google_access_token);
+
+      (0, _axios.default)({
+        method: 'POST',
+        url: "http://localhost:3000/google-login",
+        data: {
+          google_access_token: google_access_token
+        }
+      }).then(function (response) {
+        console.log(response);
+        localStorage.setItem("access_token", response.data.access_token);
+        _this2.email = '';
+        _this2.password = '';
+
+        _this2.$emit('client-page', 'homePage');
+      }).catch(function (err) {
+        console.log(err);
+      });
     },
     OnGoogleAuthFail: function OnGoogleAuthFail(error) {
-      console.log(error);
+      localStorage.removeItem("access_token");
+      this.$emit("client-page", "loginPage");
     }
   }
 };
@@ -10917,6 +10938,19 @@ exports.default = _default;
           ),
           _vm._v(" "),
           _vm._m(5),
+          _vm._v(" "),
+          _c("div", {
+            directives: [
+              {
+                name: "google-signin-button",
+                rawName: "v-google-signin-button",
+                value: _vm.clientId,
+                expression: "clientId"
+              }
+            ],
+            staticClass: "g-signin2",
+            attrs: { "data-onsuccess": "onSignIn" }
+          }),
           _vm._v(" "),
           _c("div", { staticClass: "d-flex justify-content-end mr-4" }, [
             _c(
@@ -12724,7 +12758,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63931" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50639" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
