@@ -1,30 +1,31 @@
-const { Task, User } = require('../models')
+const { Task, Category } = require('../models')
 
 class TaskController {
 
   static postTask(req, res, next) {
     const UserId = req.loggedInUser.id
-    const { title, description, category } = req.body
-    Task.create({
-      title, description, category, UserId
-    })
+    const obj = {
+      title: req.body.title,
+      tag: req.body.tag,
+      CategoryId: 1,
+      UserId,
+    }
+    Task.create(obj)
       .then(data => {
         res.status(200).json({
           id: data.id,
           title: data.title,
-          category: data.category
+          tag: data.tag
         })
       })
       .catch(err => {
-        console.log(err, "<<<< masuk ke error")
+        console.log(err)
         next(err)
       })
   }
 
   static getTask(req, res, next) {
-    Task.findAll({
-      include: [User]
-    })
+    Task.findAll()
       .then(data => {
         res.status(200).json(data)
       })
@@ -33,11 +34,21 @@ class TaskController {
       })
   }
 
-  static getTaskById(req, res, next) {
-    const id = req.params.id
-    Task.findByPk(id, {
-      include: [User]
+  static getCategory(req, res, next) {
+    Category.findAll({
+      include: [ Task ]
     })
+      .then(data => {
+        res.status(200).json({ data })
+      })
+      .catch(err => {
+        next(err)
+      })
+  }
+
+  static getTaskById(req, res, next) {
+    const UserId = req.loggedInUser.id
+    Task.findByPk(UserId)
       .then(data => {
         res.status(200).json(data)
       })
@@ -47,11 +58,12 @@ class TaskController {
   }
 
   static putTask(req, res, next) {
-    const id = req.params.id
-    const { title, description, category } = req.body
-    Task.update({
-      title, description, category
-    }, {
+    const id = +req.params.id
+    const obj = {
+      title: req.body.title,
+      tag: req.body.tag,
+    }
+    Task.update(obj, {
       where: {
         id
       },
@@ -66,11 +78,11 @@ class TaskController {
   }
 
   static patchTask(req, res, next) {
-    const id = req.params.id
-    const { category } = req.body
-    Task.update({
-      category
-    }, {
+    const id = +req.params.id
+    const obj = {
+      CategoryId: req.body.CategoryId
+    }
+    Task.update(obj, {
       where: {
         id
       },
@@ -85,7 +97,7 @@ class TaskController {
   }
 
   static deleteTask(req, res, next) {
-    const id = req.params.id
+    const id = +req.params.id
     Task.destroy({
       where: {
         id

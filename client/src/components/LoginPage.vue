@@ -3,10 +3,11 @@
     <div class="row justify-content-center mt-5">
       <div class="col-4 fas">
         <h1 class="text-white">Login</h1>
-        <form onsubmit="login(event)" class="text-white">
+        <form @submit.prevent="login" class="text-white">
           <div class="form-group">
             <label for="email">Email</label>
             <input
+              v-model="email"
               type="text"
               id="email"
               class="form-control"
@@ -17,6 +18,7 @@
           <div class="form-group">
             <label for="password">Password</label>
             <input
+              v-model="password"
               type="password"
               id="password"
               class="form-control"
@@ -35,6 +37,21 @@
 <script>
 export default {
   name: "LoginPage",
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      let payload = {
+        email: this.email,
+        password: this.password
+      }
+      this.$emit('login', payload)
+    }
+  }
 };
 </script>
 
