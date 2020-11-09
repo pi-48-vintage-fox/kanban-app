@@ -1,0 +1,84 @@
+#modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* visibility: hidden;
+  opacity: 0; */
+  transition: all 0.35s ease-in;
+}
+
+.modal-dialog {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 400px;
+  width: 60%;
+  /* max-height: 80vh; */
+  /* overflow: auto; */
+  padding: 3rem 2rem 1rem;
+  background-color: var(--bg-color);
+  border-radius: 10px;
+}
+
+.modal-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--grey-lightest);
+  border-bottom: 1px solid var(--grey-light);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 0.8rem 1rem;
+}
+
+.modal-title {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.modal-close {
+  border: 0;
+  background-color: transparent;
+  color: var(--grey-darker);
+  position: relative;
+  top: -1.75rem;
+  left: 1.25rem;
+  cursor: pointer;
+}
+
+.modal.is-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-content {
+  margin: 2.5rem 0 1rem;
+}
+#modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-footer {
+  background: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.modal-footer .cancel {
+  color: var(--txt-color);
+}
