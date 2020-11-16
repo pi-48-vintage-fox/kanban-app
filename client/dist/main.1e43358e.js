@@ -10769,7 +10769,7 @@ var _default = {
     return {
       email: "",
       password: "",
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://kaban-fox-has.herokuapp.com",
       clientId: '978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com'
     };
   },
@@ -10793,7 +10793,7 @@ var _default = {
 
         _this.$emit('client-page', 'homePage');
       }).catch(function (err) {
-        console.log(err);
+        // console.log(err);
         swal.fire('Failed', 'Wrong email/password', 'error');
 
         _this.$emit('client-page', 'loginPage');
@@ -10806,12 +10806,12 @@ var _default = {
 
       (0, _axios.default)({
         method: 'POST',
-        url: "http://localhost:3000/google-login",
+        url: "https://kaban-fox-has.herokuapp.com/google-login",
         data: {
           google_access_token: google_access_token
         }
       }).then(function (response) {
-        console.log(response);
+        // console.log(response);
         localStorage.setItem("access_token", response.data.access_token);
         _this2.email = '';
         _this2.password = '';
@@ -11140,7 +11140,7 @@ var _default = {
     return {
       email: "",
       password: "",
-      baseUrl: "http://localhost:3000"
+      baseUrl: "https://kaban-fox-has.herokuapp.com"
     };
   },
   methods: {
@@ -11406,7 +11406,7 @@ var _default = {
       description: "",
       category: '',
       changeCategory: "",
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://kaban-fox-has.herokuapp.com",
       headers: {}
     };
   },
@@ -11713,7 +11713,7 @@ var _default = {
     return {
       tasks: [],
       categories: ["backlog", "todo", "doing", "done"],
-      baseUrl: "http://localhost:3000"
+      baseUrl: "https://kaban-fox-has.herokuapp.com"
     };
   },
   components: {
@@ -11964,8 +11964,8 @@ var _default = {
     return {
       title: '',
       category: '',
-      description: '',
-      baseUrl: "http://localhost:3000"
+      description: '' // baseUrl: "http://localhost:3000",
+
     };
   },
   methods: {
@@ -11974,7 +11974,7 @@ var _default = {
 
       (0, _axios.default)({
         method: 'POST',
-        url: "http://localhost:3000/task",
+        url: "https://kaban-fox-has.herokuapp.com/task",
         data: {
           title: this.title,
           category: this.category,
@@ -12557,7 +12557,7 @@ var _default = {
       // console.log(payload);
       (0, _axios.default)({
         method: "PUT",
-        url: "http://localhost:3000/task/".concat(+payload.id),
+        url: "https://kaban-fox-has.herokuapp.com/task/".concat(+payload.id),
         data: {
           title: payload.title,
           description: payload.description
@@ -12758,7 +12758,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58996" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61284" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

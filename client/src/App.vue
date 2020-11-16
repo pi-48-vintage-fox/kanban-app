@@ -62,7 +62,7 @@ export default {
       // console.log(payload);
       axios({
         method: "PUT",
-        url: `http://localhost:3000/task/${+payload.id}`,
+        url: `https://kaban-fox-has.herokuapp.com/task/${+payload.id}`,
         data: {
           title: payload.title,
           description: payload.description

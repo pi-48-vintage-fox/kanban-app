@@ -89,7 +89,7 @@ export default {
     return {
       email: "",
       password: "",
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://kaban-fox-has.herokuapp.com",
       clientId: '978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com'
     };
   },
@@ -112,7 +112,7 @@ export default {
           this.$emit('client-page', 'homePage')
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           swal.fire(
             'Failed',
             'Wrong email/password',
@@ -127,13 +127,13 @@ export default {
       // console.log(google_access_token);
       axios({
         method: 'POST',
-        url: `http://localhost:3000/google-login`,
+        url: `https://kaban-fox-has.herokuapp.com/google-login`,
         data: {
           google_access_token
         }
       })
       .then(response => {
-        console.log(response);
+        // console.log(response);
         localStorage.setItem("access_token", response.data.access_token);
         this.email = ''
         this.password = ''

@@ -52,7 +52,7 @@ export default {
     return {
       tasks: [],
       categories: ["backlog", "todo", "doing", "done"],
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://kaban-fox-has.herokuapp.com",
     };
   },
 

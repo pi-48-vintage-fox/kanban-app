@@ -64,14 +64,14 @@ export default {
       title: '',
       category: '',
       description:'',
-      baseUrl: "http://localhost:3000",
+      // baseUrl: "http://localhost:3000",
     }
   },
   methods: {
     addTask() {
       axios({
         method: 'POST',
-        url: `http://localhost:3000/task`,
+        url: `https://kaban-fox-has.herokuapp.com/task`,
         data: {
           title: this.title,
           category: this.category,

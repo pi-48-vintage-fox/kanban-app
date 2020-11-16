@@ -51,7 +51,7 @@ export default {
     return {
       email: "",
       password: "",
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://kaban-fox-has.herokuapp.com",
     };
   },
   methods: {
