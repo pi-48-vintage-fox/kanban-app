@@ -16,9 +16,9 @@ static login(req, res, next) {
   })
   .then(data => {
     if (!data) {
-      throw {message: "Wrong email/password!"}
+      throw { name: 'Authentication Failed', message: "Wrong email/password!" }
     } else if(!comparePassword(obj.password, data.password)) {
-      throw {message: "Wrong email/password!"}
+      throw { name: 'Authentication Failed', message: "Wrong email/password!" }
     } else {
       const access_token = signToken({
         id: data.id,

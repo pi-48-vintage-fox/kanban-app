@@ -9,7 +9,6 @@
       @client-page="changePage"
       @toEditPage="toEditPage">
     </Home>
-
     <Add v-if="page == 'addPage'" @client-page="changePage"></Add>
 
     <Edit
@@ -32,6 +31,7 @@ export default {
   name: "App",
   data() {
     return {
+      msg: 'anyeong',
       page: "loginPage",
       detailTask: null
     };

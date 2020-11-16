@@ -10828,14 +10828,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $7244ad = exports.default || module.exports;
+        var $a66402 = exports.default || module.exports;
       
-      if (typeof $7244ad === 'function') {
-        $7244ad = $7244ad.options;
+      if (typeof $a66402 === 'function') {
+        $a66402 = $a66402.options;
       }
     
         /* template */
-        Object.assign($7244ad, (function () {
+        Object.assign($a66402, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11064,9 +11064,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$7244ad', $7244ad);
+            api.createRecord('$a66402', $a66402);
           } else {
-            api.reload('$7244ad', $7244ad);
+            api.reload('$a66402', $a66402);
           }
         }
 
@@ -11077,7 +11077,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","C:\\Users\\nanda\\Documents\\demo-git\\phase2_h8\\week2\\kanban-app\\client\\svg\\logo-depan.svg":[["logo-depan.791b1f8d.svg","svg/logo-depan.svg"],"svg/logo-depan.svg"],"_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Register.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","C:\\Users\\nanda\\Documents\\demo-git\\phase2_h8\\week4\\kanban-app\\client\\svg\\logo-depan.svg":[["logo-depan.791b1f8d.svg","svg/logo-depan.svg"],"svg/logo-depan.svg"],"_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Register.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11166,14 +11166,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $b04d57 = exports.default || module.exports;
+        var $971828 = exports.default || module.exports;
       
-      if (typeof $b04d57 === 'function') {
-        $b04d57 = $b04d57.options;
+      if (typeof $971828 === 'function') {
+        $971828 = $971828.options;
       }
     
         /* template */
-        Object.assign($b04d57, (function () {
+        Object.assign($971828, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11320,9 +11320,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$b04d57', $b04d57);
+            api.createRecord('$971828', $971828);
           } else {
-            api.reload('$b04d57', $b04d57);
+            api.reload('$971828', $971828);
           }
         }
 
@@ -11510,14 +11510,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $e09136 = exports.default || module.exports;
+        var $12cc5d = exports.default || module.exports;
       
-      if (typeof $e09136 === 'function') {
-        $e09136 = $e09136.options;
+      if (typeof $12cc5d === 'function') {
+        $12cc5d = $12cc5d.options;
       }
     
         /* template */
-        Object.assign($e09136, (function () {
+        Object.assign($12cc5d, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11635,9 +11635,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$e09136', $e09136);
+            api.createRecord('$12cc5d', $12cc5d);
           } else {
-            api.reload('$e09136', $e09136);
+            api.reload('$12cc5d', $12cc5d);
           }
         }
 
@@ -11755,14 +11755,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $79f807 = exports.default || module.exports;
+        var $cf306f = exports.default || module.exports;
       
-      if (typeof $79f807 === 'function') {
-        $79f807 = $79f807.options;
+      if (typeof $cf306f === 'function') {
+        $cf306f = $cf306f.options;
       }
     
         /* template */
-        Object.assign($79f807, (function () {
+        Object.assign($cf306f, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11876,9 +11876,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$79f807', $79f807);
+            api.createRecord('$cf306f', $cf306f);
           } else {
-            api.reload('$79f807', $79f807);
+            api.reload('$cf306f', $cf306f);
           }
         }
 
@@ -11997,14 +11997,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $9ed2dc = exports.default || module.exports;
+        var $91c711 = exports.default || module.exports;
       
-      if (typeof $9ed2dc === 'function') {
-        $9ed2dc = $9ed2dc.options;
+      if (typeof $91c711 === 'function') {
+        $91c711 = $91c711.options;
       }
     
         /* template */
-        Object.assign($9ed2dc, (function () {
+        Object.assign($91c711, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12219,9 +12219,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$9ed2dc', $9ed2dc);
+            api.createRecord('$91c711', $91c711);
           } else {
-            api.reload('$9ed2dc', $9ed2dc);
+            api.reload('$91c711', $91c711);
           }
         }
 
@@ -12232,7 +12232,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","C:\\Users\\nanda\\Documents\\demo-git\\phase2_h8\\week2\\kanban-app\\client\\svg\\new.svg":[["new.cff50c49.svg","svg/new.svg"],"svg/new.svg"],"_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Edit.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","C:\\Users\\nanda\\Documents\\demo-git\\phase2_h8\\week4\\kanban-app\\client\\svg\\new.svg":[["new.cff50c49.svg","svg/new.svg"],"svg/new.svg"],"_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Edit.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12306,14 +12306,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $43b4c4 = exports.default || module.exports;
+        var $b45b0e = exports.default || module.exports;
       
-      if (typeof $43b4c4 === 'function') {
-        $43b4c4 = $43b4c4.options;
+      if (typeof $b45b0e === 'function') {
+        $b45b0e = $b45b0e.options;
       }
     
         /* template */
-        Object.assign($43b4c4, (function () {
+        Object.assign($b45b0e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12464,9 +12464,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$43b4c4', $43b4c4);
+            api.createRecord('$b45b0e', $b45b0e);
           } else {
-            api.reload('$43b4c4', $43b4c4);
+            api.reload('$b45b0e', $b45b0e);
           }
         }
 
@@ -12477,7 +12477,7 @@ render._withStripped = true
       
       }
     })();
-},{"C:\\Users\\nanda\\Documents\\demo-git\\phase2_h8\\week2\\kanban-app\\client\\svg\\new.svg":[["new.cff50c49.svg","svg/new.svg"],"svg/new.svg"],"_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+},{"C:\\Users\\nanda\\Documents\\demo-git\\phase2_h8\\week4\\kanban-app\\client\\svg\\new.svg":[["new.cff50c49.svg","svg/new.svg"],"svg/new.svg"],"_css_loader":"../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12521,11 +12521,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
 var _default = {
   name: "App",
   data: function data() {
     return {
+      msg: 'anyeong',
       page: "loginPage",
       detailTask: null
     };
@@ -12584,14 +12584,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $3f376f = exports.default || module.exports;
+        var $db5994 = exports.default || module.exports;
       
-      if (typeof $3f376f === 'function') {
-        $3f376f = $3f376f.options;
+      if (typeof $db5994 === 'function') {
+        $db5994 = $db5994.options;
       }
     
         /* template */
-        Object.assign($3f376f, (function () {
+        Object.assign($db5994, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12634,7 +12634,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-3f376f",
+            _scopeId: "data-v-db5994",
             functional: undefined
           };
         })());
@@ -12647,9 +12647,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$3f376f', $3f376f);
+            api.createRecord('$db5994', $db5994);
           } else {
-            api.reload('$3f376f', $3f376f);
+            api.reload('$db5994', $db5994);
           }
         }
 
@@ -12758,7 +12758,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50639" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58996" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -9,11 +9,11 @@ async function authorization(req, res, next) {
     console.log(task.userId);
     console.log(userId);
     if (!task) {
-      throw {message: 'Task not found', status: 401}
+      throw {name: 'NotFound', message: 'Task not found', status: 401}
     } else if (task.userId == userId) {
       return next()
     } else {
-      throw {message: "Authorization Failed", status: 401}
+      throw {name: "Authorization Failed", message: "You don't have access", status: 401}
     }
   }
   catch(err) {

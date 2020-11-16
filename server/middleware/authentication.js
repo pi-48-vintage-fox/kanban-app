@@ -5,7 +5,7 @@ async function authentication(req, res, next) {
   const { access_token } = req.headers
   try{
     if (!access_token) {
-      throw { message: "Authentication failed!", status: 401}
+      throw { name: "Authentication Failed", message: 'Wrong email/password!', status: 401}
     } else {
       const decoded = verifyToken(access_token)
       const user = await User.findOne({
@@ -14,7 +14,7 @@ async function authentication(req, res, next) {
         }
       })
       if (!user) {
-        throw { message: "Authentication failed!", status: 401}
+        throw { name: "Authentication Failed", message: 'Wrong email/password!', status: 401}
       } else {
         req.loggedInUser = decoded
         next()

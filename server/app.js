@@ -16,6 +16,10 @@ app.use(express.json())
 app.use(router)
 app.use(errorHandling)
 
+app.get('/', (req, res) => {
+  res.send({ message: 'Halooooooooooooo' })
+})
+
 app.listen(port, () => {
   console.log(`App berada di http://localhost:${port}`);
 })
