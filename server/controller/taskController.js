@@ -4,15 +4,17 @@ const { Task } = require('../models/index')
 class taskController {
   static create(req, res, next) {
     // console.log(req.loggedInUser.id);
-    const userId = req.loggedInUser.id
-    let obj = {
+    const userId = +req.loggedInUser.id
+    const obj = {
       title: req.body.title,
       category: req.body.category,
       description: req.body.description,
       userId
     }
+    // console.log(obj);
     Task.create(obj)
     .then(data => {
+      console.log(data);
       res.status(201).json(data)
     })
     .catch(err => {

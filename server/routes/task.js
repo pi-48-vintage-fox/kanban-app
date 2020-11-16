@@ -5,9 +5,9 @@ const authentication = require('../middleware/authentication')
 
 
 
+router.use(authentication)
 router.post('/', taskController.create)
 router.get('/', taskController.showAll)
-router.use(authentication)
 router.put('/:id', authorization, taskController.update)
 router.patch('/:id', authorization, taskController.updateCategory)
 router.delete('/:id', authorization, taskController.delete)
