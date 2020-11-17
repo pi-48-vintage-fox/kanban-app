@@ -53,7 +53,7 @@ static register(req, res, next) {
 
 static googlelogin(req, res, next) {
   let { google_access_token } = req.body
-  // console.log(google_access_token);
+  console.log(google_access_token);
   let email
   const client = new OAuth2Client('978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com');
   client.verifyIdToken({
@@ -61,7 +61,7 @@ static googlelogin(req, res, next) {
     audience: '978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com'
   })
     .then(ticket => {
-      // console.log(ticket);
+      console.log(ticket);
       let payload = ticket.getPayload()
       email = payload.email
       console.log(email);
