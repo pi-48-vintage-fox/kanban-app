@@ -2,7 +2,7 @@
   <div class="col-sm-6 col-md-4 col-xl-3">
     <div class="card bg-light">
       <div class="card-body">
-        <h6 class="card-title text-uppercase text-truncate py-2">{{ categories }}</h6>
+        <h6 class="card-title text-uppercase text-truncate py-2">{{ categories.data[0].name }}</h6>
         <div class="items border border-light">
           <Description></Description>
         </div>

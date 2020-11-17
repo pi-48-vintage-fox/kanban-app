@@ -8,7 +8,7 @@ class Authorization {
       .then(data => {
         if (!data) {
           res.status(404).json({
-            msg: 'Task not fount'
+            msg: 'Task not found'
           })
         } else if (data.UserId === req.loggedInUser.id) {
           next()

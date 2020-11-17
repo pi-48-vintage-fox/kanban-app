@@ -3,6 +3,7 @@
     <!-- kanban board/home -->
     <HomePage
       v-if="pageName === 'home-page'"
+      :task="task"
       :categories="categories"
       @changePage="changePage"
       @deleteTask="deleteTask"
@@ -62,7 +63,6 @@ export default {
     },
     fetchTask() {
       const token = localStorage.getItem("access_token");
-      // console.log(access_token, "<<< ini access token")
       axios({
         url: "/tasks",
         method: "GET",
@@ -71,7 +71,7 @@ export default {
         },
       })
         .then((data) => {
-          console.log(data, '<<< ini data task kanban');
+          console.log(data, "<<< ini data task kanban");
           this.task = data;
         })
         .catch((err) => {
@@ -89,7 +89,7 @@ export default {
         },
       })
         .then((result) => {
-          console.log(result.data, '<<< ini category');
+          console.log(result.data, "<<< ini category");
           this.categories = result.data;
         })
         .catch((err) => {

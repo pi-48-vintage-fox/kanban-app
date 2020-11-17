@@ -42,9 +42,10 @@ body {
   color: white;
 }
 
-.card, 
-.btn, 
-.form-control, 
-.g-signin2 {
+.card, .btn, .form-control, .g-signin2 {
   border-radius: 25px;
+}
+
+.nav-item {
+  border-radius: 15px;
 }
