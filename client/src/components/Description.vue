@@ -1,11 +1,13 @@
 <template>
   <div class="card mt-3">
-    <div class="card-body p-2">
-      <div class="card-title">
-        <a href="" class="lead font-weight-light">Judul Backlog</a>
+    <div class="card-body p-2 ml-2">
+      <div class="card-title justify-content-center">
+        <h1 class="lead font-weight-light">{{ tasks.title }}</h1>
       </div>
-      <p>Deskripsi Backlog nanti disini.</p>
-      <button class="btn btn-primary btn-sm">Edit</button>
+      <p>{{ tasks.tag }}</p>
+      <button @click.prevent="EditPage(tasks)" class="btn btn-primary btn-sm">
+        Edit
+      </button>
       <button class="btn btn-primary btn-sm">Delete</button>
     </div>
   </div>
@@ -14,6 +16,12 @@
 <script>
 export default {
   name: "Category",
+  props: ["tasks"],
+  methods: {
+    EditPage (tasks) {
+      this.$emit('kirimTaskUntukEdit', tasks)
+    }
+  },
 };
 </script>
 

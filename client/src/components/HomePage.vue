@@ -36,7 +36,7 @@
     v-for="(cat, i) in categories"
     :key = "i"
     :categor="cat"
-    :tasks="tasks"
+    @kirimTaskUntukEdit="kirimDataTaskUntukEdit"
     ></Category>
     </div>
   </div>
@@ -50,6 +50,14 @@ export default {
     Category,
   },
   props: ["task", "categories"],
+  created() {
+    console.log(this.categories, '<<< ini category dari home');
+  },
+  methods: {
+    kirimDataTaskUntukEdit (tasks) {
+    this.$emit("kirimTaskUntukEdit", tasks);
+    }
+  },
 };
 </script>
 

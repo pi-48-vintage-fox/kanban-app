@@ -47,11 +47,11 @@ export default {
     login() {
       let payload = {
         email: this.email,
-        password: this.password
-      }
-      this.$emit('login', payload)
-    }
-  }
+        password: this.password,
+      };
+      this.$emit("login", payload);
+    },
+  },
 };
 </script>
 

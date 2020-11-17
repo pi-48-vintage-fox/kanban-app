@@ -2,9 +2,16 @@
   <div class="col-sm-6 col-md-4 col-xl-3">
     <div class="card bg-light">
       <div class="card-body">
-        <h6 class="card-title text-uppercase text-truncate py-2">{{ categories.data[0].name }}</h6>
+        <h3 class="card-title text-uppercase text-truncate py-2">
+          {{ categor.name }}
+        </h3>
         <div class="items border border-light">
-          <Description></Description>
+          <Description
+            v-for="(task, i) in categor.Tasks"
+            :key="i"
+            :tasks="task"
+            @kirimTaskUntukEdit="kirimDataTaskUntukEdit"
+          ></Description>
         </div>
       </div>
     </div>
@@ -18,10 +25,15 @@ export default {
   components: {
     Description,
   },
-  props: ["categories"],
+  props: ["categor"],
   mounted() {
-    console.log(this.categories, "<<< ini dari category.vue");
-  }
+    console.log(this.categor, "<<< ini dari category.vue");
+  },
+  methods: {
+    kirimDataTaskUntukEdit(tasks) {
+      this.$emit("kirimTaskUntukEdit", tasks);
+    },
+  },
 };
 </script>
 

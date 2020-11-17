@@ -7,7 +7,7 @@
       :categories="categories"
       @changePage="changePage"
       @deleteTask="deleteTask"
-      @editTask="editTask"
+      @kirimTaskUntukEdit="editTask"
     ></HomePage>
 
     <!-- login -->
@@ -27,7 +27,12 @@
     <AddPage v-else-if="pageName === 'add-page'" @add="add"></AddPage>
 
     <!-- edit form -->
-    <EditPage v-else-if="pageName === 'edit-page'" @edit="edit"></EditPage>
+    <EditPage
+      v-else-if="pageName === 'edit-page'"
+      :taskUntukEdit="taskUntukEdit"
+      :categories="categories"
+      @editPage="editPage"
+    ></EditPage>
   </div>
 </template>
 
@@ -47,6 +52,7 @@ export default {
       pageName: "login-page",
       task: [],
       categories: [],
+      taskUntukEdit: {},
     };
   },
   components: {
@@ -61,6 +67,7 @@ export default {
       console.log(payload);
       this.pageName = payload;
     },
+
     fetchTask() {
       const token = localStorage.getItem("access_token");
       axios({
@@ -89,8 +96,8 @@ export default {
         },
       })
         .then((result) => {
-          console.log(result.data, "<<< ini category");
-          this.categories = result.data;
+          console.log(result.data.data, "<<< ini category dari dari app.vue");
+          this.categories = result.data.data;
         })
         .catch((err) => {
           console.log({ err });
@@ -120,25 +127,34 @@ export default {
     },
 
     editTask(payload) {
-      const token = localStorage.getItem("access_token");
+      console.log(payload, "<<< ini adalah task yg diterima dari komponen");
+      this.taskUntukEdit = payload;
+      this.pageName = "edit-page";
+      // const token = localStorage.getItem("access_token");
+      // axios({
+      //   url: "/tasks" + payload.id,
+      //   method: "PUT",
+      //   headers: {
+      //     token,
+      //   },
+      //   data: {
+      //     title: payload.title,
+      //   },
+      // })
+      //   .then((data) => {
+      //     this.fetchTask();
+      //     this.fetchCategory();
+      //     this.pageName = "home-page";
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+    },
+
+    editPage(payload) {
       axios({
-        url: "/tasks" + payload.id,
-        method: "PUT",
-        headers: {
-          token,
-        },
-        data: {
-          title: payload.title,
-        },
-      })
-        .then((data) => {
-          this.fetchTask();
-          this.fetchCategory();
-          this.pageName = "home-page";
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        url: "/",
+      });
     },
 
     deleteTask(id) {
@@ -201,7 +217,7 @@ export default {
   },
 
   created() {
-    if (localStorage.getItem("access-token")) {
+    if (localStorage.getItem("access_token")) {
       this.pageName = "home-page";
       this.fetchTask();
       this.fetchCategory();
