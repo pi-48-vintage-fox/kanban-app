@@ -1,8 +1,8 @@
 <template>
-  <section class="container-fluid" id="register">
+  <section class="container" id="register">
     <div class="row justify-content-center mt-5 text-white">
       <div class="col-4 fas">
-        <h1 class="text-white fa-3x">Register</h1>
+        <h1 class="text-white">Register</h1>
         <form @submit.prevent="register">
           <div class="form-group">
             <label form="name">Email</label>

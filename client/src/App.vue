@@ -7,6 +7,7 @@
       :categories="categories"
       @deleteTasks="deleteTasks"
       @kirimTaskUntukEdit="editTask"
+      @changePage="changePage"
     ></HomePage>
 
     <!-- login -->
