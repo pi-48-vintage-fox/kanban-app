@@ -26,9 +26,10 @@
               autocomplete="current-password"
             />
           </div>
-          <button class="btn btn-dark">Register</button>
+          <button type="submit" class="btn btn-dark">Register</button>
           <div class="justify-content-center"></div>
         </form>
+          <button @click.prevent="toLogin" class="btn btn-dark">Login</button>
       </div>
     </div>
   </section>
@@ -51,6 +52,10 @@ export default {
       };
       this.$emit("register", paylod);
     },
+
+    toLogin() {
+      this.$emit('changePage', 'login-page')
+    }
   },
 };
 </script>

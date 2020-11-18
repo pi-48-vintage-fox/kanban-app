@@ -11,6 +11,7 @@
             :key="i"
             :tasks="task"
             @kirimTaskUntukEdit="kirimDataTaskUntukEdit"
+            @deleteTasks="deleteTasks"
           ></Description>
         </div>
       </div>
@@ -33,6 +34,10 @@ export default {
     kirimDataTaskUntukEdit(tasks) {
       this.$emit("kirimTaskUntukEdit", tasks);
     },
+    
+    deleteTasks(id) {
+      this.$emit("deleteTasks", id)
+    }
   },
 };
 </script>

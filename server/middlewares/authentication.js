@@ -5,6 +5,7 @@ class Authentication {
 
   static authentication(req, res, next) {
     const { token } = req.headers
+    console.log(token, '<<< ini token dari authentication');
     if (!token) {
       res.status(401).json({
         msg: 'Authentication failed'

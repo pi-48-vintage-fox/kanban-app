@@ -62,6 +62,8 @@ class TaskController {
     const obj = {
       title: req.body.title,
       tag: req.body.tag,
+      category: req.body.cateory
+      
     }
     Task.update(obj, {
       where: {

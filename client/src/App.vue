@@ -5,8 +5,7 @@
       v-if="pageName === 'home-page'"
       :task="task"
       :categories="categories"
-      @changePage="changePage"
-      @deleteTask="deleteTask"
+      @deleteTasks="deleteTasks"
       @kirimTaskUntukEdit="editTask"
     ></HomePage>
 
@@ -21,6 +20,7 @@
     <RegisterPage
       v-else-if="pageName === 'register-page'"
       @register="register"
+      @changePage="changePage"
     ></RegisterPage>
 
     <!-- add form -->
@@ -48,7 +48,6 @@ export default {
   name: "App",
   data() {
     return {
-      msg: "test vue",
       pageName: "login-page",
       task: [],
       categories: [],
@@ -152,21 +151,37 @@ export default {
     },
 
     editPage(payload) {
-      axios({
-        url: "/",
-      });
+      console.log(payload, '<<< data payload dari edit page');
+      // const token = localStorage.getItem("access_token");
+      // axios({
+      //   url: "/tasks/" + payload.id,
+      //   method: "PUT",
+      //   headers: {
+      //     token,
+      //   },
+      //   data: {
+      //     title: payload.title,
+      //     tag: payload.tag,
+      //   },
+      // })
+      //   .then((data) => {
+      //     this.fetchTask();
+      //     this.fetchCategory();
+      //     this.pageName = "home-page";
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     },
 
-    deleteTask(id) {
+    deleteTasks(id) {
+      console.log('>>>>>>>>>', id , '<<< ini bawa id ke app vue');
       const token = localStorage.getItem("access_token");
       axios({
-        url: "/tasks" + id,
+        url: "/tasks/" + id,
         method: "DELETE",
         headers: {
           token,
-        },
-        data: {
-          title: payload.title,
         },
       })
         .then((data) => {
@@ -198,6 +213,8 @@ export default {
     },
 
     register(payload) {
+      // console.log('masuk register app dot vue');
+      // console.log(payload, '<<< dan ini adalah data payloadnya');
       axios({
         url: "/register",
         method: "POST",
@@ -207,11 +224,11 @@ export default {
         },
       })
         .then((result) => {
-          console.log(result);
+          console.log('register berhasil');
           this.pageName = "login-page";
         })
         .catch((err) => {
-          console.log(err);
+          console.log('register gagal');
         });
     },
   },

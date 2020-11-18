@@ -26,9 +26,9 @@
               autocomplete="current-password"
             />
           </div>
-          <button class="btn btn-dark">Login</button>
+          <button type="submit" class="btn btn-dark">Login</button>
         </form>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <button type="button" @click.prevent="toRegister" class="btn btn-dark">Register</button>
       </div>
     </div>
   </section>
@@ -51,6 +51,10 @@ export default {
       };
       this.$emit("login", payload);
     },
+
+    toRegister() {
+      this.$emit('changePage', 'register-page')
+    }
   },
 };
 </script>

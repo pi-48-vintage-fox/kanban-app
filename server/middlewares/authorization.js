@@ -4,7 +4,8 @@ class Authorization {
 
   static authorization(req, res, next) {
     const { id } = req.params
-    Task.findAll(id)
+    console.log(req.loggedInUser, "<<< ini req.loggedinuser");
+    Task.findByPk(id)
       .then(data => {
         if (!data) {
           res.status(404).json({

@@ -18,7 +18,7 @@
           <div class="form-group">
             <label form="name">Description</label>
             <input
-              v-model="description"
+              v-model="tag"
               type="name"
               id="req-name"
               class="form-control"
@@ -29,8 +29,11 @@
           <div class="form-group">
             <label for="inputState">Category</label>
             <select v-model="category" id="inputState" class="form-control">
-              <option v-for="(task, i) in categories" :key="i">
-                {{ task.name }}
+              <option 
+              v-for="(task, i) in categories" 
+              :key="i"
+              >
+              {{ task.name }}
               </option>
             </select>
           </div>
@@ -43,29 +46,37 @@
 </template>
 
 <script>
+import CategoryVue from './Category.vue';
 export default {
   name: "EditPage",
   data() {
     return {
-      title: '',
-      description: '',
-      category: ''
-    }
+      title: "",
+      tag: "",
+      category: "",
+      CategoryId: "",
+    };
   },
-  props: ['taskUntukEdit', 'categories'],
+  props: ["taskUntukEdit", "categories"],
   methods: {
     editPage() {
       let payload = {
+        id: this.taskUntukEdit.id,
         title: this.title,
-        description: this.description,
-        category: this.category
-      }
-      this.$emit('editPage', payload)
-    }
+        tag: this.tag,
+        category: this.CategoryId
+      };
+      this.$emit("editPage", payload);
+    },
+
+    inputCategory(task) {
+      this.CategoryId = taks.id
+      console.log('<<< ini Category Id');
+    },
   },
   created() {
-    this.title = this.taskUntukEdit.title,
-    this.description = this.taskUntukEdit.tag
+    this.title = this.taskUntukEdit.title
+    this.tag = this.taskUntukEdit.tag
   },
 };
 </script>
