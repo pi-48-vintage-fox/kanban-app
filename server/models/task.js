@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Task.belongsTo(models.User)
+      Task.belongsTo(models.Category)
     }
   };
   Task.init({
@@ -23,20 +24,9 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    category: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          msg: 'Please fill the category tag'
-        }
-      }
-    },
-    UserId: {
-      type: DataTypes.INTEGER
-    },
-    description: {
-      type: DataTypes.STRING
-    },
+    description: DataTypes.STRING,
+    CategoryId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Task',

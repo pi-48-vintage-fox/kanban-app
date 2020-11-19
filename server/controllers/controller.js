@@ -1,4 +1,4 @@
-const { Task, User } = require("../models/index")
+const { Task, User, Category } = require("../models/index")
 const { comparePassword } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
 const {OAuth2Client} = require('google-auth-library')
@@ -13,28 +13,16 @@ class Controller {
                email: req.body.email,
                password: req.body.password
             }
-           
-            const user = await User.findOne({
-                where: {
-                    email: payload.email
-                }
+
+            const user = await User.create(payload)
+            res.status(201).json({
+                id: user.id,
+                name: user.name,
+                email: user.email
             })
-
-            if(!user) {
-                const user = await User.create(payload)
-                res.status(201).json({
-                    id: user.id,
-                    name: user.name,
-                    email: user.email
-                })
-            } else {
-                res.status(401).json({
-                    message: "Email Already in Use"
-                })
-            }
-
            
         } catch (err) {
+            console.log(err);
             next(err)
         }
     }
@@ -122,7 +110,7 @@ class Controller {
     static async showTask(req, res, next) {
         try {
             const data = await Task.findAll({
-                include: User
+                include: [ User, Category ]
             })
             res.status(200).json(data)
         } catch (err) {
@@ -135,11 +123,11 @@ class Controller {
             const data = {
                 title: req.body.title,
                 description: req.body.description,
-                category: "Backlog",
+                CategoryId: 1,
                 UserId: req.body.UserId,
             }
             const newTask = await Task.create(data)
-            res.status(200).json(data)
+            res.status(200).json(newTask)
         } catch (err) {
             next(err)
         }
@@ -178,18 +166,27 @@ class Controller {
     static async moveTask(req, res, next) {
         try {
             const data = {
-                category: req.body.category
+                CategoryId : req.body.CategoryId
             }
             const movedData = await Task.update(data, {
                 where: {
                     id: req.params.id
                 }
             })
-            res.status(200).json({ msg: 'Task has been updated' })
+            res.status(201).json({ msg: 'Task has been updated' })
         } catch (err) {
             next(err)
         }
     }
+
+    static async showCategory(req, res, next){
+        try {
+          const data = await Category.findAll()
+          res.status(200).json(data)
+        } catch (error) {
+          res.status(500).json(error)
+        }
+      }
 }
 
 module.exports = Controller
