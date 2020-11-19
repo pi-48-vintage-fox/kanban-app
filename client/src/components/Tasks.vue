@@ -19,19 +19,19 @@
 <script>
 export default {
     name: 'TaskPage',
-    props: [ 'tasks' ],
+    props: [ 'category', 'tasks' ],
     methods: {
         move() {
-            let category = "Backlog"
-            if(this.tasks.category === "Backlog") {
-                category = "Product"
-            } else if (this.tasks.category === "Product") {
-                category = "Development"
-            } else if (this.tasks.category === "Development") {
-                category = "Done"
+            let CategoryId = 1
+            if(this.tasks.CategoryId === 1) {
+                CategoryId = 2
+            } else if (this.tasks.CategoryId === 2) {
+                CategoryId = 3
+            } else if (this.tasks.CategoryId === 3) {
+                CategoryId = 4
             }
             let payload = {
-                category: category,
+                CategoryId: CategoryId,
                 id: this.tasks.id
             }
             this.$emit('move', payload)

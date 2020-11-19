@@ -3,73 +3,16 @@
         <link rel="stylesheet" href="https://unpkg.com/xp.css">
         <!-- HOME PAGE========================================================= -->
         <div class="homeface">
-            <!-- Backlog========================================== -->
-            <div class="scroll" style="width: 20%; height: auto;">
-                <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
-                Backlog
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                </div>
-                <!-- ====================================== -->
-                <TaskPage
-                    v-for="tasks in TaskBacklog"
-                    :key=tasks.id
-                    :tasks="tasks"
-                    @move="move"
-                    @deleteTask="deleteTask"
-                    @showEdit="showEdit">
-                </TaskPage>
-            </div>
-
-            <!-- Product========================================== -->
-            <div class="scroll" style="width: 20%; height: auto;">
-                <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
-                Product
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                </div>
-                <!-- ====================================== -->
-                <TaskPage
-                    v-for="tasks in TaskProduct"
-                    :key=tasks.id
-                    :tasks="tasks"
-                    @move="move"
-                    @deleteTask="deleteTask"
-                    @showEdit="showEdit">
-                </TaskPage>
-            </div>
-
-            <!-- Development========================================== -->
-            <div class="scroll" style="width: 20%; height: auto;">
-                <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
-                Development
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                </div>
-                <!-- ====================================== -->
-                <TaskPage
-                    v-for="tasks in TaskDevelopment"
-                    :key=tasks.id
-                    :tasks="tasks"
-                    @move="move"
-                    @deleteTask="deleteTask"
-                    @showEdit="showEdit">
-                </TaskPage>
-            </div>
-
-            <!-- Done========================================== -->
-            <div class="scroll" style="width: 20%; height: auto;">
-                <div class="card-header bg-primary" style="color: blanchedalmond; font-weight: bolder;">
-                Done
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                </div>
-                <!-- ====================================== -->
-                <TaskPage
-                    v-for="tasks in TaskDone"
-                    :key=tasks.id
-                    :tasks="tasks"
-                    @move="move"
-                    @deleteTask="deleteTask"
-                    @showEdit="showEdit">
-                </TaskPage>
-            </div>
+            <Category
+                v-for="(cat, i) in categories"
+                :key="i"
+                :category="cat"
+                :categories="categories"
+                :tasks="tasks"
+                @move="move"
+                @deleteTask="deleteTask"
+                @showEdit="showEdit">              
+            </Category>
         </div>
    
         <div id="navbar-bottom" class="btn-group dropup">
@@ -129,98 +72,91 @@
 </template>
 
 <script>
-import TaskPage from './Tasks'
+// import TaskPage from './Tasks'
+// import axios from "../config/axios";
+import Category from "./Category";
 export default {
-    name: 'HomePage',
-    data() {
-        return {
-            username: localStorage.getItem('name'),
-            changer: true,
-            changerAdd: true,
-            changerEdit: true,
-            titleAdd: '',
-            descriptionAdd: '',
-            titleEdit: '',
-            descriptionEdit: '',
-            idEdit: 0
-        }
+  name: "HomePage",
+  data() {
+    return {
+      username: localStorage.getItem("name"),
+      changer: true,
+      changerAdd: true,
+      changerEdit: true,
+      titleAdd: "",
+      descriptionAdd: "",
+      titleEdit: "",
+      descriptionEdit: "",
+      idEdit: 0
+    };
+  },
+  components: {
+    Category,
+  },
+  props: ["categories", "tasks"],
+  methods: {
+    showMenu() {
+      if (this.changer == true) {
+        this.changer = false;
+      } else if (this.changer == false) {
+        this.changer = true;
+      }
     },
-    components: {
-        TaskPage
+    showAdd() {
+      this.changerAdd = false;
+      this.changer = true;
     },
-    props: [ 'tasks' ],
-    computed: {
-        TaskBacklog() {
-            return this.tasks.filter((element) => element.category === "Backlog")
-        },
-        TaskProduct() {
-            return this.tasks.filter((element) => element.category === "Product")
-        },
-        TaskDevelopment() {
-            return this.tasks.filter((element) => element.category === "Development")
-        },
-        TaskDone() {
-            return this.tasks.filter((element) => element.category === "Done")
-        },
+    showEdit(payload) {
+      this.changerEdit = false;
+      this.changer = true;
+      (this.titleEdit = payload.title),
+        (this.descriptionEdit = payload.description),
+        (this.idEdit = payload.id);
     },
-    methods: {
-        showMenu() {
-            if (this.changer == true) {
-                this.changer = false
-            } else if (this.changer == false) {
-                this.changer = true
-            }            
-        },
-        showAdd() {
-            this.changerAdd = false
-            this.changer = true            
-        },
-        showEdit(payload) {
-            this.changerEdit = false
-            this.changer = true
-            this.titleEdit = payload.title,
-            this.descriptionEdit = payload.description,
-            this.idEdit = payload.id
-        },
-        unshowAdd() {
-            this.changerAdd = true
-        },
-        unshowEdit() {
-            this.changerEdit = true
-        },
-        add() {
-            let payload = {
-                title: this.titleAdd,
-                description: this.descriptionAdd,
-                category: "Backlog",
-                UserId: localStorage.getItem('id'),
-            }
-            this.unshowAdd()
-            this.$emit('add', payload)
-        },
-        logout() {
-            localStorage.clear()
-            this.$emit('logout')
-        },
-        move(payload) {
-            this.$emit('move', payload)
-        },
-        deleteTask(payload) {
-            this.$emit('deleteTask', payload)
-        },
-        editTask() {
-            let payload = {
-                id: this.idEdit,
-                title: this.titleEdit,
-                description: this.descriptionEdit
-            }
-            this.unshowEdit()
-            this.$emit('editTask', payload)
-        }
-    }
-}
+    unshowAdd() {
+      this.changerAdd = true;
+    },
+    unshowEdit() {
+      this.changerEdit = true;
+    },
+    add() {
+      let payload = {
+        title: this.titleAdd,
+        description: this.descriptionAdd,
+        category: "Backlog",
+        UserId: localStorage.getItem("id"),
+      };
+      this.unshowAdd();
+      this.$emit("add", payload);
+
+      this.titleAdd = ''
+      this.descriptionAdd = ''
+    },
+    logout() {
+      localStorage.clear();
+      this.$emit("logout");
+    },
+    move(payload) {
+      this.$emit("move", payload);
+    },
+    deleteTask(payload) {
+      this.$emit("deleteTask", payload);
+    },
+    editTask() {
+      let payload = {
+        id: this.idEdit,
+        title: this.titleEdit,
+        description: this.descriptionEdit,
+      };
+      this.unshowEdit();
+      this.$emit("editTask", payload);
+
+      this.titleEdit = ''
+      this.descriptionEdit = ''
+    },
+  }
+};
 </script>
 
 <style>
-
 </style>
