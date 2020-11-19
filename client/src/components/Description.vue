@@ -8,7 +8,7 @@
       <button @click.prevent="editPage(tasks)" class="btn btn-primary btn-sm">
         Edit
       </button>
-      <button @click.prevent="deletePage(tasks.id)" class="btn btn-primary btn-sm">Delete</button>
+      <button @click.prevent="deletePage(tasks.id)" class="btn btn-danger btn-sm">Delete</button>
     </div>
   </div>
 </template>

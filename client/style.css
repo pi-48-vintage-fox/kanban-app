@@ -42,10 +42,20 @@ body {
   color: white;
 }
 
+.nav-item1 {
+  background-color: #007bff;
+  color: white;
+}
+
+.nav-item2 {
+  background-color: #ff0000;
+  color: white;
+}
+
 .card, .btn, .form-control, .g-signin2 {
   border-radius: 25px;
 }
 
-.nav-item {
+.nav-item1, .nav-item2 {
   border-radius: 15px;
 }

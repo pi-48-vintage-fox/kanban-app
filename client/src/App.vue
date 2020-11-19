@@ -25,7 +25,11 @@
     ></RegisterPage>
 
     <!-- add form -->
-    <AddPage v-else-if="pageName === 'add-page'" @add="add"></AddPage>
+    <AddPage 
+    v-else-if="pageName === 'add-page'" 
+    @addPage="addPage"
+    @changePage="changePage"
+    ></AddPage>
 
     <!-- edit form -->
     <EditPage
@@ -33,6 +37,7 @@
       :taskUntukEdit="taskUntukEdit"
       :categories="categories"
       @editPage="editPage"
+      @changePage="changePage"
     ></EditPage>
   </div>
 </template>
@@ -104,26 +109,27 @@ export default {
         });
     },
 
-    add(payload) {
-      const token = localStorage.getItem("access_token");
-      axios({
-        url: "/tasks",
-        method: "POST",
-        headers: {
-          token,
-        },
-        data: {
-          title: payload.title,
-        },
-      })
-        .then((data) => {
-          this.fetchTask();
-          this.fetchCategory();
-          this.pageName = "home-page";
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    addPage(payload) {
+      console.log(payload, 'ININIH dari app vue data dari add page');
+      // const token = localStorage.getItem("access_token");
+      // axios({
+      //   url: "/tasks",
+      //   method: "POST",
+      //   headers: {
+      //     token,
+      //   },
+      //   data: {
+      //     title: payload.title,
+      //   },
+      // })
+      //   .then((data) => {
+      //     this.fetchTask();
+      //     this.fetchCategory();
+      //     this.pageName = "home-page";
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     },
 
     editTask(payload) {
@@ -152,8 +158,8 @@ export default {
     },
 
     editPage(payload) {
-      console.log(payload, '<<< data payload dari edit page');
-      // const token = localStorage.getItem("access_token");
+      console.log(payload, '<<< di app vue data payload dari edit page');
+      const token = localStorage.getItem("access_token");
       // axios({
       //   url: "/tasks/" + payload.id,
       //   method: "PUT",
@@ -225,7 +231,8 @@ export default {
         },
       })
         .then((result) => {
-          console.log('register berhasil');
+          console.log(result, "<<< ini data dari result");
+          console.log(' <<<< register berhasil');
           this.pageName = "login-page";
         })
         .catch((err) => {

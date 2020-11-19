@@ -26,9 +26,9 @@
               autocomplete="current-password"
             />
           </div>
-          <button type="submit" class="btn btn-dark">Login</button>
+          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="button" @click.prevent="toRegister" class="btn btn-success">Register</button>
         </form>
-        <button type="button" @click.prevent="toRegister" class="btn btn-dark">Register</button>
       </div>
     </div>
   </section>

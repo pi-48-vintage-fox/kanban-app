@@ -26,10 +26,10 @@
               autocomplete="current-password"
             />
           </div>
-          <button type="submit" class="btn btn-dark">Register</button>
+          <button type="submit" class="btn btn-success">Register</button>
+          <button @click.prevent="toLogin" class="btn btn-primary">Login</button>
           <div class="justify-content-center"></div>
         </form>
-          <button @click.prevent="toLogin" class="btn btn-dark">Login</button>
       </div>
     </div>
   </section>

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-6 col-md-4 col-xl-3">
+  <div class="col-sm-6 col-md-4 col-xl-3 mt-3">
     <div class="card bg-light">
       <div class="card-body">
         <h3 class="card-title text-uppercase text-truncate py-2">

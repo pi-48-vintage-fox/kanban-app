@@ -29,16 +29,15 @@
           <div class="form-group">
             <label for="inputState">Category</label>
             <select v-model="category" id="inputState" class="form-control">
-              <option 
-              v-for="(task, i) in categories" 
-              :key="i"
-              >
-              {{ task.name }}
+              <option v-for="(task, i) in categories" :key="i">
+                <a @click.prevent="inputCategory(task)" href="#">
+                  {{ task.name }}
+                </a>
               </option>
             </select>
           </div>
-          <button class="btn btn-dark">Submit</button>
-          <div class="justify-content-center"></div>
+          <button class="btn btn-primary">Submit</button>
+          <button class="btn btn-dark" @click.prevent="toHome">Back</button>
         </form>
       </div>
     </div>
@@ -73,6 +72,10 @@ export default {
       this.CategoryId = taks.id
       console.log('<<< ini Category Id');
     },
+
+    toHome() {
+      this.$emit("changePage", "home-page");
+    }
   },
   created() {
     this.title = this.taskUntukEdit.title
