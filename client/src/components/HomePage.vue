@@ -25,6 +25,7 @@
     :key = "i"
     :categor="cat"
     @kirimTaskUntukEdit="kirimDataTaskUntukEdit"
+    @editCategory="editCategory"
     @deleteTasks="deleteTasks"
     ></Category>
     </div>
@@ -39,27 +40,28 @@ export default {
     Category,
   },
   props: ["task", "categories"],
-  created() {
-    console.log(this.categories, "<<< ini category dari home");
-  },
   methods: {
     kirimDataTaskUntukEdit(tasks) {
       this.$emit("kirimTaskUntukEdit", tasks);
     },
 
+    editCategory(id) {
+      this.$emit("moveCategory", id);
+    },
+
     deleteTasks(id) {
-      this.$emit('deleteTasks', id)
+      this.$emit("deleteTasks", id);
     },
 
     logout() {
-      console.log('logout yah');
-      localStorage.clear()
-      this.$emit('changePage', 'login-page')
+      console.log("logout yah");
+      localStorage.clear();
+      this.$emit("changePage", "login-page");
     },
 
     toAdd() {
-      this.$emit('changePage', 'add-page')
-    }
+      this.$emit("changePage", "add-page");
+    },
   },
 };
 </script>

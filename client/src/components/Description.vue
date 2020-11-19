@@ -5,10 +5,21 @@
         <h1 class="lead font-weight-light">{{ tasks.title }}</h1>
       </div>
       <p>{{ tasks.tag }}</p>
-      <button @click.prevent="editPage(tasks)" class="btn btn-primary btn-sm">
+      <button @click="editPage(tasks)" class="btn btn-primary btn-sm">
         Edit
       </button>
-      <button @click.prevent="deletePage(tasks.id)" class="btn btn-danger btn-sm">Delete</button>
+      <button
+        @click="movePage(tasks.id)"
+        class="btn btn-success btn-sm"
+      >
+        Move
+      </button>
+      <button
+        @click="deletePage(tasks.id)"
+        class="btn btn-danger btn-sm"
+      >
+        Delete
+      </button>
     </div>
   </div>
 </template>
@@ -18,13 +29,17 @@ export default {
   name: "Category",
   props: ["tasks"],
   methods: {
-    editPage (tasks) {
-      this.$emit('kirimTaskUntukEdit', tasks)
+    editPage(tasks) {
+      this.$emit("kirimTaskUntukEdit", tasks);
     },
 
-    deletePage (id) {
-      this.$emit('deleteTasks', id)
-    }
+    deletePage(id) {
+      this.$emit("deleteTasks", id);
+    },
+
+    movePage(id) {
+      this.$emit("editCategory", id);
+    },
   },
 };
 </script>

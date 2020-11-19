@@ -7,7 +7,7 @@ class TaskController {
     const obj = {
       title: req.body.title,
       tag: req.body.tag,
-      CategoryId: 1,
+      CategoryId: req.body.category,
       UserId,
     }
     Task.create(obj)
@@ -62,7 +62,7 @@ class TaskController {
     const obj = {
       title: req.body.title,
       tag: req.body.tag,
-      category: req.body.cateory
+      category: req.body.category
       
     }
     Task.update(obj, {

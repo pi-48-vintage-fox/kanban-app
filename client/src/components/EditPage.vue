@@ -26,16 +26,6 @@
               autocomplete="name"
             />
           </div>
-          <div class="form-group">
-            <label for="inputState">Category</label>
-            <select v-model="category" id="inputState" class="form-control">
-              <option v-for="(task, i) in categories" :key="i">
-                <a @click.prevent="inputCategory(task)" href="#">
-                  {{ task.name }}
-                </a>
-              </option>
-            </select>
-          </div>
           <button class="btn btn-primary">Submit</button>
           <button class="btn btn-dark" @click.prevent="toHome">Back</button>
         </form>
@@ -66,11 +56,6 @@ export default {
         category: this.CategoryId
       };
       this.$emit("editPage", payload);
-    },
-
-    inputCategory(task) {
-      this.CategoryId = taks.id
-      console.log('<<< ini Category Id');
     },
 
     toHome() {

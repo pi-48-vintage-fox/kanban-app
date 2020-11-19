@@ -10,7 +10,9 @@
             v-for="(task, i) in categor.Tasks"
             :key="i"
             :tasks="task"
+            :categor="categor"
             @kirimTaskUntukEdit="kirimDataTaskUntukEdit"
+            @editCategory="editCategory"
             @deleteTasks="deleteTasks"
           ></Description>
         </div>
@@ -27,17 +29,18 @@ export default {
     Description,
   },
   props: ["categor"],
-  mounted() {
-    console.log(this.categor, "<<< ini dari category.vue");
-  },
   methods: {
     kirimDataTaskUntukEdit(tasks) {
       this.$emit("kirimTaskUntukEdit", tasks);
     },
-    
+
+    editCategory(id) {
+      this.$emit("editCategory", id);
+    },
+
     deleteTasks(id) {
-      this.$emit("deleteTasks", id)
-    }
+      this.$emit("deleteTasks", id);
+    },
   },
 };
 </script>

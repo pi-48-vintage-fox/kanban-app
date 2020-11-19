@@ -6,6 +6,7 @@
       :task="task"
       :categories="categories"
       @deleteTasks="deleteTasks"
+      @moveCategory="moveCategory"
       @kirimTaskUntukEdit="editTask"
       @changePage="changePage"
     ></HomePage>
@@ -25,10 +26,10 @@
     ></RegisterPage>
 
     <!-- add form -->
-    <AddPage 
-    v-else-if="pageName === 'add-page'" 
-    @addPage="addPage"
-    @changePage="changePage"
+    <AddPage
+      v-else-if="pageName === 'add-page'"
+      @addPage="addPage"
+      @changePage="changePage"
     ></AddPage>
 
     <!-- edit form -->
@@ -39,12 +40,22 @@
       @editPage="editPage"
       @changePage="changePage"
     ></EditPage>
+
+    <!-- edit category -->
+    <EditCategory
+      v-else-if="pageName === 'edit-category'"
+      :categories="categories"
+      :taskId="taskId"
+      @changePage="changePage"
+      @changeCategory="changeCategory"
+    ></EditCategory>
   </div>
 </template>
 
 <script>
 import HomePage from "./components/HomePage";
 import AddPage from "./components/AddPage";
+import EditCategory from "./components/EditCategory";
 import EditPage from "./components/EditPage";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
@@ -58,12 +69,14 @@ export default {
       task: [],
       categories: [],
       taskUntukEdit: {},
+      taskId: ''
     };
   },
   components: {
     HomePage,
     AddPage,
     EditPage,
+    EditCategory,
     LoginPage,
     RegisterPage,
   },
@@ -83,7 +96,6 @@ export default {
         },
       })
         .then((data) => {
-          console.log(data, "<<< ini data task kanban");
           this.task = data;
         })
         .catch((err) => {
@@ -101,7 +113,6 @@ export default {
         },
       })
         .then((result) => {
-          console.log(result.data.data, "<<< ini category dari dari app.vue");
           this.categories = result.data.data;
         })
         .catch((err) => {
@@ -110,26 +121,28 @@ export default {
     },
 
     addPage(payload) {
-      console.log(payload, 'ININIH dari app vue data dari add page');
-      // const token = localStorage.getItem("access_token");
-      // axios({
-      //   url: "/tasks",
-      //   method: "POST",
-      //   headers: {
-      //     token,
-      //   },
-      //   data: {
-      //     title: payload.title,
-      //   },
-      // })
-      //   .then((data) => {
-      //     this.fetchTask();
-      //     this.fetchCategory();
-      //     this.pageName = "home-page";
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      console.log(payload, "ININIH dari app vue data dari add page");
+      const token = localStorage.getItem("access_token");
+      axios({
+        url: "/tasks",
+        method: "POST",
+        headers: {
+          token,
+        },
+        data: {
+          title: payload.title,
+          tag: payload.tag,
+          category: payload.category,
+        },
+      })
+        .then((data) => {
+          this.fetchTask();
+          this.fetchCategory();
+          this.pageName = "home-page";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     editTask(payload) {
@@ -158,7 +171,7 @@ export default {
     },
 
     editPage(payload) {
-      console.log(payload, '<<< di app vue data payload dari edit page');
+      console.log(payload, "<<< di app vue data payload dari edit page");
       const token = localStorage.getItem("access_token");
       // axios({
       //   url: "/tasks/" + payload.id,
@@ -181,8 +194,56 @@ export default {
       //   });
     },
 
+    moveCategory(id) {
+      console.log(id, "bawa CategoryId ke app dot vue");
+      this.pageName = 'edit-category'
+      this.taskId = id
+      // const token = localStorage.getItem("access_token");
+      // axios({
+      //   url: "/tasks/" + id,
+      //   method: "PATCH",
+      //   headers: {
+      //     token,
+      //   },
+      //   data: {
+      //     title: payload.title,
+      //     tag: payload.tag,
+      //   },
+      // })
+      //   .then((data) => {
+      //     this.fetchTask();
+      //     this.fetchCategory();
+      //     this.pageName = "home-page";
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+    },
+
+    changeCategory(payload) {
+      console.log(payload, "<<<<<<<< ini payload dari app dot vue");
+      const token = localStorage.getItem("access_token");
+      axios({
+        url: "/tasks/" + payload.taskId,
+        method: "PATCH",
+        headers: {
+          token,
+        },
+        data: {
+          CategoryId: payload.categoryId,
+        },
+      })
+        .then((data) => {
+          this.fetchTask();
+          this.fetchCategory();
+          this.pageName = "home-page";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
     deleteTasks(id) {
-      console.log('>>>>>>>>>', id , '<<< ini bawa id ke app vue');
       const token = localStorage.getItem("access_token");
       axios({
         url: "/tasks/" + id,
@@ -220,8 +281,6 @@ export default {
     },
 
     register(payload) {
-      // console.log('masuk register app dot vue');
-      // console.log(payload, '<<< dan ini adalah data payloadnya');
       axios({
         url: "/register",
         method: "POST",
@@ -231,12 +290,10 @@ export default {
         },
       })
         .then((result) => {
-          console.log(result, "<<< ini data dari result");
-          console.log(' <<<< register berhasil');
           this.pageName = "login-page";
         })
         .catch((err) => {
-          console.log('register gagal');
+          console.log(err);
         });
     },
   },

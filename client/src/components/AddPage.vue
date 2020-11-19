@@ -30,10 +30,10 @@
             <label for="inputState">Category</label>
             <select v-model="category" id="inputState" class="form-control">
               <option value="">Choose...</option>
-              <option value="Backlog">Backlog</option>
-              <option value="Todo">Todo</option>
-              <option value="Doing">Doing</option>
-              <option value="Done">Done</option>
+              <option value="1">Backlog</option>
+              <option value="2">Todo</option>
+              <option value="3">Doing</option>
+              <option value="4">Done</option>
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
@@ -56,10 +56,10 @@ export default {
   },
   methods: {
     addPage() {
-      console.log('masuk sini kaga lu');
+      console.log('masuk sini kaga');
       let payload = {
         title: this.title,
-        tag: title.tag,
+        tag: this.tag,
         category: this.category,
       };
       this.$emit("addPage", payload);
