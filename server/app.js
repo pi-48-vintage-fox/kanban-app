@@ -17,7 +17,7 @@ app.use(router)
 app.use(errorHandling)
 
 app.get('/', (req, res) => {
-  res.send({ message: 'Halooooooooooooo' })
+  res.send({ message: 'Google OAuth' })
 })
 
 app.listen(port, () => {

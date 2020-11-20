@@ -10802,11 +10802,11 @@ var _default = {
     OnGoogleAuthSuccess: function OnGoogleAuthSuccess(idToken) {
       var _this2 = this;
 
-      var google_access_token = idToken; // console.log(google_access_token);
-
+      var google_access_token = idToken;
+      console.log(google_access_token);
       (0, _axios.default)({
         method: 'POST',
-        url: "https://kaban-fox-has.herokuapp.com/google-login",
+        url: "".concat(this.baseUrl, "/google-login"),
         data: {
           google_access_token: google_access_token
         }
@@ -12758,7 +12758,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61284" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51608" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

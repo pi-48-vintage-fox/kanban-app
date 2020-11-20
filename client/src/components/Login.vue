@@ -124,10 +124,10 @@ export default {
 
     OnGoogleAuthSuccess (idToken) {
       const google_access_token = idToken
-      // console.log(google_access_token);
+      console.log(google_access_token);
       axios({
         method: 'POST',
-        url: `https://kaban-fox-has.herokuapp.com/google-login`,
+        url: `${this.baseUrl}/google-login`,
         data: {
           google_access_token
         }

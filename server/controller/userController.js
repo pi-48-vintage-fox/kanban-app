@@ -53,25 +53,27 @@ static register(req, res, next) {
 
 static googlelogin(req, res, next) {
   let { google_access_token } = req.body
-  console.log(google_access_token);
+  // console.log(google_access_token);
   let email
   const client = new OAuth2Client('978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com');
+  
   client.verifyIdToken({
     idToken: google_access_token,
     audience: '978195228129-r2ffu0o0dg6930uobrtpiaki5vg9r3q4.apps.googleusercontent.com'
   })
     .then(ticket => {
-      console.log(ticket);
+      // console.log(ticket);
       let payload = ticket.getPayload()
       email = payload.email
-      console.log(email);
+      // console.log(email);
       return User.findOne({
         where: {
-          email: payload.email
+          email: email
         }
       })
     })
     .then(user => {
+      console.log(user);
       if (user) {
         const access_token = signToken({
           id: user.id,
@@ -89,13 +91,13 @@ static googlelogin(req, res, next) {
         })
       }
     })
-    then(dataUser => {
-      let access_token = signToken({
-        id: dataUser.id,
-        email: dataUser.email
-      })
-      res.status(200).json({access_token})
-    })
+    // then(dataUser => {
+    //   let access_token = signToken({
+    //     id: dataUser.id,
+    //     email: dataUser.email
+    //   })
+    //   res.status(200).json({access_token})
+    // })
     .catch(err => {
       next(err)
     })
