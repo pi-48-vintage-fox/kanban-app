@@ -27,8 +27,21 @@
             />
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
-          <button type="button" @click.prevent="toRegister" class="btn btn-success">Register</button>
+          <button
+            type="button"
+            @click.prevent="toRegister"
+            class="btn btn-success"
+          >
+            Register
+          </button>
         </form>
+        <div class="container">
+          <div
+            @click="onSignIn"
+            class="g-signin2"
+            data-onsuccess="onSignIn"
+          ></div>
+        </div>
       </div>
     </div>
   </section>
@@ -53,8 +66,12 @@ export default {
     },
 
     toRegister() {
-      this.$emit('changePage', 'register-page')
-    }
+      this.$emit("changePage", "register-page");
+    },
+
+    onSignIn(googleUser) {
+      this.$emit("onSignIn", googleUser)
+    },
   },
 };
 </script>

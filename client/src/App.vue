@@ -149,75 +149,17 @@ export default {
       console.log(payload, "<<< ini adalah task yg diterima dari komponen");
       this.taskUntukEdit = payload;
       this.pageName = "edit-page";
-      // const token = localStorage.getItem("access_token");
-      // axios({
-      //   url: "/tasks" + payload.id,
-      //   method: "PUT",
-      //   headers: {
-      //     token,
-      //   },
-      //   data: {
-      //     title: payload.title,
-      //   },
-      // })
-      //   .then((data) => {
-      //     this.fetchTask();
-      //     this.fetchCategory();
-      //     this.pageName = "home-page";
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     },
 
     editPage(payload) {
       console.log(payload, "<<< di app vue data payload dari edit page");
       const token = localStorage.getItem("access_token");
-      // axios({
-      //   url: "/tasks/" + payload.id,
-      //   method: "PUT",
-      //   headers: {
-      //     token,
-      //   },
-      //   data: {
-      //     title: payload.title,
-      //     tag: payload.tag,
-      //   },
-      // })
-      //   .then((data) => {
-      //     this.fetchTask();
-      //     this.fetchCategory();
-      //     this.pageName = "home-page";
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     },
 
     moveCategory(id) {
       console.log(id, "bawa CategoryId ke app dot vue");
       this.pageName = 'edit-category'
       this.taskId = id
-      // const token = localStorage.getItem("access_token");
-      // axios({
-      //   url: "/tasks/" + id,
-      //   method: "PATCH",
-      //   headers: {
-      //     token,
-      //   },
-      //   data: {
-      //     title: payload.title,
-      //     tag: payload.tag,
-      //   },
-      // })
-      //   .then((data) => {
-      //     this.fetchTask();
-      //     this.fetchCategory();
-      //     this.pageName = "home-page";
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     },
 
     changeCategory(payload) {
@@ -296,6 +238,34 @@ export default {
           console.log(err);
         });
     },
+  },
+
+  googleLogin(google_access_token) {
+    console.log('masuk sini mang !!!!!!!')
+
+    // axios({
+    //   method: 'POST',
+    //   url: "googlelogin",
+    //   data: {
+    //     google_access_token
+    //   }
+    // })
+    //   .then(({ result }) => {
+    //     let access_token = result.access_token
+    //     localStorage.setItem("access_token", result.data.access_token);
+    //     this.pageName = "home-page";
+    //     this.fetchTask()
+    //     this.fetchCategory()
+    //   })
+  },
+
+  logOut() {
+    this.pageName = 'login-page'
+    localStorage.clear()
+    var auth2 = gap.auth2.getAuthInstance()
+    auth2.signOut().then(function () {
+      console.log('User signed out');
+    })
   },
 
   created() {
