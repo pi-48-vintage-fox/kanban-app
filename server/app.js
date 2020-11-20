@@ -25,3 +25,5 @@ app.listen(port, () => {
 })
 
 // Router dan controller
+// link deploy heroku: https://kaban-fox-has.herokuapp.com/
+// link deploy firebase: https://kaban-fox-has.web.app/
