@@ -35,27 +35,41 @@
             Register
           </button>
         </form>
-        <div class="container">
-          <div
-            @click="onSignIn"
-            class="g-signin2"
-            data-onsuccess="onSignIn"
-          ></div>
-        </div>
+        <GoogleLogin
+          :params="params"
+          :renderParams="renderParams"
+          :onSuccess="onSuccess"
+          :onFailure="onFailure"
+        ></GoogleLogin>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import GoogleLogin from "vue-google-login";
 export default {
   name: "LoginPage",
   data() {
     return {
       email: "",
       password: "",
+      params: {
+        client_id:
+          "407146176632-mkifgn1cg29tmaiv0sgjte63j0jaef7g.apps.googleusercontent.com",
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true,
+      },
     };
   },
+
+  components: {
+    GoogleLogin,
+  },
+
   methods: {
     login() {
       let payload = {
@@ -69,9 +83,20 @@ export default {
       this.$emit("changePage", "register-page");
     },
 
-    onSignIn(googleUser) {
-      this.$emit("onSignIn", googleUser)
+    onSuccess(googleUser) {
+      var google_access_token = googleUser.getAuthResponse().id_token;
+      this.$emit("GoogleLogin", google_access_token);
+
+      // This only gets the user information: id, name, imageUrl and email
     },
+
+    onFailure(err) {
+      console.log("masuk err");
+    },
+  },
+
+  component: {
+    GoogleLogin,
   },
 };
 </script>

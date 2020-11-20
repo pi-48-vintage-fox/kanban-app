@@ -15,6 +15,7 @@
     <LoginPage
       v-else-if="pageName === 'login-page'"
       @login="login"
+      @GoogleLogin="onSignIn"
       @changePage="changePage"
     ></LoginPage>
 
@@ -240,23 +241,22 @@ export default {
     },
   },
 
-  googleLogin(google_access_token) {
-    console.log('masuk sini mang !!!!!!!')
-
-    // axios({
-    //   method: 'POST',
-    //   url: "googlelogin",
-    //   data: {
-    //     google_access_token
-    //   }
-    // })
-    //   .then(({ result }) => {
-    //     let access_token = result.access_token
-    //     localStorage.setItem("access_token", result.data.access_token);
-    //     this.pageName = "home-page";
-    //     this.fetchTask()
-    //     this.fetchCategory()
-    //   })
+  onSignIn(google_access_token) {
+    console.log('masuk sini ga');
+    axios({
+      method: 'POST',
+      url: "/googlelogin",
+      data: {
+        google_access_token
+      }
+    })
+      .then(({ result }) => {
+        let access_token = result.access_token
+        localStorage.setItem("access_token", result.data.access_token);
+        this.pageName = "home-page";
+        this.fetchTask()
+        this.fetchCategory()
+      })
   },
 
   logOut() {
