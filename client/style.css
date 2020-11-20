@@ -1,0 +1,9 @@
+.card.draggable {
+    margin-bottom: 1rem;
+    cursor: grab;
+}
+
+.droppable {
+    min-height: 120px;
+    margin-bottom: 1rem;
+}
