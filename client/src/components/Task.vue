@@ -4,14 +4,14 @@
             <div v-if="taskData.id !== task.id">
             <div class="card-title">
                 <i class="fas fa-trash float-right" @click="deleteTask(task.id)"></i>
-                <a href="#" class="lead font-weight-light">{{task.title}} </a>
+                <a href="#" class="lead font-weight-light">{{task.title}}</a>
             </div>
             </div>
             <div class="card-title" v-else-if="task.id == taskData.id">
                 <form v-on:submit.prevent="editTask(task.id)">
                     <div class="form-group">
                         <label for="edit">Title: </label>
-                        <input type="text" v-model="taskData.title">
+                        <input type="text" v-model="task.title" >
                     </div>
                     <button class="btn btn-primary btn-sm" type="submit">Edit</button>
                 </form>
@@ -44,6 +44,7 @@ export default {
         },
         toEdit(id){
            this.taskData.id = id
+           console.log(id)
         },
         editTask(id){
             const obj = {

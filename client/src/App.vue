@@ -18,6 +18,7 @@
         @deleteTask="deleteTask"
         @toCategory="toCategory"
         @editCategory="editCategory"
+        @editTask="editTask"
         ></HomePage>
 
     </div>
@@ -106,7 +107,8 @@ export default {
         console.log(err);
         })
     },
-    edit(payload){
+    editTask(payload){
+        console.log(payload)
         const access_token = localStorage.getItem('access_token')
         axios({
             url : '/task/'+payload.id,
