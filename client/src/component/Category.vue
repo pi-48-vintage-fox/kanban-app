@@ -56,6 +56,7 @@ export default {
         },
 
         onMove (evt) {
+            console.log(evt)
             this.currentId = evt.draggedContext.element.id
             this.currentCategoryId = evt.relatedContext.component.$attrs.category.id
         },
