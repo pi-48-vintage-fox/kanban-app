@@ -155,6 +155,26 @@ export default {
     editPage(payload) {
       console.log(payload, "<<< di app vue data payload dari edit page");
       const token = localStorage.getItem("access_token");
+      axios({
+        url:"/tasks/" + payload.id,
+        method: "PUT",
+        headers: {
+          token
+        },
+        data: {
+          title: payload.title,
+          tag: payload.tag
+        }
+      })
+        .then(data => {
+          console.log(data, '<<<<<< ini data hasil edit')
+          this.fetchTask()
+          this.fetchCategory()
+          this.pageName = "home-page"
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
 
     moveCategory(id) {
