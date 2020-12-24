@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="margin-top: 10px; border-radius: 10px">
+  <div class="card" style="border-radius: 5px">
     <div class="card-body">
       <h5 class="card-title">{{ task.title }}</h5>
       <h6 class="card-subtitle mb-2 text-muted">
@@ -8,9 +8,15 @@
       <p class="card-text">
         {{ task.description }}
       </p>
-      <a href="#" @click.prevent="toEditPage" class="card-link">Edit</a>
-      <a href="#" @click.prevent="toDelete" class="card-link">Delete</a>
-      <a href="#" @click.prevent="toEditCategory" class="card-link">Move</a>
+      <a href="#" @click.prevent="toEditPage" class="card-link"
+        ><i class="far fa-edit"></i
+      ></a>
+      <a href="#" @click.prevent="toDelete" class="card-link"
+        ><i class="fas fa-trash-alt"></i
+      ></a>
+      <a href="#" @click.prevent="toEditCategory" class="card-link"
+        ><i class="fas fa-arrows-alt"></i
+      ></a>
     </div>
   </div>
 </template>
@@ -18,7 +24,7 @@
 <script>
 export default {
   name: "Task",
-  props: ["categoryDetail","task"],
+  props: ["categoryDetail", "task"],
   methods: {
     toEditPage() {
       let payload = {
@@ -28,25 +34,25 @@ export default {
       this.$emit("toEditPage", payload);
     },
 
-    toDelete(){
+    toDelete() {
       let payload = {
         id: this.task.id,
-      }
+      };
 
-      this.$emit("toDelete", payload)
+      this.$emit("toDelete", payload);
     },
-    
+
     toEditCategory() {
       let payload = {
         id: this.task.id,
-        name: "edit-category"
+        name: "edit-category",
       };
       this.$emit("toEditCategory", payload);
     },
   },
-  created(){
-    console.log(this.task , '<<<<<< ini task.vue')
-  }
+  created() {
+    console.log(this.task, "<<<<<< ini task.vue");
+  },
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="row" style="width: 100%">
     <div class="col">
-      <div class="item planning">
+      <div v-bind:class="[boardClass]" class="item shadow">
         <h4>{{categoryDetail.name}}</h4>
         <Task
           v-for="task in taskPerCategory"
@@ -29,8 +29,21 @@ export default {
   computed :{
     taskPerCategory(){
       return this.tasks.filter(element => {
-        return element.CategoryId === this.categoryDetail.id})
-      
+        return element.CategoryId === this.categoryDetail.id})      
+    },
+    boardClass(){
+      if (this.categoryDetail.name === "Backlog") {
+        return 'planning'
+      }
+      if (this.categoryDetail.name === "Todo") {
+        return 'todo'
+      }
+      if(this.categoryDetail.name === "Doing"){
+        return 'doing'
+      }
+      if (this.categoryDetail.name === "Done") {
+        return 'done'
+      }
     }
   },
   methods: {

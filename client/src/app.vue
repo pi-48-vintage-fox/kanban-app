@@ -31,7 +31,9 @@
     </HomePage>
 
     <!-- Add Page -->
-    <AddPage v-else-if="pageName === 'add-page'" @addTasks="addTasks">
+    <AddPage v-else-if="pageName === 'add-page'" 
+      @addTasks="addTasks"
+      @backToHome="toHome">
     </AddPage>
 
     <!-- Edit Page -->
@@ -39,6 +41,7 @@
       v-else-if="pageName === 'edit-page'"
       @toEditPage="toEditPage"
       @editTasks="editTasks"
+      @backToHome="toHome"
     >
     </EditPage>
 
@@ -47,6 +50,7 @@
       v-else-if="pageName === 'edit-category'"
       @toEditCategory="toEditCategory"
       @editCategory="editCategory"
+      @backToHome="toHome"
     >
     </EditCategory>
   </div>
@@ -233,6 +237,11 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    toHome(){
+      this.pageName = "home-page";
+      this.fetchKanban();
     },
 
     fetchKanban() {

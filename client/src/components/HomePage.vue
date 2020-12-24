@@ -4,8 +4,8 @@
       <nav class="navbar">
         <div>Kanban by Bimo</div>
         <div class="icons">
-          <button @click="pindahKeAdd" type="button" class="btn btn-primary">Add task</button>
-          <button @click="logout" type="button" class="btn btn-danger">Logout</button>
+          <button @click="pindahKeAdd" type="button" class="btn btn-outline-primary">Add task</button>
+          <button @click="logout" type="button" class="btn btn-outline-danger">Logout</button>
         </div>
       </nav>
     </div>

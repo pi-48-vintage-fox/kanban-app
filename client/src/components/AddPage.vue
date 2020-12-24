@@ -1,4 +1,13 @@
 <template>
+<div>
+   <div>
+      <nav class="navbar">
+        <a @click="backToHome" class="navbar-home">Kanban by Bimo</a>
+        <div class="icons">
+          <button @click="logout" type="button" class="btn btn-outline-danger">Logout</button>
+        </div>
+      </nav>
+    </div>
   <section class="container-fluid" id="landing">
     <!-- <h1 v-text="msg"></h1> -->
     <div class="login-box done">
@@ -22,6 +31,7 @@
       </div>
     </div>
   </section>
+</div>
 </template>
 
 <script>
@@ -40,6 +50,9 @@ export default {
         description : this.description
       }
       this.$emit('addTasks',payload)
+    },
+    backToHome(){
+      this.$emit('backToHome')
     }
   }
 };

@@ -6,14 +6,14 @@
       </nav>
     </div>
     <section class="container-fluid" id="landing">
-      <div class="login-box done">
+      <div class="login-box box-transparan shadow">
         <div class="row justify-content-center">
           <div class="col">
             <div class="row">
               <div class="col masuk">Masuk</div>
-              <div class="col register-click" @click.prevent="toRegister">
+              <a class="col register-click" @click.prevent="toRegister">
                 Register
-              </div>
+              </a>
             </div>
             <form @submit.prevent="login">
               <div class="form-group">
@@ -34,14 +34,14 @@
                   v-model="password"
                 />
               </div>
-              <button type="submit" class="btn btn-primary login-icon">
+              <button type="submit" class="btn btn-secondary login-icon">
                 Login
               </button>
             </form>
             <div class="or-icon">--------------Or---------------</div>
             <button
               v-google-signin-button="clientId"
-              class="btn btn-primary google-icon google-signin-button login-icon"
+              class="btn btn-secondary google-icon login-icon"
             >
               Continue with Google
             </button>
@@ -90,13 +90,4 @@ export default {
 </script>
 
 <style>
-.google-signin-button {
-  color: white;
-  background-color: blanchedalmond;
-  height: 50px;
-  font-size: 16px;
-  border-radius: 10px;
-  padding: 10px 20px 25px 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 </style>

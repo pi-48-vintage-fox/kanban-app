@@ -6,14 +6,14 @@
       </nav>
     </div>
     <section class="container-fluid" id="register">
-      <div class="login-box color-biru">
+      <div class="login-box box-transparan shadow">
         <div class="row justify-content-center">
           <div class="col">
             <div class="row">
               <div class="col masuk">Register</div>
-              <div class="col login-click" @click.prevent="toLogin">
+              <a class="col login-click" @click.prevent="toLogin">
                 Back to Login
-              </div>
+              </a>
             </div>
 
             <form @submit.prevent="register">
