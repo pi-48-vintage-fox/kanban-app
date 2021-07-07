@@ -1,0 +1,50 @@
+body {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-image: url("https://previews.123rf.com/images/loskutnikov/loskutnikov1109/loskutnikov110900107/10615589-old-wooden-board-background.jpg");
+  background-size: cover;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: transparent;
+  position: relative;
+  text-align: center;
+  padding: 10px;
+}
+
+.topnav #myLinks {
+  display: none;
+}
+
+.topnav a {
+  border-radius: 25px;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  display: block;
+}
+
+.topnav a.icon {
+  background: black;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.topnav a:hover {
+  color: #007bff;
+}
+
+.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.card, 
+.btn, 
+.form-control, 
+.g-signin2 {
+  border-radius: 25px;
+}
